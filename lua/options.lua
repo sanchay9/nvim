@@ -3,7 +3,7 @@ vim.g.mapleader = " "
 
 local config = require("core.utils").load_config()
 
--- vim.g.curr_theme = config.ui.theme
+vim.g.curr_theme = config.ui.theme
 vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
 vim.g.toggle_theme_icon = "   "
 vim.g.transparency = config.ui.transparency
@@ -14,9 +14,8 @@ vim.env.PATH = vim.env.PATH .. ":" .. vim.fn.stdpath "data" .. "/mason/bin"
 vim.g.neovide_cursor_vfx_mode = "pixiedust"
 
 vim.opt.statusline = "%!v:lua.require('statusline." .. require("core.utils").load_config().ui.statusline.theme .. "').run()"
--- vim.opt.guifont = "TerminessTTF Nerd Font:h10"
-vim.opt.guifont = "scientifica:h15"
--- vim.opt.fileencoding = "utf-8"
+vim.opt.guifont = "FiraCode Nerd Font:h11"
+vim.opt.fileencoding = "utf-8"
 vim.opt.ts = 4
 vim.opt.sts = 4
 vim.opt.shiftwidth = 4                          -- spaces to use for indent
@@ -44,11 +43,12 @@ vim.opt.pumheight = 10                          -- pop up menu height
 vim.opt.showmode = false
 vim.opt.cursorline = true
 vim.opt.laststatus = 3                          -- global statusline
-vim.opt.cmdheight = 0
+-- vim.opt.cmdheight = 0
 vim.opt.fillchars = { eob = " " }
 vim.opt.shortmess:append "sI"                   -- disable nvim intro screen
 vim.opt.numberwidth = 2                         -- set number column width (default 4)
 vim.opt.signcolumn = "yes"
+vim.opt.mousemodel = "extend"
 -- vim.opt.statusline = "%!v:lua.require('statusline').run()"
 
 -- vim.opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]

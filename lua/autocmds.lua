@@ -1,6 +1,3 @@
--- vim.cmd[[autocmd Filetype cpp setlocal foldmarker=using\ ll,#endif foldmethod=marker]]
--- vim.cmd[[autocmd Filetype zsh setlocal filetype=sh]]
-
 -- remember last position
 vim.cmd[[autocmd BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'| exe "normal! g`\""| endif]]
 
@@ -27,16 +24,29 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermLeave", "BufWinEnter" }, {
 -- vim.cmd[[ au InsertLeave * set relativenumber ]]
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
-    pattern = { "dashboard", "alpha", "Jaq", "qf", "man", "lspinfo", "spectre_panel", "lir", "DressingSelect", "tsplayground", "startuptime" },
+    pattern = { "dashboard", "alpha", "Jaq", "qf", "help", "man", "lspinfo", "spectre_panel", "lir", "DressingSelect", "tsplayground", "startuptime" },
     callback = function()
         vim.cmd [[
-        nnoremap <silent> <buffer> q :q<CR>
-        set nobuflisted
+            nnoremap <silent> <buffer> q :q<CR>
+            set nobuflisted
         ]]
     end,
 })
 
-vim.cmd[[autocmd FileType help,man nnoremap <silent> <buffer> f <C-w>o]]
+vim.api.nvim_create_autocmd({ "FileType" }, {
+    pattern = { "help", "man" },
+    callback = function()
+        vim.keymap.set('n', 'f', function ()
+            if vim.api.nvim_win_get_height(0) < 30 then
+                vim.cmd 'wincmd _'
+            else
+                vim.cmd 'wincmd ='
+            end
+        end)
+    end,
+})
+
+-- vim.cmd[[autocmd FileType help,man nnoremap <silent> <buffer> f <C-w>_]]
 
 -- highlight on yank
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
@@ -79,7 +89,6 @@ vim.api.nvim_create_autocmd('RecordingLeave', {
 })
 
 -- vim.cmd[[autocmd FileType alpha set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2]]
--- vim.cmd[[autocmd FileType vimwiki set cmdheight=1 | autocmd BufUnload <buffer> set cmdheight=0]]
 
 -- hide statusbar
 -- vim.cmd[[autocmd BufEnter,BufRead,BufWinEnter,FileType,WinEnter * lua function hide_st() local hidden = { "NvimTree" } local buftype = vim.api.nvim_buf_get_option(0, "ft") if vim.tbl_contains(hidden, buftype) then vim.api.nvim_set_option("laststatus", 0) return end vim.api.nvim_set_option("laststatus", 2) end hide_st()]]
@@ -105,22 +114,13 @@ vim.api.nvim_create_autocmd("FileType", {
             buffer = 0,
             callback = function()
                 vim.opt.laststatus = 3
-                vim.opt.showtabline = 2
+                vim.opt.showtabline = 0
             end,
         })
 
         vim.opt.laststatus = 0
         vim.opt.showtabline = 0
         vim.opt.cmdheight = 0
-    end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "vimwiki",
-    callback = function()
-        vim.cmd[[cd ~/docs/vimwiki]]
-        vim.opt.cmdheight = 1
-        vim.opt.showtabline = 0
     end,
 })
 
@@ -166,10 +166,8 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- vim.api.nvim_create_autocmd("BufWritePost", {
 --     callback = function(opts)
---         dofile(vim.g.base46_cache .. "devicons")
 --         local fp = vim.fn.fnamemodify(vim.fs.normalize(vim.api.nvim_buf_get_name(opts.buf)), ":r") --[[@as string]]
---         local app_name = vim.env.NVIM_APPNAME and vim.env.NVIM_APPNAME or "nvim"
---         local module = string.gsub(fp, "^.*/" .. app_name .. "/lua/", ""):gsub("/", ".")
+--         local module = string.gsub(fp, "^.*/nvim/lua/", ""):gsub("/", ".")
 
 --         require("plenary.reload").reload_module "base46"
 --         require("plenary.reload").reload_module(module)

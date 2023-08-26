@@ -1,7 +1,19 @@
+snippet dbg "Debug Template"
+	#ifdef LOCAL
+	#include "debug.h"
+	#else
+	#define dbg(...)
+	#endif
 snippet d "Debug"
 	dbg($0);
-snippet rea "Read Array"
+snippet ina "Read Array"
 	for (auto &x : ${1:a}) cin >> x;
+	$0
+snippet outa "Write Array"
+	for (auto x : ${1:a}) {
+		cout << x << ' ';
+	}
+	cout << '\n';
 	$0
 snippet sort
 	sort(${1:a}.begin(), $1.end());
@@ -10,7 +22,7 @@ snippet reverse
 	reverse(${1:a}.begin(), $1.end());
 	$0
 snippet remdup "Remove Duplicates"
-	sort(all(${1:a})); $1.erase(unique(all($1)), $1.end());
+	sort(${1:a}.begin(), $1.end()); $1.erase(unique($1.begin(), $1.end()), $1.end());
 	$0
 snippet pq "Priority Queue"
 	priority_queue<${1:pair<int, int>}, vector<$1>, greater<$1> > ${2:pq};
@@ -19,12 +31,12 @@ snippet setpre "Floating Point Precision"
 	cout << fixed << setprecision($1);
 snippet pref "Prefix Sum"
 	vector<int> pref(${1:n} + 1);
-	partial_sum(all(${2:a}), pref.begin() + 1);
+	partial_sum(${2:a}.begin(), $2.end(), pref.begin() + 1);
 	$0
 snippet nextp "Next Permutation"
 	do {
 		$0
-	} while (next_permutation(${1:all($2)}));
+	} while (next_permutation(${1:a}.begin(), $1.end()));
 snippet class
 	/*! \class $1
 	*  \brief ${3:Brief class description}

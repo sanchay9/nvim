@@ -16,7 +16,7 @@ local function enter(prompt_bufnr)
     vim.fn.jobstart("swcs " .. selection[1])
 
     require"colors".init(selection[1])
-    vim.cmd[[luafile $HOME/.config/nvim/lua/plugins/configs/bufferline.lua]]
+    -- vim.cmd[[luafile $HOME/.config/nvim/lua/plugins/configs/bufferline.lua]]
 
     actions.close(prompt_bufnr)
     if vim.bo.filetype == "alpha" or vim.bo.filetype == "dashboard" then
@@ -30,7 +30,6 @@ local function next_color(prompt_bufnr)
     local selection = action_state.get_selected_entry()
 
     require"colors".init(selection[1])
-    vim.cmd[[luafile $HOME/.config/nvim/lua/plugins/configs/bufferline.lua]]
 end
 
 local function prev_color(prompt_bufnr)
@@ -38,7 +37,6 @@ local function prev_color(prompt_bufnr)
     local selection = action_state.get_selected_entry()
 
     require"colors".init(selection[1])
-    vim.cmd[[luafile $HOME/.config/nvim/lua/plugins/configs/bufferline.lua]]
 end
 
 local list_themes = function(return_type)

@@ -1,4 +1,4 @@
-vim.g.curr_theme = "tokyonight"
+vim.g.curr_theme = 'tokyonight'
 
 local M = {}
 

@@ -17,7 +17,7 @@ db.section.footer.opts.hl = "AlphaFooter"
 --         window_config = {},
 --     },
 -- }
-db.section.header.val = require("banners").pacman
+db.section.header.val = require("banners")["nvim1"]
 -- db.section.footer.val = require("alpha.fortune")
 -- db.section.footer.val = "  Neovim loaded " .. require("lazy").stats().count .. " plugins"
 db.section.footer.val = {
@@ -27,17 +27,15 @@ db.section.footer.val = {
 db.section.buttons.val = {
     --          
     -- db.button( 'p',   '  Practice',    ":cd ~/code | e A.cpp<CR>" ),
-    db.button( 'w',   '  VimWiki',     ":VimwikiIndex<CR>" ),
+    db.button( 'w',   '  Notes',       ":cd ~/docs/notes | e index.md <CR><CR>" ),
     db.button( 'r',   '  Recents',     ":Telescope oldfiles<CR>" ),
     db.button( 'p',   '  Projects',    ":lua require'telescope'.extensions.project.project{}<CR>" ),
-    db.button( 'b',   '  Bookmarks',   ":Telescope bookmarks<CR>" ),
-    db.button( 'c',   '  Config',      ":cd ~/.config/nvim/ | Telescope fd<CR>" ),
+    db.button( 'c',   '  Config',      ":cd ~/.config/nvim | Telescope fd<CR>" ),
     db.button( 't',   '  Theme',       ":Telescope colorscheme_live<CR>" ),
-    -- db.button( 'v',   '  VimBeGood',   ":VimBeGood<CR>" ),
 }
 
 db.config.layout = {
-    { type = "padding", val = 2 },
+    { type = "padding", val = 6 },
     db.section.header,
     -- { type = "padding", val = term_height + 7 },
     { type = "padding", val = 2 },

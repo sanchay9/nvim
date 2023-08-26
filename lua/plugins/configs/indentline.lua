@@ -7,7 +7,7 @@ require("indent_blankline").setup {
     filetype_exclude = {
         "awk",
         "dashboard",
-        "vimwiki",
+        "markdown",
         "undotree",
         "help",
         "terminal",

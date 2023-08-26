@@ -4,11 +4,17 @@ vim.fn.sign_define("DiagnosticSignHint", { text = "", numhl = "DiagnosticSign
 vim.fn.sign_define("DiagnosticSignInfo", { text = "", numhl = "DiagnosticSignInfo", texthl = "DiagnosticSignInfo" })
 
 vim.diagnostic.config {
-    -- virtual_text = false,
-    virtual_text = {
-       prefix = "",
-       -- spacing = 0,
-    },
+    virtual_text = false,
+    -- virtual_text = {
+    --     prefix = "",
+    --     spacing = 20,
+    --     -- format = function(diagnostic)
+    --     --     if diagnostic.severity == vim.diagnostic.severity.ERROR then
+    --     --         return string.format("E: %s", diagnostic.message)
+    --     --     end
+    --     --     return diagnostic.message
+    --     -- end
+    -- },
     signs = true,
     underline = true,
     severity_sort = true,
@@ -20,6 +26,14 @@ vim.diagnostic.config {
         -- source = "always",
         header = "",
         prefix = "",
+        format = function(diagnostic)
+            return string.format(
+                "%s\n(%s) [%s]",
+                diagnostic.message,
+                diagnostic.source,
+                diagnostic.code
+            )
+        end,
     },
 }
 
@@ -107,7 +121,7 @@ capabilities.textDocument.completion.completionItem = {
     },
 }
 
-local servers = { "pyright", "cssls", "tsserver", "clangd", "gopls", "html", "jdtls" }
+local servers = { "cssls", "tsserver", "gopls", "html", "bashls", "marksman" }
 
 local lspconfig = require("lspconfig")
 
@@ -122,18 +136,27 @@ for _, lsp in ipairs(servers) do
     }
 end
 
+lspconfig.clangd.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    flags = {
+        debounce_text_changes = 300,
+    },
+    root_dir = vim.loop.cwd,
+    cmd = {
+        "clangd",
+        "-header-insertion=never"
+    },
+}
+
 lspconfig.lua_ls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
 
     settings = {
         Lua = {
-            diagnostics = {
-                globals = { "vim" },
-            },
-            runtime = {
-                version = 'LuaJIT',
-            },
+            diagnostics = { globals = { "vim" }, },
+            runtime = { version = 'LuaJIT', },
             workspace = {
                 library = {
                     [vim.fn.expand "$VIMRUNTIME/lua"] = true,

@@ -1,5 +1,31 @@
 require "telescope".setup {
     defaults = {
+        mappings = {
+            i = {
+                ["<leader><CR>"] = function(prompt_bufnr)
+                    local selected_entry = require('telescope.actions.state').get_selected_entry()
+                    local filename = vim.fn.fnameescape(vim.fn.fnamemodify(selected_entry[1], ':t'))
+                    local filename_wo_timestamp = filename:match("[^/\\]+$"):gsub("^%d+%-?(.-)%.%w+$", "%1")
+                    filename_wo_timestamp = string.gsub(filename_wo_timestamp, "_", " ")
+
+                    local mdlink = "[" .. filename_wo_timestamp .. "](" .. filename .. ")"
+                    require('telescope.actions').close(prompt_bufnr)
+                    vim.api.nvim_put({mdlink}, "", false, true)
+                end
+            },
+            n = {
+                ["<leader><CR>"] = function(prompt_bufnr)
+                    local selected_entry = require('telescope.actions.state').get_selected_entry()
+                    local filename = vim.fn.fnameescape(vim.fn.fnamemodify(selected_entry[1], ':t'))
+                    local filename_wo_timestamp = filename:match("[^/\\]+$"):gsub("^%d+%-?(.-)%.%w+$", "%1")
+                    filename_wo_timestamp = string.gsub(filename_wo_timestamp, "_", " ")
+
+                    local mdlink = "[" .. filename_wo_timestamp .. "](" .. filename .. ")"
+                    require('telescope.actions').close(prompt_bufnr)
+                    vim.api.nvim_put({mdlink}, "", false, true)
+                end
+            },
+        },
         vimgrep_arguments = {
             "rg",
             "-L",
@@ -56,12 +82,6 @@ require "telescope".setup {
             case_mode = "smart_case", -- or "ignore_case" or "respect_case"
             -- the default case_mode is "smart_case"
         },
-        bookmarks = {
-            selected_browser = 'chrome_beta',
-            url_open_command = 'xdg-open',
-            url_open_plugin = nil,
-            full_path = true,
-        },
         project = {
             theme = "dropdown",
             order_by = "asc",
@@ -76,7 +96,6 @@ require "telescope".setup {
 }
 
 require'telescope'.load_extension('fzf')
-require'telescope'.load_extension('bookmarks')
 require'telescope'.load_extension('colorscheme_live')
 require'telescope'.load_extension('project')
 require'telescope'.load_extension('file_browser')

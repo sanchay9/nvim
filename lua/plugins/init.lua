@@ -1,7 +1,4 @@
--- All plugins have lazy=true by default,to load a plugin on startup just lazy=false
--- List of all default plugins & their definitions
 local default_plugins = {
-
     "nvim-lua/plenary.nvim",
 
     {
@@ -10,6 +7,7 @@ local default_plugins = {
         config = function()
             require('illuminate').configure {
                 filetypes_denylist = {
+                    "markdown",
                     "dirvish",
                     "fugitive",
                     "alpha",
@@ -21,7 +19,6 @@ local default_plugins = {
                     "Outline",
                     "spectre_panel",
                     "toggleterm",
-                    "DressingSelect",
                     "TelescopePrompt",
                 },
             }
@@ -44,14 +41,14 @@ local default_plugins = {
         end,
     },
 
-    {
-        "akinsho/bufferline.nvim",
-        lazy = false,
-        config = function()
-            -- dofile(vim.g.base46_cache .. "bufferline")
-            require "plugins.configs.bufferline"
-        end,
-    },
+    -- {
+    --     "akinsho/bufferline.nvim",
+    --     lazy = false,
+    --     config = function()
+    --         -- dofile(vim.g.base46_cache .. "bufferline")
+    --         require "plugins.configs.bufferline"
+    --     end,
+    -- },
 
     {
         "NvChad/nvim-colorizer.lua",
@@ -84,9 +81,10 @@ local default_plugins = {
 
     {
         "lukas-reineke/indent-blankline.nvim",
-        init = function()
-            require("core.utils").lazy_load "indent-blankline.nvim"
-        end,
+        lazy = false,
+        -- init = function()
+        --     require("core.utils").lazy_load "indent-blankline.nvim"
+        -- end,
         config = function()
             dofile(vim.g.base46_cache .. "blankline")
             require "plugins.configs.indentline"
@@ -183,6 +181,7 @@ local default_plugins = {
                 "hrsh7th/cmp-nvim-lsp",
                 "hrsh7th/cmp-buffer",
                 "hrsh7th/cmp-path",
+                "uga-rosa/cmp-dictionary",
             },
         },
 
@@ -208,7 +207,8 @@ local default_plugins = {
 
     {
         "nvim-tree/nvim-tree.lua",
-        cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+        lazy = false,
+        -- cmd = { "NvimTreeToggle", "NvimTreeFocus" },
         config = function()
             dofile(vim.g.base46_cache .. "nvimtree")
             require "plugins.configs.nvimtree"
@@ -220,7 +220,6 @@ local default_plugins = {
         cmd = "Telescope",
         dependencies = {
             { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-            "dhruvmanila/telescope-bookmarks.nvim",
             "nvim-telescope/telescope-symbols.nvim",
             "nvim-telescope/telescope-project.nvim",
             "nvim-telescope/telescope-file-browser.nvim",
@@ -272,40 +271,11 @@ local default_plugins = {
         end
     },
 
-    {
-        "iamcco/markdown-preview.nvim",
-        build = function()
-            vim.fn["mkdp#util#install"]()
-        end,
-    },
 
     {
         "iamcco/markdown-preview.nvim",
         build = "cd app && npm install",
-        init = function()
-            -- vim.g.mkdp_browser = "google-chrome-beta --new-window --app"
-            vim.g.mkdp_port = '8090'
-            -- vim.g.mkdp_theme = 'dark'
-
-            vim.cmd[[
-            function OpenMarkdownPreview (url)
-                execute "silent ! google-chrome-beta --new-window --app=" . a:url
-            endfunction
-
-            let g:mkdp_browserfunc = 'OpenMarkdownPreview'
-            ]]
-            -- vim.g.mkdp_browserfunc = function(url)
-            --     -- vim.notify(url)
-            --     vim.cmd[[execute "silent ! firefox --new-window " . a:url]]
-            --     -- vim.cmd("silent ! google-chrome-beta --new-window --app=" .. url)
-            -- end
-        end,
         ft = { "markdown" },
-    },
-
-    {
-        "dstein64/vim-startuptime",
-        cmd = "StartupTime"
     },
 
     --  {
@@ -345,10 +315,7 @@ local default_plugins = {
     --         }
     --     end
     -- },
-    -- {
-    --     "vimwiki/vimwiki",
-    --     cmd = "VimwikiIndex",
-    -- },
+    --
 }
 
 require("lazy").setup(default_plugins, {
