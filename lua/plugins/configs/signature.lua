@@ -1,4 +1,7 @@
-local config = require("core.utils").load_config().ui.lsp.signature 
+local config = {
+  disabled = false,
+  silent = true, -- silences 'no signature help available' message from appearing
+}
 
 -- thx to https://gitlab.com/ranjithshegde/dotbare/-/blob/master/.config/nvim/lua/lsp/init.lua
 local M = {}

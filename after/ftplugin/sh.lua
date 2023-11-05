@@ -1,1 +1,1 @@
-vim.cmd.iabbrev({"<buffer>", "#!", "#!/bin/sh"})
+vim.cmd.iabbrev({"<buffer>", "#!", "#!/bin/bash"})
