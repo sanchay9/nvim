@@ -67,14 +67,6 @@ return {
   },
 
   {
-    "nvim-tree/nvim-tree.lua",
-    keys = { { "<C-n>", "<cmd>NvimTreeToggle<cr>", desc = "Toggle Nvim Tree" } },
-    config = function()
-      require "plugins.configs.nvimtree"
-    end,
-  },
-
-  {
     "SmiteshP/nvim-navic",
     opts = {
       highlight = true,
