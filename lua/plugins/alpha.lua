@@ -40,11 +40,17 @@ return {
           .. vim.version().minor
           .. "."
           .. vim.version().patch,
+        -- .. vim
+        --   .system({
+        --     "curl",
+        --     "https://vtip.43z.one",
+        --   })
+        --   :wait().stdout,
       }
 
       db.section.buttons.val = {
         -- db.button( 'p',   '  Practice',    ":cd ~/code | e A.cpp<CR>" ),
-        db.button("w", "  Notes", ":cd ~/docs/notes | e index.md <CR><CR>"),
+        db.button("w", "  Notes", ":cd ~/docs/notes | e index.md<CR>"),
         db.button("r", "  Recents", ":Telescope oldfiles<CR>"),
         db.button("c", "  Config", ":cd ~/.config/nvim | Telescope fd<CR>"),
         -- db.button( 't',   '  Theme',       ":Telescope colorscheme_live<CR>" ),

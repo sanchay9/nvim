@@ -23,14 +23,9 @@ vim.keymap.set("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move text up" })
 vim.keymap.set("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move text down" })
 vim.keymap.set("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move text up" })
 
-vim.keymap.set("n", "<leader>a", "ggVG")
-vim.keymap.set("n", "<leader>,", "<cmd> wa | cd ~ | Alpha<cr>")
-
 vim.keymap.set("n", "Q", "@q")
 vim.keymap.set("n", "S", ":%s///g<Left><Left><Left>")
+vim.keymap.set("n", "<leader>a", "ggVG")
+vim.keymap.set("n", "<leader>,", "<cmd> wa | cd ~ | Alpha<cr>")
+-- TODO: write in lua
 vim.keymap.set("n", "gx", '<cmd>call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<cr>')
-
--- map('i', '{', '{}<Left>')
--- vim.keymap.set('i', '{<cr>', '{<cr>}<Esc>O')
--- map('i', '{{', '{')
--- map('i', '{}', '{}')
