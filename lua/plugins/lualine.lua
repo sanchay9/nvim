@@ -109,25 +109,25 @@ return {
           },
         },
         winbar = {
-          lualine_a = {},
-          lualine_b = {},
-          lualine_c = {
-            {
-              "filename",
-              file_status = false,
-            },
-            {
-              function()
-                return require("nvim-navic").get_location()
-              end,
-              cond = function()
-                return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-              end,
-            },
-          },
-          lualine_x = {},
-          lualine_y = {},
-          lualine_z = {},
+          -- lualine_a = {},
+          -- lualine_b = {},
+          -- lualine_c = {
+          --   {
+          --     "filename",
+          --     file_status = false,
+          --   },
+          --   {
+          --     function()
+          --       return require("nvim-navic").get_location()
+          --     end,
+          --     cond = function()
+          --       return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+          --     end,
+          --   },
+          -- },
+          -- lualine_x = {},
+          -- lualine_y = {},
+          -- lualine_z = {},
         },
         extensions = { "lazy", "mason", "nvim-tree", "man", "trouble" },
       }

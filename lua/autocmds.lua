@@ -4,7 +4,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   command = 'silent! normal! g`"zv',
 })
 
-vim.api.nvim_create_autocmd({ "FocusGained", "TermLeave", "TermClose", "BufWinEnter" }, {
+vim.api.nvim_create_autocmd({ "FocusGained", "TermLeave", "TermClose" }, {
   pattern = "*",
   command = "checktime",
 })

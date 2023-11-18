@@ -133,6 +133,10 @@ return {
   },
 
   {
+    "Bekaboo/dropbar.nvim",
+  },
+
+  {
     "rcarriga/nvim-notify",
     event = "VeryLazy",
     opts = {

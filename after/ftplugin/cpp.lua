@@ -1,6 +1,6 @@
--- vim.opt_local.foldmethod = "marker"
--- vim.opt_local.foldmarker = "#ifdef LOCAL,#endif"
--- vim.opt_local.foldmarker = "#include <bits/stdc++.h>,#endif"
+vim.opt_local.foldmethod = "marker"
+vim.opt_local.foldmarker = "#ifdef LOCAL,#endif"
+vim.opt_local.foldmarker = "#include <bits/stdc++.h>,#endif"
 
 vim.cmd.iabbrev { "<buffer>", "itn", "int" }
 vim.cmd.iabbrev { "<buffer>", "icn", "cin" }
@@ -24,7 +24,7 @@ local function get_term_id()
   end
 
   if not term_id then
-    vim.cmd "vs | vertical resize 80 | set nonu | set winfixwidth | term"
+    vim.cmd "vert bo split | vertical resize 80 | set nonu | set winfixwidth | term"
     vim.cmd "wincmd h"
 
     for _, chan in pairs(vim.api.nvim_list_chans()) do
@@ -41,24 +41,15 @@ vim.keymap.set("n", "<C-'>", function()
   vim.cmd "wa"
   vim.api.nvim_chan_send(get_term_id(), "clear; ch samples " .. vim.fn.expand "%:r" .. "\n")
 end, { buffer = true })
+
 vim.keymap.set("n", "<C-S-'>", function()
   vim.cmd "wa"
-  vim.cmd "!ch run %:r"
+  vim.api.nvim_chan_send(get_term_id(), "clear; ch run " .. vim.fn.expand "%:r" .. "\n")
   vim.cmd "checktime"
 end, { buffer = true })
 
-vim.keymap.set(
-  "n",
-  "<leader>n",
-  'gg"_dG<CMD> 0r ~/code/Codes/template/templatesingle.cpp | :9<CR>i    ',
-  { buffer = true }
-)
-vim.keymap.set(
-  "n",
-  "<leader>m",
-  'gg"_dG<CMD> 0r ~/code/Codes/template/templatemulti.cpp | :6<CR>i    ',
-  { buffer = true }
-)
+vim.keymap.set("n", "<leader>n", 'gg"_dG<CMD> 0r ~/code/template/templatesingle.cpp | :9<CR>i    ', { buffer = true })
+vim.keymap.set("n", "<leader>m", 'gg"_dG<CMD> 0r ~/code/template/templatemulti.cpp | :6<CR>i    ', { buffer = true })
 
 for i = 1, 5 do
   vim.keymap.set(
@@ -71,7 +62,8 @@ end
 
 vim.keymap.set("n", "<leader>i", function()
   if vim.fn.bufloaded(vim.fn.expand "~" .. "/code/input") == 0 then
-    vim.cmd [[vs ~/code/input | set ft=cfg | vertical resize 80 | set winfixwidth | sp ~/code/output | set ft=cfg | wincmd h]]
+    vim.cmd [[sp ~/code/input | set ft=cfg | vertical resize 10 | vs ~/code/output | set ft=cfg | wincmd k]]
+    -- vim.cmd [[vs ~/code/input | set ft=cfg | vertical resize 80 | set winfixwidth | sp ~/code/output | set ft=cfg | wincmd h]]
   else
     vim.cmd [[wa | bunload input output]]
   end

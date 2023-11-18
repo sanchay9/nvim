@@ -28,6 +28,12 @@ return {
       },
 
       {
+        "echasnovski/mini.pairs",
+        event = "VeryLazy",
+        opts = {},
+      },
+
+      {
         "windwp/nvim-autopairs",
         enabled = false,
         config = function()

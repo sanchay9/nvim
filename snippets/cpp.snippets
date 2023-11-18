@@ -183,16 +183,17 @@ snippet dsu "Disjoint Set Union"
 		int find(int n) { return label[n]; }
 	};
 snippet mod "Modular Arithmetic"
-	const int MOD = 1e9 + 7; // 998244353;
+	const int64_t MOD = 1e9 + 7; // 998244353;
 
-	int64_t madd(int64_t a, int64_t b) { return (a + b) % MOD; }
-	int64_t msub(int64_t a, int64_t b) { return (((a - b) % MOD) + MOD) % MOD; }
+	int64_t madd(int64_t a, int64_t b) { return (a % MOD + b % MOD) % MOD; }
+	int64_t msub(int64_t a, int64_t b) { return ((a - b) % MOD + MOD) % MOD; }
 	int64_t mmul(int64_t a, int64_t b) { return ((a % MOD) * (b % MOD)) % MOD; }
 	int64_t mpow(int64_t a, int64_t b) {
+		a %= MOD;
 		int64_t res = 1;
 		while (b > 0) {
-			if (b & 1) res = (res * a) % MOD;
-			a = (a * a) % MOD;
+			if (b & 1) res = res * a % MOD;
+			a = a * a % MOD;
 			b >>= 1;
 		}
 		return res;
@@ -256,3 +257,19 @@ snippet tim "Execution Time"
 
 	auto end = std::chrono::high_resolution_clock::now();
 	cerr << "\nExecution time: " << std::chrono::duration_cast<std::chrono::duration<double>> (end-begin).count() << " seconds\n";
+snippet gen "Generator Template"
+	#include <bits/stdc++.h>
+	using namespace std;
+	#define int int64_t
+
+	// #define uid(a, b) uniform_int_distribution<int>(a, b)(rng)
+	mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+
+	int randNo(int lower_limit, int upper_limit) {
+		return lower_limit + rng() % (upper_limit - lower_limit);
+	}
+
+	int32_t main() {
+		ios_base::sync_with_stdio(false);
+		cin.tie(nullptr);
+	}
