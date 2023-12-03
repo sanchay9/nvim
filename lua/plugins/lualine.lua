@@ -33,12 +33,12 @@ return {
         return opts and opts.filter and vim.tbl_filter(opts.filter, ret) or ret
       end
 
-      -- local custom = require "lualine.themes.auto"
-      -- custom.normal.c.bg = fg("EndOfBuffer").fg
+      local custom = require "lualine.themes.auto"
+      custom.normal.c.bg = fg("EndOfBuffer").fg
 
       return {
         options = {
-          theme = "auto",
+          theme = custom,
           component_separators = "",
           section_separators = { left = "", right = "" },
           globalstatus = true,
@@ -49,7 +49,7 @@ return {
         },
         sections = {
           lualine_a = {
-            { "mode", separator = { left = " " }, padding = { left = 0, right = 0 } },
+            { "mode", separator = { left = " █", right = "█" }, padding = { left = 0, right = 0 } },
           },
           lualine_b = {
             { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
@@ -102,32 +102,11 @@ return {
             { "diff" },
           },
           lualine_y = {
-            { "progress", separator = " ", padding = { left = 0, right = 1 } },
+            { "progress", separator = " ", padding = { left = 1, right = 1 } },
           },
           lualine_z = {
-            { "location", separator = { right = " " }, padding = { left = 0, right = 0 } },
+            { "location", separator = { right = "█ " }, padding = { left = 0, right = 0 } },
           },
-        },
-        winbar = {
-          -- lualine_a = {},
-          -- lualine_b = {},
-          -- lualine_c = {
-          --   {
-          --     "filename",
-          --     file_status = false,
-          --   },
-          --   {
-          --     function()
-          --       return require("nvim-navic").get_location()
-          --     end,
-          --     cond = function()
-          --       return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-          --     end,
-          --   },
-          -- },
-          -- lualine_x = {},
-          -- lualine_y = {},
-          -- lualine_z = {},
         },
         extensions = { "lazy", "mason", "nvim-tree", "man", "trouble" },
       }

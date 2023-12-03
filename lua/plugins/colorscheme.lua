@@ -5,6 +5,7 @@ return {
     opts = {
       style = "night",
       transparent = false,
+      sidebars = { "terminal" },
       day_brightness = 0.2,
       on_highlights = function(hl, c)
         local prompt = "#2d3149"

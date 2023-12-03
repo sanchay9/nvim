@@ -43,18 +43,19 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "help", "man" },
-  callback = function()
-    vim.keymap.set("n", "f", function()
-      if vim.api.nvim_win_get_height(0) < 30 then
-        vim.cmd "wincmd _"
-      else
-        vim.cmd "wincmd ="
-      end
-    end)
-  end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = { "help", "man" },
+--   callback = function()
+--     vim.keymap.set("n", "f", function()
+--       -- TODO: remove hardcoded value
+--       if vim.api.nvim_win_get_height(0) < 30 then
+--         vim.cmd "wincmd _"
+--       else
+--         vim.cmd "wincmd ="
+--       end
+--     end)
+--   end,
+-- })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
