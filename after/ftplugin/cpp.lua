@@ -61,7 +61,7 @@ vim.keymap.set("n", "<leader>m", 'gg"_dG<CMD> 0r ~/code/template/templatemulti.c
 
 vim.keymap.set("n", "<leader>i", function()
   if vim.fn.bufloaded(vim.fn.expand "~" .. "/code/lab/input") == 0 then
-    vim.cmd [[sp ~/code/lab/input | resize 5 | vs ~/code/lab/output | wincmd k]]
+    vim.cmd [[sp ~/code/lab/input | resize 15 | vs ~/code/lab/output | wincmd k]]
     -- vim.cmd [[vs ~/code/lab/input | vertical resize 80 | set winfixwidth | sp ~/code/lab/output | wincmd h]]
   else
     vim.cmd [[wa | bunload input output]]
