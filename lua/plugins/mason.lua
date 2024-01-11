@@ -28,6 +28,8 @@ return {
         "css-lsp",
         "typescript-language-server",
         "gopls",
+        "golangci-lint",
+        "texlab",
       },
 
       max_concurrent_installers = 10,

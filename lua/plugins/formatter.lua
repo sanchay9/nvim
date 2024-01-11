@@ -16,6 +16,7 @@ return {
           lua = { require("formatter.filetypes.lua").stylua },
           sh = { require("formatter.filetypes.sh").shfmt },
           cpp = { require("formatter.filetypes.cpp").clangformat },
+          go = { require("formatter.filetypes.go").gofmt },
           python = { require("formatter.filetypes.python").black },
           ["*"] = { require("formatter.filetypes.any").remove_trailing_whitespace },
         },

@@ -7,6 +7,7 @@ return {
       linters_by_ft = {
         markdown = { "markdownlint" },
         javascript = { "eslint" },
+        -- go = { "golangcilint" },
       },
       linters = {
         markdownlint = {
