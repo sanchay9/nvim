@@ -1,10 +1,10 @@
 vim.fn.sign_define(
   "DiagnosticSignError",
-  { text = "", numhl = "DiagnosticSignError", texthl = "DiagnosticSignError" }
+  { text = "󰅙", numhl = "DiagnosticSignError", texthl = "DiagnosticSignError" }
 )
 vim.fn.sign_define("DiagnosticSignWarn", { text = "", numhl = "DiagnosticSignWarn", texthl = "DiagnosticSignWarn" })
-vim.fn.sign_define("DiagnosticSignHint", { text = "", numhl = "DiagnosticSignHint", texthl = "DiagnosticSignHint" })
-vim.fn.sign_define("DiagnosticSignInfo", { text = "", numhl = "DiagnosticSignInfo", texthl = "DiagnosticSignInfo" })
+vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", numhl = "DiagnosticSignHint", texthl = "DiagnosticSignHint" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = "󰋼", numhl = "DiagnosticSignInfo", texthl = "DiagnosticSignInfo" })
 
 vim.diagnostic.config {
   -- virtual_text = false,
@@ -117,7 +117,7 @@ capabilities.textDocument.completion.completionItem = {
 
 local lspconfig = require "lspconfig"
 
-local servers = { "cssls", "tsserver", "gopls", "html", "bashls", "marksman", "eslint", "texlab", "pyright" }
+local servers = { "cssls", "tsserver", "html", "marksman", "eslint", "texlab", "pyright" }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
@@ -140,7 +140,31 @@ lspconfig.clangd.setup {
     "clangd",
     "--background-index",
     "--completion-style=bundled",
-    "--header-insertion=never",
+    -- "--header-insertion=never",
+  },
+}
+
+lspconfig.gopls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "go", "gomod", "gowork", "gotmpl" },
+  root_dir = require("lspconfig/util").root_pattern("go.work", "go.mod"),
+  settings = {
+    gopls = {
+      usePlaceholders = false,
+      analyses = {
+        unusedparams = true,
+      },
+    },
+  },
+}
+
+lspconfig.bashls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "sh", "zsh" },
+  flags = {
+    debounce_text_changes = 300,
   },
 }
 

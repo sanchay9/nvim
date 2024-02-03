@@ -5,7 +5,8 @@ return {
     opts = {
       cmdline = {
         format = {
-          search_down = { kind = "search", pattern = "^/", icon = " ", lang = "regex" },
+          search_down = { kind = "search", pattern = "^/", icon = " ", lang = "regex" },
+          search_up = { kind = "search", pattern = "^%?", icon = "  ", lang = "regex" },
           lua = { pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" }, icon = " ", lang = "lua" },
         },
       },

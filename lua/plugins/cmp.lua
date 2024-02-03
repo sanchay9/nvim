@@ -81,21 +81,12 @@ return {
       end
 
       local cmp = require "cmp"
-      local dict = require "cmp_dictionary"
-      dict.setup {
-        exact = 2,
-        first_case_insensitive = false,
-        document = false,
-        document_command = "wn %s -over",
-        async = false,
-        sqlite = false,
-        max_items = -1,
-        capacity = 5,
-        debug = false,
-      }
-      dict.switcher {
-        spelllang = {
-          en = "~/.cache/en.dict",
+      require("cmp_dictionary").setup {
+        paths = { "/usr/share/dict/words" },
+        first_case_insensitive = true,
+        document = {
+          enable = true,
+          command = { "wn", "${label}", "-over" },
         },
       }
 

@@ -7,7 +7,7 @@ return {
       ui = {
         icons = {
           package_pending = " ",
-          package_installed = " ",
+          package_installed = " ",
           package_uninstalled = "󰚌 ",
         },
       },
@@ -29,6 +29,8 @@ return {
         "typescript-language-server",
         "gopls",
         "golangci-lint",
+        "goimports",
+        "golines",
         "texlab",
       },
 

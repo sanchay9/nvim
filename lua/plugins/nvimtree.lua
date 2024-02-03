@@ -1,7 +1,7 @@
 return {
   {
     "nvim-tree/nvim-tree.lua",
-    keys = { { "<C-n>", "<cmd>NvimTreeToggle<cr>", desc = "Toggle Nvim Tree" } },
+    keys = { { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Toggle Nvim Tree" } },
     config = function()
       local function my_on_attach(bufnr)
         local api = require "nvim-tree.api"

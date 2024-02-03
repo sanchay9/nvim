@@ -20,9 +20,9 @@ return {
 
   {
     "nvim-tree/nvim-web-devicons",
-    opts = function()
-      return { override = require("plugins.configs.icons").devicons }
-    end,
+    -- opts = function()
+    --   return { override = require("plugins.configs.icons").devicons }
+    -- end,
     config = function(_, opts)
       require("nvim-web-devicons").setup(opts)
     end,
@@ -116,6 +116,7 @@ return {
     config = function()
       require("copilot").setup {
         suggestion = {
+          auto_trigger = false,
           keymap = {
             accept = "<M-Enter>",
             next = "<M-\\>",
@@ -134,6 +135,24 @@ return {
 
   {
     "Bekaboo/dropbar.nvim",
+  },
+
+  {
+    "christoomey/vim-tmux-navigator",
+    cmd = {
+      "TmuxNavigateLeft",
+      "TmuxNavigateDown",
+      "TmuxNavigateUp",
+      "TmuxNavigateRight",
+      "TmuxNavigatePrevious",
+    },
+    keys = {
+      { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+      { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+      { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+      { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+      { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+    },
   },
 
   {
