@@ -22,6 +22,7 @@ return {
         "clangd",
         "clang-format",
         "bash-language-server",
+        "pyright",
         "black",
         "shellcheck",
         "html-lsp",
