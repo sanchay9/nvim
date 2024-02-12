@@ -54,3 +54,9 @@ vim.opt.shortmess:append "sI" -- disable nvim intro screen
 for _, provider in ipairs { "node", "perl", "python3", "ruby" } do
   vim.g["loaded_" .. provider .. "_provider"] = 0
 end
+
+vim.filetype.add {
+  pattern = {
+    ["${XDG_CONFIG_HOME}/hypr/.*%.conf"] = "hyprlang",
+  },
+}

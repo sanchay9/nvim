@@ -29,6 +29,13 @@ return {
           "css",
           "markdown",
           "regex",
+          "zathurarc",
+          "hyprlang",
+          "json",
+          "gitcommit",
+          "go",
+          "gomod",
+          "gosum",
         },
         ignore_install = { "javascript" },
         highlight = {
