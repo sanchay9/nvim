@@ -85,4 +85,6 @@ if file then
   file:close()
   local data = vim.json.decode(content)
   vim.cmd.colorscheme(data.neovim_theme[data[mode .. "_theme"]])
+else
+  vim.cmd.colorscheme "tokyonight"
 end
