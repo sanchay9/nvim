@@ -20,7 +20,7 @@ return {
           go = {
             require("formatter.filetypes.go").gofmt,
             require("formatter.filetypes.go").goimports,
-            require("formatter.filetypes.go").golines,
+            -- require("formatter.filetypes.go").golines,
           },
           python = { require("formatter.filetypes.python").black },
           ["*"] = { require("formatter.filetypes.any").remove_trailing_whitespace },

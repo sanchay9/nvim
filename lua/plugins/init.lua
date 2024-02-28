@@ -46,6 +46,11 @@ return {
   },
 
   {
+    "olexsmir/gopher.nvim",
+    event = "VeryLazy",
+  },
+
+  {
     "numToStr/Comment.nvim",
     event = "VeryLazy",
     config = function()

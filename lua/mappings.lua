@@ -5,6 +5,9 @@ vim.keymap.set("n", "<leader><tab>", "<C-^>")
 vim.keymap.set("n", "[q", vim.cmd.cprev)
 vim.keymap.set("n", "]q", vim.cmd.cnext)
 
+vim.keymap.set("n", "[b", vim.cmd.bprev)
+vim.keymap.set("n", "]b", vim.cmd.bnext)
+
 vim.keymap.set({ "n", "x" }, "j", "v:count ? 'j' : 'gj'", { expr = true })
 vim.keymap.set({ "n", "x" }, "k", "v:count ? 'k' : 'gk'", { expr = true })
 
