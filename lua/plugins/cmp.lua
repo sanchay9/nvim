@@ -28,14 +28,7 @@ return {
       },
 
       {
-        "echasnovski/mini.pairs",
-        event = "VeryLazy",
-        opts = {},
-      },
-
-      {
         "windwp/nvim-autopairs",
-        enabled = false,
         config = function()
           require("nvim-autopairs").setup {
             check_ts = true,
@@ -43,7 +36,6 @@ return {
               lua = { "string", "source" },
               javascript = { "string", "template_string" },
             },
-            fast_wrap = {},
           }
 
           local cmp_autopairs = require "nvim-autopairs.completion.cmp"

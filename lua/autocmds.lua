@@ -4,6 +4,11 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   command = 'silent! normal! g`"zv',
 })
 
+vim.api.nvim_create_autocmd("BufReadPost", {
+  pattern = "quickfix",
+  command = [[nnoremap <buffer> <S-CR> <CR>:cclose<CR>]],
+})
+
 vim.api.nvim_create_autocmd({ "FocusGained", "TermLeave", "TermClose" }, {
   pattern = "*",
   command = "checktime",
@@ -42,20 +47,6 @@ vim.api.nvim_create_autocmd("FileType", {
     ]]
   end,
 })
-
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = { "help", "man" },
---   callback = function()
---     vim.keymap.set("n", "f", function()
---       -- TODO: remove hardcoded value
---       if vim.api.nvim_win_get_height(0) < 30 then
---         vim.cmd "wincmd _"
---       else
---         vim.cmd "wincmd ="
---       end
---     end)
---   end,
--- })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()

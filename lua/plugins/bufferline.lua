@@ -2,10 +2,6 @@ return {
   {
     "akinsho/bufferline.nvim",
     enabled = false,
-    keys = {
-      { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Goto Prev Buffer" },
-      { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Goto Next Buffer" },
-    },
     event = "VeryLazy",
     config = function()
       require("bufferline").setup {
