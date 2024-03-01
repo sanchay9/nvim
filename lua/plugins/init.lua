@@ -138,6 +138,8 @@ return {
     end,
   },
 
+  { "folke/neodev.nvim", opts = {} },
+
   {
     "Bekaboo/dropbar.nvim",
   },

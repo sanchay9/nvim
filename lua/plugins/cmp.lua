@@ -73,6 +73,7 @@ return {
       end
 
       local cmp = require "cmp"
+      local luasnip = require "luasnip"
       require("cmp_dictionary").setup {
         paths = { "/usr/share/dict/words" },
         first_case_insensitive = true,
@@ -106,47 +107,33 @@ return {
 
       return {
         completion = {
-          completeopt = "menu,menuone",
+          completeopt = "menu,menuone,noinsert,noselect",
         },
         snippet = {
           expand = function(args)
-            require("luasnip").lsp_expand(args.body)
+            luasnip.lsp_expand(args.body)
           end,
         },
         mapping = {
-          ["<C-p>"] = cmp.mapping.select_prev_item(),
           ["<C-n>"] = cmp.mapping.select_next_item(),
+          ["<C-p>"] = cmp.mapping.select_prev_item(),
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<C-Space>"] = cmp.mapping.complete(), -- manually trigger completion
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Insert, select = true },
+          ["<C-y>"] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Insert, select = true },
           ["<S-CR>"] = cmp.mapping.confirm {
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
           }, -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          ["<C-CR>"] = function(fallback)
-            cmp.abort()
-            fallback()
-          end,
-          ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif require("luasnip").expand_or_jumpable() then
-              require("luasnip").expand_or_jump()
-            elseif has_words_before() then
-              cmp.complete()
-            else
-              fallback()
+          ["<C-l>"] = cmp.mapping(function()
+            if luasnip.expand_or_locally_jumpable() then
+              luasnip.expand_or_jump()
             end
           end, { "i", "s" }),
-          ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif require("luasnip").jumpable(-1) then
-              require("luasnip").jump(-1)
-            else
-              fallback()
+          ["<C-h>"] = cmp.mapping(function()
+            if luasnip.locally_jumpable(-1) then
+              luasnip.jump(-1)
             end
           end, { "i", "s" }),
         },

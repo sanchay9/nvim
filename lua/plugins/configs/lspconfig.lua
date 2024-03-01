@@ -131,6 +131,7 @@ capabilities.textDocument.completion.completionItem = {
   },
 }
 
+require("neodev").setup()
 local lspconfig = require "lspconfig"
 
 local servers = { "cssls", "tsserver", "html", "marksman", "eslint", "texlab", "pyright" }

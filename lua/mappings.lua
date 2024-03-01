@@ -27,6 +27,7 @@ vim.keymap.set("n", "<A-k>", "<cmd>m .-2<cr>==")
 vim.keymap.set("v", "<A-j>", ":m '>+1<cr>gv=gv")
 vim.keymap.set("v", "<A-k>", ":m '<-2<cr>gv=gv")
 
+-- play the macro recorded in `@q`
 vim.keymap.set("n", "Q", "@q")
 vim.keymap.set("n", "S", ":%s///g<Left><Left><Left>")
 vim.keymap.set("n", "<leader>a", "ggVG")
