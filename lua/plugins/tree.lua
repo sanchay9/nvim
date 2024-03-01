@@ -103,8 +103,15 @@ return {
   },
   {
     "stevearc/oil.nvim",
-    -- event = "Syntax",
     keys = { { "-", "<cmd>Oil<cr>", desc = "Open parent directory" } },
-    opts = {},
+    opts = {
+      keymaps = {
+        ["?"] = "actions.show_help",
+        ["<C-h>"] = "actions.toggle_hidden",
+        ["<C-x>"] = "actions.select_split",
+        ["<C-s>"] = "actions.select_vsplit",
+        ["<esc>"] = "actions.close",
+      },
+    },
   },
 }
