@@ -13,12 +13,16 @@ return {
       "nvim-telescope/telescope-symbols.nvim",
     },
     keys = {
-      { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
-      { "<leader>g", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
-      { "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-      { "<leader>r", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
-      { "<leader>h", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
+      { "<leader>f", "<cmd>lua require'telescope.builtin'.find_files()<cr>", desc = "Find Files" },
+      { "<leader>g", "<cmd>lua require'telescope.builtin'.live_grep()<cr>", desc = "Grep" },
+      { "<leader>r", "<cmd>lua require'telescope.builtin'.oldfiles()<cr>", desc = "Recent" },
+      { "<leader>h", "<cmd>lua require'telescope.builtin'.help_tags()<cr>", desc = "Help Pages" },
       { "<leader>`", "<cmd>Telescope notify<cr>", desc = "Notifs" },
+      {
+        "<leader>b",
+        "<cmd>lua require'telescope.builtin'.buffers(require('telescope.themes').get_dropdown { previewer = false, })<cr>",
+        desc = "Buffers",
+      },
       {
         "<leader><esc>",
         "<cmd>lua require'telescope.builtin'.resume()<cr>",
