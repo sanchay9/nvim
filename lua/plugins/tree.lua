@@ -13,6 +13,15 @@ return {
         vim.keymap.set("n", "?", api.tree.toggle_help, opts "Help")
       end
 
+      vim.api.nvim_create_autocmd({ "VimEnter" }, {
+        callback = function(data)
+          if vim.fn.isdirectory(data.file) == 1 then
+            vim.cmd.cd(data.file)
+            require("nvim-tree.api").tree.open()
+          end
+        end,
+      })
+
       require("nvim-tree").setup {
         filters = {
           dotfiles = false,
@@ -94,6 +103,7 @@ return {
   },
   {
     "stevearc/oil.nvim",
+    -- event = "Syntax",
     keys = { { "-", "<cmd>Oil<cr>", desc = "Open parent directory" } },
     opts = {},
   },

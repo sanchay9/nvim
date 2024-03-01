@@ -51,15 +51,6 @@ require("lazy").setup("plugins", {
   },
 })
 
-vim.api.nvim_create_autocmd({ "VimEnter" }, {
-  callback = function(data)
-    if vim.fn.isdirectory(data.file) == 1 then
-      vim.cmd.cd(data.file)
-      require("nvim-tree.api").tree.open()
-    end
-  end,
-})
-
 local mode = "dark"
 if
   vim

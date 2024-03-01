@@ -4,6 +4,15 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   command = 'silent! normal! g`"zv',
 })
 
+vim.api.nvim_create_autocmd({ "VimEnter" }, {
+  callback = function(data)
+    if vim.fn.isdirectory(data.file) == 1 then
+      vim.cmd.cd(data.file)
+      require("lazy").load { plugins = { "oil.nvim" } }
+    end
+  end,
+})
+
 vim.api.nvim_create_autocmd("BufReadPost", {
   pattern = "quickfix",
   command = [[nnoremap <buffer> <S-CR> <CR>:cclose<CR>]],

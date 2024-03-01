@@ -108,7 +108,17 @@ return {
             { "location", separator = { right = "█ " }, padding = { left = 0, right = 0 } },
           },
         },
-        extensions = { "lazy", "mason", "nvim-tree", "man", "trouble" },
+        extensions = {
+          "lazy",
+          "mason",
+          "nvim-tree",
+          "man",
+          "trouble",
+          "oil",
+          "nvim-dap-ui",
+          "quickfix",
+          "symbols-outline",
+        },
       }
     end,
   },
