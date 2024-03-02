@@ -1,5 +1,8 @@
 return {
-  { "nvim-lua/plenary.nvim", lazy = true },
+  {
+    "nvim-lua/plenary.nvim",
+    lazy = true,
+  },
 
   {
     "NvChad/nvim-colorizer.lua",
@@ -20,29 +23,7 @@ return {
 
   {
     "nvim-tree/nvim-web-devicons",
-    -- opts = function()
-    --   return { override = require("plugins.configs.icons").devicons }
-    -- end,
-    config = function(_, opts)
-      require("nvim-web-devicons").setup(opts)
-    end,
-  },
-
-  {
-    "windwp/nvim-ts-autotag",
-    event = "InsertEnter",
-    opts = {},
-  },
-
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      "mason.nvim",
-    },
-    event = { "BufReadPre", "BufNewFile" },
-    config = function()
-      require "plugins.configs.lspconfig"
-    end,
+    event = "VeryLazy",
   },
 
   {
@@ -61,6 +42,11 @@ return {
         },
       }
     end,
+  },
+
+  {
+    "windwp/nvim-ts-autotag",
+    event = "InsertEnter",
   },
 
   {
@@ -83,15 +69,13 @@ return {
 
   {
     "kylechui/nvim-surround",
-    config = function()
-      require("nvim-surround").setup {}
-    end,
+    event = "VeryLazy",
   },
 
   {
     "mbbill/undotree",
     cmd = "UndotreeToggle",
-    keys = { { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Undo Tree Toggle" } },
+    keys = { { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Toggle Undo Tree" } },
   },
 
   {
@@ -138,7 +122,7 @@ return {
     end,
   },
 
-  { "folke/neodev.nvim", opts = {} },
+  { "folke/neodev.nvim" },
 
   {
     "Bekaboo/dropbar.nvim",

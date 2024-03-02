@@ -1,10 +1,36 @@
+local function augroup(name)
+  return vim.api.nvim_create_augroup(name, { clear = true })
+end
+
+-- vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter" }, {
+--   group = augroup "term_enter",
+--   callback = function()
+--     vim.cmd.startinsert()
+--     vim.opt_local.nu = false
+--   end,
+-- })
+
 -- remember last position
 vim.api.nvim_create_autocmd("BufReadPost", {
-  pattern = "*",
-  command = 'silent! normal! g`"zv',
+  group = augroup "last_loc",
+  callback = function(event)
+    local exclude = { "gitcommit" }
+    local buf = event.buf
+    if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].last_loc then
+      return
+    end
+    vim.b[buf].last_loc = true
+    local mark = vim.api.nvim_buf_get_mark(buf, '"')
+    local lcount = vim.api.nvim_buf_line_count(buf)
+    if mark[1] > 0 and mark[1] <= lcount then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
+    end
+  end,
 })
 
+-- open oil on directory
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
+  group = augroup "oil",
   callback = function(data)
     if vim.fn.isdirectory(data.file) == 1 then
       vim.cmd.cd(data.file)
@@ -13,20 +39,20 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
   end,
 })
 
+-- open selected and close qf
 vim.api.nvim_create_autocmd("BufReadPost", {
+  group = augroup "close_qf",
   pattern = "quickfix",
   command = [[nnoremap <buffer> <S-CR> <CR>:cclose<CR>]],
 })
 
+-- reload files
 vim.api.nvim_create_autocmd({ "FocusGained", "TermLeave", "TermClose" }, {
-  pattern = "*",
-  command = "checktime",
-})
-
-vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = "term://*",
+  group = augroup "checktime",
   callback = function()
-    vim.cmd.startinsert()
+    if vim.o.buftype ~= "nofile" then
+      vim.cmd "checktime"
+    end
   end,
 })
 
@@ -34,14 +60,19 @@ vim.api.nvim_create_autocmd("BufEnter", {
 -- vim.cmd [[ au InsertEnter * set norelativenumber ]]
 -- vim.cmd [[ au InsertLeave * set relativenumber ]]
 
+-- close ft with q
 vim.api.nvim_create_autocmd("FileType", {
+  group = augroup "close_with_q",
   pattern = {
+    "PlenaryTestPopup",
     "dashboard",
     "alpha",
     "Jaq",
+    "notify",
     "qf",
     "help",
     "man",
+    "checkhealth",
     "lspinfo",
     "spectre_panel",
     "lir",
@@ -49,46 +80,34 @@ vim.api.nvim_create_autocmd("FileType", {
     "tsplayground",
     "startuptime",
   },
-  callback = function()
-    vim.cmd [[
-      nnoremap <silent> <buffer> q :q<CR>
-      set nobuflisted
-    ]]
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
+    vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
   end,
 })
 
+-- highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
+  group = augroup "highlight_yank",
   callback = function()
     vim.highlight.on_yank { higroup = "Cursor", timeout = 200 }
   end,
 })
 
--- vim.api.nvim_create_autocmd({ "VimResized" }, {
---     callback = function()
---         vim.cmd "tabdo wincmd ="
---     end,
--- })
-
-vim.api.nvim_create_autocmd("BufWinEnter", {
+-- resize splits if window got resized
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+  group = augroup "resize_splits",
   callback = function()
-    vim.cmd "set formatoptions-=cro"
+    local current_tab = vim.fn.tabpagenr()
+    vim.cmd "tabdo wincmd ="
+    vim.cmd("tabnext " .. current_tab)
   end,
 })
 
--- vim.api.nvim_create_autocmd("FileType", {
---     pattern = "alpha",
---     callback = function()
---         vim.api.nvim_create_autocmd("BufUnload", {
---             buffer = 0,
---             callback = function()
---                 vim.opt.laststatus = 3
---                 vim.opt.showtabline = 0
---                 vim.opt.cmdheight = 0
---             end,
---         })
-
---         vim.opt.laststatus = 0
---         vim.opt.showtabline = 0
---         vim.opt.cmdheight = 0
---     end,
--- })
+-- don't add comment on enter/o/O on comment line
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  group = augroup "no_comment",
+  callback = function()
+    vim.opt.formatoptions:remove { "c", "r", "o" }
+  end,
+})

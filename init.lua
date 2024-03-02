@@ -51,27 +51,27 @@ require("lazy").setup("plugins", {
   },
 })
 
-local mode = "dark"
-if
-  vim
-    .system({
-      "gdbus",
-      "call",
-      "--session",
-      "--dest=org.freedesktop.portal.Desktop",
-      "--object-path=/org/freedesktop/portal/desktop",
-      "--method=org.freedesktop.portal.Settings.Read",
-      "org.freedesktop.appearance",
-      "color-scheme",
-    })
-    :wait().stdout
-    :sub(11, 11) == "2"
-then
-  mode = "light"
-end
-
-local file = io.open(os.getenv "HOME" .. "/.cache/swcs.json", "r")
+local file = io.open(os.getenv "XDG_CACHE_HOME" .. "/swcs.json", "r")
 if file then
+  local mode = "dark"
+  if
+    vim
+      .system({
+        "gdbus",
+        "call",
+        "--session",
+        "--dest=org.freedesktop.portal.Desktop",
+        "--object-path=/org/freedesktop/portal/desktop",
+        "--method=org.freedesktop.portal.Settings.Read",
+        "org.freedesktop.appearance",
+        "color-scheme",
+      })
+      :wait().stdout
+      :sub(11, 11) == "2"
+  then
+    mode = "light"
+  end
+
   local content = file:read "*all"
   file:close()
   local data = vim.json.decode(content)

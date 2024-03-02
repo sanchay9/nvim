@@ -1,6 +1,7 @@
 return {
   {
     "goolord/alpha-nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     event = "VimEnter",
     config = function()
       local db = require "alpha.themes.dashboard"
@@ -25,9 +26,7 @@ return {
 
       -- db.section.footer.val = require "alpha.fortune"
       db.section.footer.val = {
-        "⚡ Neovim loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. (math.floor(
-          stats.startuptime * 100 + 0.5
-        ) / 100) .. "ms",
+        "⚡ Neovim loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. stats.startuptime .. "ms",
         -- vim
         --   .system({
         --     "curl",

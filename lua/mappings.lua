@@ -2,15 +2,6 @@ vim.keymap.set("n", "<space>", "<nop>")
 vim.keymap.set("n", "<esc>", "<cmd>noh<cr>")
 vim.keymap.set("n", "<leader><tab>", "<C-^>")
 
-vim.keymap.set(
-  "n",
-  "<leader>gg",
-  "<cmd>!tmux new-window -c " .. vim.fn.getcwd() .. " -- lazygit <CR><CR>",
-  { desc = "Git Go" }
-)
-
--- vim.keymap.set("n", "-", "<cmd>Oil<cr>")
-
 vim.keymap.set("n", "[q", vim.cmd.cprev)
 vim.keymap.set("n", "]q", vim.cmd.cnext)
 

@@ -117,6 +117,7 @@ return {
           "oil",
           "nvim-dap-ui",
           "quickfix",
+          "toggleterm",
           "symbols-outline",
         },
       }
