@@ -1,6 +1,7 @@
 return {
   {
     "nvim-tree/nvim-tree.lua",
+    enabled = false,
     keys = { { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Toggle Nvim Tree" } },
     config = function()
       local function my_on_attach(bufnr)
@@ -111,6 +112,8 @@ return {
         ["<C-x>"] = "actions.select_split",
         ["<C-s>"] = "actions.select_vsplit",
         ["<esc>"] = "actions.close",
+        ["-"] = "actions.open_cwd",
+        ["<bs>"] = "actions.parent",
       },
     },
   },
