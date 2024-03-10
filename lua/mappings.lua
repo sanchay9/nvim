@@ -32,5 +32,3 @@ vim.keymap.set("n", "Q", "@q")
 vim.keymap.set("n", "S", ":%s///g<Left><Left><Left>")
 vim.keymap.set("n", "<leader>a", "ggVG")
 vim.keymap.set("n", "<leader>,", "<cmd> wa | only | cd ~ | Alpha<cr>")
--- TODO: write in lua
-vim.keymap.set("n", "gx", '<cmd>call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<cr>')

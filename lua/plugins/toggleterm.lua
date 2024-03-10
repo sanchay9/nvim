@@ -1,6 +1,7 @@
 return {
   {
     "akinsho/toggleterm.nvim",
+    opts = {},
     cmd = "ToggleTerm",
     --   config = function()
     --     local Terminal = require("toggleterm.terminal").Terminal

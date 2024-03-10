@@ -70,6 +70,7 @@ return {
   {
     "kylechui/nvim-surround",
     event = "VeryLazy",
+    opts = {},
   },
 
   {
@@ -126,6 +127,7 @@ return {
 
   {
     "Bekaboo/dropbar.nvim",
+    enabled = false,
   },
 
   {
