@@ -36,3 +36,6 @@ vim.keymap.set("n", "<leader>i", function()
 
   print " "
 end, { buffer = true })
+
+-- don't add comment on enter/o/O on comment line
+-- vim.opt_local.formatoptions:remove "o"

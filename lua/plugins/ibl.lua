@@ -6,8 +6,15 @@ return {
     opts = {
       indent = {
         char = "▏", -- '▏', '┊', '|', '¦', '┆'
-        -- tab_char = { "" },
+        -- tab_char = { "󰌒" },
       },
     },
   },
+
+  -- {
+  --   "nvimdev/indentmini.nvim",
+  --   opts = {
+  --     char = "▏", -- '▏', '┊', '|', '¦', '┆'
+  --   },
+  -- },
 }

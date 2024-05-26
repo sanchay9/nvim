@@ -3,7 +3,7 @@ require "autocmds"
 require "mappings"
 
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system {
     "git",
     "clone",
@@ -13,9 +13,13 @@ if not vim.loop.fs_stat(lazypath) then
     lazypath,
   }
 end
+---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins", {
+  change_detection = {
+    notify = false,
+  },
   performance = {
     rtp = {
       disabled_plugins = {
@@ -26,7 +30,7 @@ require("lazy").setup("plugins", {
         "gzip",
         "logipat",
         "netrw",
-        "netrwPlugin",
+        "netrwPlugin", -- useful with nvim .
         "netrwSettings",
         "netrwFileHandlers",
         "matchit",
@@ -51,31 +55,4 @@ require("lazy").setup("plugins", {
   },
 })
 
-local file = io.open(os.getenv "XDG_CACHE_HOME" .. "/swcs.json", "r")
-if file then
-  local mode = "dark"
-  if
-    vim
-      .system({
-        "gdbus",
-        "call",
-        "--session",
-        "--dest=org.freedesktop.portal.Desktop",
-        "--object-path=/org/freedesktop/portal/desktop",
-        "--method=org.freedesktop.portal.Settings.Read",
-        "org.freedesktop.appearance",
-        "color-scheme",
-      })
-      :wait().stdout
-      :sub(11, 11) == "2"
-  then
-    mode = "light"
-  end
-
-  local content = file:read "*all"
-  file:close()
-  local data = vim.json.decode(content)
-  vim.cmd.colorscheme(data.neovim_theme[data[mode .. "_theme"]])
-else
-  vim.cmd.colorscheme "tokyonight"
-end
+require "colors"

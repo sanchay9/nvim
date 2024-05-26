@@ -2,16 +2,16 @@ local function augroup(name)
   return vim.api.nvim_create_augroup(name, { clear = true })
 end
 
--- vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter" }, {
---   group = augroup "term_enter",
---   callback = function()
---     vim.cmd.startinsert()
---     vim.opt_local.nu = false
---   end,
--- })
+vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter" }, {
+  group = augroup "term_enter",
+  callback = function()
+    vim.cmd.startinsert()
+    vim.opt_local.nu = false
+  end,
+})
 
--- remember last position
 vim.api.nvim_create_autocmd("BufReadPost", {
+  desc = "remember last position",
   group = augroup "last_loc",
   callback = function(event)
     local exclude = { "gitcommit" }
@@ -28,8 +28,8 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
--- open oil on directory
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
+  desc = "open oil on directory",
   group = augroup "oil",
   callback = function(data)
     if vim.fn.isdirectory(data.file) == 1 then
@@ -39,15 +39,17 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
   end,
 })
 
--- open selected and close qf
 vim.api.nvim_create_autocmd("BufReadPost", {
+  desc = "open selected and close qf",
   group = augroup "close_qf",
   pattern = "quickfix",
-  command = [[nnoremap <buffer> <S-CR> <CR>:cclose<CR>]],
+  callback = function(event)
+    vim.keymap.set("n", "<leader><CR>", "<cr><cmd>cclose<cr>", { buffer = event.buf, silent = true })
+  end,
 })
 
--- reload files
 vim.api.nvim_create_autocmd({ "FocusGained", "TermLeave", "TermClose" }, {
+  desc = "reload files on events",
   group = augroup "checktime",
   callback = function()
     if vim.o.buftype ~= "nofile" then
@@ -60,13 +62,12 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermLeave", "TermClose" }, {
 -- vim.cmd [[ au InsertEnter * set norelativenumber ]]
 -- vim.cmd [[ au InsertLeave * set relativenumber ]]
 
--- close ft with q
 vim.api.nvim_create_autocmd("FileType", {
+  desc = "close ft with q",
   group = augroup "close_with_q",
   pattern = {
     "PlenaryTestPopup",
     "dashboard",
-    "alpha",
     "Jaq",
     "notify",
     "qf",
@@ -75,10 +76,14 @@ vim.api.nvim_create_autocmd("FileType", {
     "checkhealth",
     "lspinfo",
     "spectre_panel",
-    "lir",
     "DressingSelect",
+    "dap-repl",
+    "fugitive",
+    "fugitiveblame",
     "tsplayground",
     "startuptime",
+    "neotest-output",
+    "neotest-output-panel",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
@@ -86,28 +91,20 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
+  desc = "highlight on yank",
   group = augroup "highlight_yank",
   callback = function()
     vim.highlight.on_yank { higroup = "Cursor", timeout = 200 }
   end,
 })
 
--- resize splits if window got resized
 vim.api.nvim_create_autocmd({ "VimResized" }, {
+  desc = "resize splits if window got resized",
   group = augroup "resize_splits",
   callback = function()
     local current_tab = vim.fn.tabpagenr()
     vim.cmd "tabdo wincmd ="
     vim.cmd("tabnext " .. current_tab)
-  end,
-})
-
--- don't add comment on enter/o/O on comment line
-vim.api.nvim_create_autocmd("BufWinEnter", {
-  group = augroup "no_comment",
-  callback = function()
-    vim.opt.formatoptions:remove { "c", "r", "o" }
   end,
 })

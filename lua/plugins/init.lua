@@ -1,10 +1,5 @@
 return {
   {
-    "nvim-lua/plenary.nvim",
-    lazy = true,
-  },
-
-  {
     "NvChad/nvim-colorizer.lua",
     event = { "BufReadPost", "BufNewFile" },
     config = function()
@@ -27,37 +22,6 @@ return {
   },
 
   {
-    "olexsmir/gopher.nvim",
-    event = "VeryLazy",
-  },
-
-  {
-    "numToStr/Comment.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("Comment").setup {
-        ignore = "^$",
-        mappings = {
-          extra = false,
-        },
-      }
-    end,
-  },
-
-  {
-    "windwp/nvim-ts-autotag",
-    event = "InsertEnter",
-  },
-
-  {
-    "JoosepAlviste/nvim-ts-context-commentstring",
-    lazy = true,
-    opts = {
-      enable_autocmd = false,
-    },
-  },
-
-  {
     "SmiteshP/nvim-navic",
     opts = {
       highlight = true,
@@ -70,12 +34,7 @@ return {
   {
     "kylechui/nvim-surround",
     event = "VeryLazy",
-  },
-
-  {
-    "mbbill/undotree",
-    cmd = "UndotreeToggle",
-    keys = { { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Toggle Undo Tree" } },
+    opts = {},
   },
 
   {
@@ -87,80 +46,61 @@ return {
     end,
   },
 
+  { "folke/neodev.nvim" },
+
+  {
+    "ojroques/nvim-bufdel",
+    keys = { { "<BS>", "<cmd>BufDel<cr>", desc = "buffer delete" } },
+    opts = {
+      next = "tabs",
+      quit = false,
+    },
+  },
+
+  {
+    "lukas-reineke/headlines.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opts = function()
+      local opts = {}
+      opts["markdown"] = {
+        headline_highlights = {},
+        -- disable bullets for now. See https://github.com/lukas-reineke/headlines.nvim/issues/66
+        bullets = {},
+      }
+      for i = 1, 6 do
+        local hl = "Headline" .. i
+        vim.api.nvim_set_hl(0, hl, { link = "Headline", default = true })
+        table.insert(opts["markdown"].headline_highlights, hl)
+      end
+      return opts
+    end,
+    ft = { "markdown" },
+    config = function(_, opts)
+      -- PERF: schedule to prevent headlines slowing down opening a file
+      vim.schedule(function()
+        require("headlines").setup(opts)
+        require("headlines").refresh()
+      end)
+    end,
+  },
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle" },
     build = function()
       vim.fn["mkdp#util#install"]()
     end,
-    keys = { { "<leader>d", ft = "markdown", "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown Preview" } },
+    keys = { { "<leader>d", ft = "markdown", "<cmd>MarkdownPreviewToggle<cr>", desc = "markdown preview" } },
     config = function()
       vim.cmd "do FileType"
     end,
   },
 
   {
-    "zbirenbaum/copilot.lua",
-    cmd = { "Copilot" },
+    "echasnovski/mini.nvim",
     config = function()
-      require("copilot").setup {
-        suggestion = {
-          auto_trigger = false,
-          keymap = {
-            accept = "<M-Enter>",
-            next = "<M-\\>",
-            prev = "<M-S-\\>",
-            dismiss = "<M-Backspace>",
-          },
-        },
-        filetypes = {
-          yaml = false,
-          markdown = false,
-          help = false,
-        },
-      }
-    end,
-  },
-
-  { "folke/neodev.nvim" },
-
-  {
-    "Bekaboo/dropbar.nvim",
-  },
-
-  {
-    "christoomey/vim-tmux-navigator",
-    cmd = {
-      "TmuxNavigateLeft",
-      "TmuxNavigateDown",
-      "TmuxNavigateUp",
-      "TmuxNavigateRight",
-      "TmuxNavigatePrevious",
-    },
-    keys = {
-      { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-      { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-      { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-      { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-      { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
-    },
-  },
-
-  {
-    "rcarriga/nvim-notify",
-    event = "VeryLazy",
-    opts = {
-      timeout = 1000,
-      render = "minimal",
-      max_height = function()
-        return math.floor(vim.o.lines * 0.75)
-      end,
-      max_width = function()
-        return math.floor(vim.o.columns * 0.75)
-      end,
-    },
-    init = function()
-      vim.notify = require "notify"
+      require("mini.align").setup()
     end,
   },
 }

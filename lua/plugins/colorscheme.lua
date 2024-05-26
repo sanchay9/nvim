@@ -5,7 +5,7 @@ return {
     opts = {
       style = "night",
       transparent = false,
-      sidebars = { "terminal" },
+      sidebars = { "terminal", "qf", "help" },
       day_brightness = 0.2,
       on_highlights = function(hl, c)
         local prompt = "#2d3149"
@@ -16,8 +16,9 @@ return {
         hl.TelescopePromptTitle = { bg = prompt, fg = prompt }
         hl.TelescopePreviewTitle = { bg = c.bg_dark, fg = c.bg_dark }
         hl.TelescopeResultsTitle = { bg = c.bg_dark, fg = c.bg_dark }
-        -- hl.CursorLine = { bg = "none" }
+        hl.CursorLine = { bg = "none" }
         hl.CursorLineNr = { fg = c.fg }
+        hl.WinSeparator = { fg = "#000000" }
 
         local colours = { c.magenta, c.cyan, c.blue }
         math.randomseed(os.time())
@@ -35,6 +36,7 @@ return {
         alpha = true,
         cmp = true,
         flash = true,
+        headlines = true,
         gitsigns = true,
         illuminate = true,
         indent_blankline = { enabled = true },

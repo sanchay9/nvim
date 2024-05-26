@@ -16,25 +16,9 @@ return {
         return fg and { fg = string.format("#%06x", fg) } or nil
       end
 
-      local function get_clients(opts)
-        local ret = {} ---@type lsp.Client[]
-        if vim.lsp.get_clients then
-          ret = vim.lsp.get_clients(opts)
-        else
-          ---@diagnostic disable-next-line: deprecated
-          ret = vim.lsp.get_active_clients(opts)
-          if opts and opts.method then
-            ---@param client lsp.Client
-            ret = vim.tbl_filter(function(client)
-              return client.supports_method(opts.method, { bufnr = opts.bufnr })
-            end, ret)
-          end
-        end
-        return opts and opts.filter and vim.tbl_filter(opts.filter, ret) or ret
-      end
-
       local custom = require "lualine.themes.auto"
-      custom.normal.c.bg = fg("EndOfBuffer").fg
+      -- custom.normal.c.bg = fg("EndOfBuffer").fg
+      custom.normal.c.bg = nil
 
       return {
         options = {
@@ -53,14 +37,14 @@ return {
           },
           lualine_b = {
             { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-            { "filename", path = 1 },
+            { "filename", path = 1, separator = "", padding = { left = 0, right = 1 } },
             "branch",
           },
           lualine_c = {
             { "diagnostics" },
             {
-              require("noice").api.statusline.mode.get,
-              cond = require("noice").api.statusline.mode.has,
+              require("noice").api.status.mode.get,
+              cond = require("noice").api.status.mode.has,
               color = "DiagnosticWarn",
             },
           },
@@ -69,35 +53,6 @@ return {
               require("lazy.status").updates,
               cond = require("lazy.status").has_updates,
               color = "DiagnosticError",
-            },
-            {
-              function()
-                local status = require("copilot.api").status.data
-                return " " .. (status.message or "")
-              end,
-              cond = function()
-                if not package.loaded["copilot"] then
-                  return
-                end
-                local ok, clients = pcall(get_clients, { name = "copilot", bufnr = 0 })
-                if not ok then
-                  return false
-                end
-                return ok and #clients > 0
-              end,
-              color = function()
-                if not package.loaded["copilot"] then
-                  return
-                end
-                local colors = {
-                  [""] = fg "Special",
-                  ["Normal"] = fg "Special",
-                  ["Warning"] = fg "DiagnosticError",
-                  ["InProgress"] = fg "DiagnosticWarn",
-                }
-                local status = require("copilot.api").status.data
-                return colors[status.status] or colors[""]
-              end,
             },
             { "diff" },
           },
@@ -111,14 +66,13 @@ return {
         extensions = {
           "lazy",
           "mason",
-          "nvim-tree",
           "man",
           "trouble",
           "oil",
           "nvim-dap-ui",
           "quickfix",
-          "toggleterm",
           "symbols-outline",
+          "fugitive",
         },
       }
     end,

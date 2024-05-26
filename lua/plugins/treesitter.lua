@@ -18,7 +18,6 @@ return {
         ensure_installed = {
           "c",
           "cpp",
-          "go",
           "lua",
           "python",
           "rust",
@@ -29,6 +28,7 @@ return {
           "css",
           "markdown",
           "regex",
+          "vimdoc",
           "zathurarc",
           "hyprlang",
           "json",
@@ -36,6 +36,8 @@ return {
           "go",
           "gomod",
           "gosum",
+          "gowork",
+          "http",
         },
         ignore_install = { "javascript" },
         highlight = {

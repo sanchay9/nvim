@@ -32,6 +32,7 @@ return {
         "golangci-lint",
         "goimports",
         "golines",
+        "gofumpt",
         "texlab",
       },
 

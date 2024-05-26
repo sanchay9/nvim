@@ -108,7 +108,7 @@ return {
 
       return {
         completion = {
-          completeopt = "menu,menuone,noinsert,noselect",
+          completeopt = "menu,menuone,noinsert",
         },
         snippet = {
           expand = function(args)
@@ -121,8 +121,8 @@ return {
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(), -- manually trigger completion
-          ["<C-e>"] = cmp.mapping.abort(),
           ["<C-y>"] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Insert, select = true },
+          ["<C-e>"] = cmp.mapping.abort(),
           ["<S-CR>"] = cmp.mapping.confirm {
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
@@ -147,40 +147,40 @@ return {
         }),
         window = {
           completion = {
-            -- border = border "CmpBorder",
+            border = border "CmpBorder",
             side_padding = 2,
             scrollbar = true,
           },
           documentation = {
-            -- border = border "CmpDocBorder",
+            border = border "CmpDocBorder",
           },
         },
-        formatting = {
-          fields = { "abbr", "kind", "menu" },
-          format = function(_, item)
-            local icons = require("plugins.configs.icons").lspkind
-            item.kind = string.format("%s %s", (" " .. icons[item.kind] .. " "), item.kind)
-
-            -- item.menu = ({
-            --   nvim_lsp = "[LSP]",
-            --   nvim_lua = "[Lua]",
-            --   luasnip = "[Snippet]",
-            --   buffer = "[Buffer]",
-            --   path = "[Path]",
-            -- })[_.source.name]
-
-            return item
-          end,
-        },
-        -- formatting = { -- vscode
-        --   fields = { "kind", "abbr" },
+        -- formatting = {
+        --   fields = { "abbr", "kind", "menu" },
         --   format = function(_, item)
         --     local icons = require("plugins.configs.icons").lspkind
-        --     item.abbr = string.sub(item.abbr, 1, 30)
-        --     item.kind = icons[item.kind] or ""
+        --     item.kind = string.format("%s %s", (" " .. icons[item.kind] .. " "), item.kind)
+        --
+        --     -- item.menu = ({
+        --     --   nvim_lsp = "[LSP]",
+        --     --   nvim_lua = "[Lua]",
+        --     --   luasnip = "[Snippet]",
+        --     --   buffer = "[Buffer]",
+        --     --   path = "[Path]",
+        --     -- })[_.source.name]
+        --
         --     return item
         --   end,
         -- },
+        formatting = { -- vscode
+          fields = { "kind", "abbr" },
+          format = function(_, item)
+            local icons = require("plugins.configs.icons").lspkind
+            item.abbr = string.sub(item.abbr, 1, 30)
+            item.kind = icons[item.kind] or ""
+            return item
+          end,
+        },
         experimental = {
           ghost_text = {
             hl_group = "CmpGhostText",

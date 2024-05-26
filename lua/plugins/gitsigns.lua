@@ -31,9 +31,9 @@ return {
         local opts = { buffer = bufnr }
 
         -- Navigation through hunks
-        vim.keymap.set("n", "]c", function()
+        vim.keymap.set("n", "]h", function()
           if vim.wo.diff then
-            return "]c"
+            return "]h"
           end
           vim.schedule(function()
             gs.next_hunk()
@@ -41,9 +41,9 @@ return {
           return "<Ignore>"
         end, { expr = true, buffer = bufnr })
 
-        vim.keymap.set("n", "[c", function()
+        vim.keymap.set("n", "[h", function()
           if vim.wo.diff then
-            return "[c"
+            return "[h"
           end
           vim.schedule(function()
             gs.prev_hunk()
@@ -52,8 +52,8 @@ return {
         end, { expr = true, buffer = bufnr })
 
         -- Actions
-        vim.keymap.set({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>", opts)
-        vim.keymap.set({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>", opts)
+        vim.keymap.set({ "n", "v" }, "<leader>hs", "<cmd>Gitsigns stage_hunk<CR>", opts)
+        vim.keymap.set({ "n", "v" }, "<leader>hr", "<cmd>Gitsigns reset_hunk<CR>", opts)
         vim.keymap.set("n", "<leader>hp", gs.preview_hunk, opts)
         -- vim.keymap.set('n', '<leader>hS', gs.stage_buffer, opts)
         -- vim.keymap.set('n', '<leader>hu', gs.undo_stage_hunk, opts)
@@ -64,7 +64,7 @@ return {
         -- vim.keymap.set('n', '<leader>tb', gs.toggle_current_line_blame, opts)
         -- vim.keymap.set('n', '<leader>hd', gs.diffthis, opts)
         -- vim.keymap.set('n', '<leader>hD', function() gs.diffthis('~') end, opts)
-        vim.keymap.set("n", "<leader>td", gs.toggle_deleted, opts)
+        -- vim.keymap.set("n", "<leader>td", gs.toggle_deleted, opts)
       end,
     },
   },

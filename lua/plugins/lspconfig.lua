@@ -5,38 +5,31 @@ return {
     "williamboman/mason.nvim",
   },
   config = function()
-    vim.fn.sign_define(
-      "DiagnosticSignError",
-      { text = "󰅙", numhl = "DiagnosticSignError", texthl = "DiagnosticSignError" }
-    )
-    vim.fn.sign_define(
-      "DiagnosticSignWarn",
-      { text = "", numhl = "DiagnosticSignWarn", texthl = "DiagnosticSignWarn" }
-    )
-    vim.fn.sign_define(
-      "DiagnosticSignHint",
-      { text = "󰌵", numhl = "DiagnosticSignHint", texthl = "DiagnosticSignHint" }
-    )
-    vim.fn.sign_define(
-      "DiagnosticSignInfo",
-      { text = "󰋼", numhl = "DiagnosticSignInfo", texthl = "DiagnosticSignInfo" }
-    )
-
     vim.diagnostic.config {
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = "󰅙",
+          [vim.diagnostic.severity.WARN] = "",
+          [vim.diagnostic.severity.HINT] = "󰌵",
+          [vim.diagnostic.severity.INFO] = "󰋼",
+        },
+      },
       -- virtual_text = false,
       virtual_text = {
-        spacing = 20,
+        spacing = 4,
         -- format = function(diagnostic)
         --     if diagnostic.severity == vim.diagnostic.severity.ERROR then
         --         return string.format("E: %s", diagnostic.message)
         --     end
         --     return diagnostic.message
         -- end
+        source = "if_many",
+        prefix = "●",
       },
       float = {
         focusable = false,
         -- style = "minimal",
-        border = "rounded",
+        border = "none",
         -- source = "always",
         header = "",
         prefix = "",
@@ -47,7 +40,7 @@ return {
       signs = true,
       underline = true,
       severity_sort = true,
-      update_in_insert = true,
+      update_in_insert = false,
     }
 
     -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -65,16 +58,11 @@ return {
     local on_attach = function(client, bufnr)
       local opts = { buffer = bufnr, silent = true }
 
-      if client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-        vim.keymap.set("n", "<leader>th", function()
-          vim.lsp.inlay_hint(bufnr, true)
-        end, { desc = "[t]oggle inlay [h]ints" })
-      end
-      -- if client.server_capabilities.inlayHintProvider then
-      --       vim.lsp.buf.inlay_hint(bufnr, true)
-      --   end
-      if client.server_capabilities.hoverProvider then
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+      if client.server_capabilities.inlayHintProvider then
+        vim.keymap.set("n", "<leader>h", function()
+          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = bufnr })
+        end, opts)
+        vim.lsp.inlay_hint.enable()
       end
       if client.server_capabilities.declarationProvider then
         vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
@@ -98,19 +86,15 @@ return {
         vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
       end
       if client.server_capabilities.renameProvider then
-        vim.keymap.set("n", "<leader>rn", function()
-          require("plugins.configs.renamer").open()
-        end, opts)
+        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
       end
       if client.server_capabilities.codeActionProvider then
-        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+        vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
       end
       if client.server_capabilities.referencesProvider then
         vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
       end
       vim.keymap.set("n", "ge", vim.diagnostic.open_float, opts)
-      vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-      vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
       vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
       vim.keymap.set("n", "<leader>l", function()
         vim.lsp.buf.format { async = true }
@@ -188,6 +172,7 @@ return {
           analyses = {
             unusedparams = true,
           },
+          staticcheck = true,
           ["ui.inlayhint.hints"] = {
             compositeLiteralFields = true,
             constantValues = true,
@@ -209,10 +194,17 @@ return {
     lspconfig.lua_ls.setup {
       on_attach = on_attach,
       capabilities = capabilities,
-
       settings = {
         Lua = {
-          diagnostics = { globals = { "vim" } },
+          hint = {
+            enable = true,
+            -- setType = false,
+            -- paramType = true,
+            -- paramName = "Disable",
+            -- semicolon = "Disable",
+            arrayIndex = "Disable",
+          },
+          diagnostics = { globals = { "vim", "hs", "spoon" } },
           runtime = { version = "LuaJIT" },
           workspace = {
             library = {
@@ -220,6 +212,7 @@ return {
               [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
               [vim.fn.stdpath "config" .. "/meta"] = true,
               [vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy"] = true,
+              [vim.fn.expand "$HOME/.hammerspoon/Spoons/EmmyLua.spoon/annotations"] = true,
             },
             maxPreload = 100000,
             preloadFileSize = 10000,
