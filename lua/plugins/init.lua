@@ -18,11 +18,12 @@ return {
 
   {
     "nvim-tree/nvim-web-devicons",
-    event = "VeryLazy",
+    lazy = true,
   },
 
   {
     "SmiteshP/nvim-navic",
+    event = { "BufReadPre", "BufNewFile" },
     opts = {
       highlight = true,
       depth_limit = 0,
@@ -32,29 +33,12 @@ return {
   },
 
   {
-    "kylechui/nvim-surround",
-    event = "VeryLazy",
-    opts = {},
-  },
-
-  {
     "wfxr/minimap.vim",
     cmd = "MinimapToggle",
     config = function()
       vim.g.minimap_width = 14
       vim.g.minimap_git_colors = 1
     end,
-  },
-
-  { "folke/neodev.nvim" },
-
-  {
-    "ojroques/nvim-bufdel",
-    keys = { { "<BS>", "<cmd>BufDel<cr>", desc = "buffer delete" } },
-    opts = {
-      next = "tabs",
-      quit = false,
-    },
   },
 
   {
@@ -97,10 +81,10 @@ return {
     end,
   },
 
-  {
-    "echasnovski/mini.nvim",
-    config = function()
-      require("mini.align").setup()
-    end,
-  },
+  -- {
+  --   "echasnovski/mini.nvim",
+  --   config = function()
+  --     require("mini.align").setup()
+  --   end,
+  -- },
 }

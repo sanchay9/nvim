@@ -6,19 +6,38 @@ return {
       local lualine_require = require "lualine_require"
       lualine_require.require = require
 
-      local function fg(name)
-        ---@type {foreground?:number}?
-        local hl = vim.api.nvim_get_hl and vim.api.nvim_get_hl(0, { name = name })
-          ---@diagnostic disable-next-line: deprecated
-          or vim.api.nvim_get_hl_by_name(name, true)
-        ---@diagnostic disable-next-line: undefined-field
-        local fg = hl and (hl.fg or hl.foreground)
-        return fg and { fg = string.format("#%06x", fg) } or nil
+      local function color(name)
+        local hl = vim.api.nvim_get_hl(0, { name = name, link = false })
+        local colorbg = nil
+        local colorfg = nil
+        if hl then
+          colorbg = hl.bg or hl.background
+          colorfg = hl.fg or hl.foreground
+        end
+        colorbg = colorbg and string.format("#%06x", colorbg) or nil
+        colorfg = colorfg and string.format("#%06x", colorfg) or nil
+        return { bg = colorbg, fg = colorfg }
       end
 
       local custom = require "lualine.themes.auto"
       -- custom.normal.c.bg = fg("EndOfBuffer").fg
       custom.normal.c.bg = nil
+
+      local default_sep_icons = {
+        default = { "", "" },
+        round = { "", "" },
+        block = { "█", "█" },
+        arrow = { "", "" },
+      }
+
+      local separators = default_sep_icons["round"]
+
+      local space = {
+        function()
+          return " "
+        end,
+        color = { bg = color("Normal").bg },
+      }
 
       return {
         options = {
@@ -33,34 +52,73 @@ return {
         },
         sections = {
           lualine_a = {
-            { "mode", separator = { left = " █", right = "█" }, padding = { left = 0, right = 0 } },
+            space,
+            {
+              "mode",
+              separator = { left = separators[1], right = separators[2] },
+              padding = { left = 0, right = 0 },
+            },
           },
           lualine_b = {
-            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-            { "filename", path = 1, separator = "", padding = { left = 0, right = 1 } },
-            "branch",
+            {
+              "filetype",
+              icon_only = true,
+              separator = "",
+              padding = { left = 1, right = 0 },
+            },
+            {
+              "filename",
+              path = 1,
+              separator = { left = "", right = separators[2] },
+              padding = { left = 0, right = 1 },
+            },
+            space,
+            {
+              "branch",
+              icon = "",
+              separator = { left = separators[1], right = separators[2] },
+              padding = { left = 0, right = 0 },
+            },
+            {
+              "diff",
+              separator = { left = separators[1], right = separators[2] },
+              symbols = { added = " ", modified = " ", removed = " " },
+            },
           },
           lualine_c = {
-            { "diagnostics" },
+            -- stylua: ignore
             {
-              require("noice").api.status.mode.get,
-              cond = require("noice").api.status.mode.has,
-              color = "DiagnosticWarn",
+              function() return require("noice").api.status.mode.get() end,
+              cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
+              color = "Constant",
+            },
+            {
+              function()
+                return "  " .. require("dap").status()
+              end,
+              cond = function()
+                return package.loaded["dap"] and require("dap").status() ~= ""
+              end,
+              color = "Debug",
             },
           },
           lualine_x = {
             {
               require("lazy.status").updates,
               cond = require("lazy.status").has_updates,
-              color = "DiagnosticError",
+              color = "Special",
             },
-            { "diff" },
+            { "diagnostics" },
           },
-          lualine_y = {
-            { "progress", separator = " ", padding = { left = 1, right = 1 } },
-          },
+          lualine_y = {},
           lualine_z = {
-            { "location", separator = { right = "█ " }, padding = { left = 0, right = 0 } },
+            {
+              "location",
+              color = { gui = "bold" },
+              separator = { left = separators[1], right = separators[2] },
+              padding = { left = 0, right = 0 },
+            },
+            space,
           },
         },
         extensions = {

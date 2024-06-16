@@ -1,14 +1,15 @@
 return {
   {
-    "vhyrro/luarocks.nvim",
-    branch = "go-away-python",
-    priority = 1000,
-    config = true,
-  },
-  {
     "rest-nvim/rest.nvim",
     ft = "http",
-    dependencies = { "luarocks.nvim" },
+    dependencies = {
+      {
+        "vhyrro/luarocks.nvim",
+        branch = "go-away-python",
+        priority = 1000,
+        config = true,
+      },
+    },
     config = function()
       require("rest-nvim").setup {
         client = "curl",

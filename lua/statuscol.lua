@@ -12,7 +12,7 @@ function M.get_signs(buf, lnum)
   ---@type Sign[]
   local signs = {}
 
-  if vim.fn.has("nvim-0.10") == 0 then
+  if vim.fn.has "nvim-0.10" == 0 then
     -- Only needed for Neovim <0.10
     -- Newer versions include legacy signs in nvim_buf_get_extmarks
     for _, sign in ipairs(vim.fn.sign_getplaced(buf, { group = "*", lnum = lnum })[1].signs) do
@@ -56,7 +56,7 @@ function M.get_mark(buf, lnum)
   local marks = vim.fn.getmarklist(buf)
   vim.list_extend(marks, vim.fn.getmarklist())
   for _, mark in ipairs(marks) do
-    if mark.pos[1] == buf and mark.pos[2] == lnum and mark.mark:match("[a-zA-Z]") then
+    if mark.pos[1] == buf and mark.pos[2] == lnum and mark.mark:match "[a-zA-Z]" then
       return { text = mark.mark:sub(2), texthl = "DiagnosticHint" }
     end
   end
@@ -103,7 +103,7 @@ function M.statuscolumn()
     ---@type Sign?,Sign?,Sign?
     local left, right, fold
     for _, s in ipairs(M.get_signs(buf, vim.v.lnum)) do
-      if s.name and s.name:find("GitSign") then
+      if s.name and s.name:find "GitSign" then
         right = s
       else
         left = s

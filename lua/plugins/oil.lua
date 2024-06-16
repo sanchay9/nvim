@@ -12,17 +12,15 @@ return {
         -- "size",
         -- "mtime",
       },
-      buf_options = {
-        number = false,
-      },
       win_options = {
+        number = false,
         statuscolumn = " ",
       },
       float = {
         win_options = {
           winblend = 10,
         },
-        override = function(conf)
+        override = function()
           return {
             border = "single",
             relative = "editor",

@@ -5,7 +5,7 @@ end
 vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter" }, {
   group = augroup "term_enter",
   callback = function()
-    vim.cmd.startinsert()
+    -- vim.cmd.startinsert()
     vim.opt_local.nu = false
   end,
 })
@@ -78,10 +78,12 @@ vim.api.nvim_create_autocmd("FileType", {
     "spectre_panel",
     "DressingSelect",
     "dap-repl",
+    "dap-float",
     "fugitive",
     "fugitiveblame",
     "tsplayground",
     "startuptime",
+    "neotest-summary",
     "neotest-output",
     "neotest-output-panel",
   },

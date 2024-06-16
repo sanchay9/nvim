@@ -27,7 +27,7 @@ return {
         prefix = "●",
       },
       float = {
-        focusable = false,
+        focusable = true,
         -- style = "minimal",
         border = "none",
         -- source = "always",
@@ -89,14 +89,25 @@ return {
         vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
       end
       if client.server_capabilities.codeActionProvider then
-        vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+        -- vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+        vim.keymap.set({ "n", "v" }, "<leader>ca", function()
+          require("fzf-lua").lsp_code_actions {
+            winopts = {
+              relative = "cursor",
+              width = 0.6,
+              height = 0.6,
+              row = 1,
+              preview = { vertical = "up:70%" },
+            },
+          }
+        end)
       end
       if client.server_capabilities.referencesProvider then
         vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
       end
       vim.keymap.set("n", "ge", vim.diagnostic.open_float, opts)
       vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
-      vim.keymap.set("n", "<leader>l", function()
+      vim.keymap.set("n", "<leader>f", function()
         vim.lsp.buf.format { async = true }
       end, opts)
 
@@ -131,7 +142,6 @@ return {
       },
     }
 
-    require("neodev").setup()
     local lspconfig = require "lspconfig"
 
     local servers = { "cssls", "tsserver", "html", "marksman", "eslint", "texlab", "pyright" }
@@ -152,12 +162,32 @@ return {
       flags = {
         debounce_text_changes = 300,
       },
-      root_dir = vim.loop.cwd,
+      root_dir = function(fname)
+        return require("lspconfig.util").root_pattern(
+          "Makefile",
+          "configure.ac",
+          "configure.in",
+          "config.h.in",
+          "meson.build",
+          "meson_options.txt",
+          "build.ninja"
+        )(fname) or require("lspconfig.util").root_pattern("compile_commands.json", "compile_flags.txt")(fname) or require(
+          "lspconfig.util"
+        ).find_git_ancestor(fname)
+      end,
       cmd = {
         "clangd",
         "--background-index",
-        "--completion-style=bundled",
-        -- "--header-insertion=never",
+        "--clang-tidy",
+        "--header-insertion=iwyu",
+        "--completion-style=detailed",
+        "--function-arg-placeholders",
+        "--fallback-style=llvm",
+      },
+      init_options = {
+        usePlaceholders = true,
+        completeUnimported = true,
+        clangdFileStatus = true,
       },
     }
 
@@ -168,16 +198,47 @@ return {
       root_dir = require("lspconfig/util").root_pattern("go.work", "go.mod"),
       settings = {
         gopls = {
-          usePlaceholders = false,
-          analyses = {
-            unusedparams = true,
+          codelenses = {
+            generate = true, -- show the `go generate` lens.
+            gc_details = true, -- Show a code lens toggling the display of gc's choices.
+            test = true,
+            tidy = true,
+            vendor = true,
+            regenerate_cgo = true,
+            upgrade_dependency = true,
           },
-          staticcheck = true,
-          ["ui.inlayhint.hints"] = {
+          analyses = {
+            unreachable = true,
+            nilness = true,
+            unusedparams = true,
+            useany = true,
+            unusedwrite = true,
+            ST1003 = true,
+            undeclaredname = true,
+            fillreturns = true,
+            nonewvars = true,
+            fieldalignment = false,
+            shadow = true,
+          },
+          hints = {
             compositeLiteralFields = true,
             constantValues = true,
             parameterNames = true,
+            assignVariableTypes = false,
+            compositeLiteralTypes = true,
+            functionTypeParameters = true,
+            rangeVariableTypes = true,
           },
+          usePlaceholders = false,
+          completeUnimported = true,
+          staticcheck = true,
+          matcher = "Fuzzy",
+          diagnosticsDelay = "500ms",
+          symbolMatcher = "fuzzy",
+          semanticTokens = true,
+          noSemanticString = true, -- disable semantic string tokens so we can use treesitter highlight injection
+          gofumpt = true,
+          buildFlags = { "-tags", "integration" },
         },
       },
     }

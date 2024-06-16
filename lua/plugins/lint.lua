@@ -1,13 +1,12 @@
 return {
   {
     "mfussenegger/nvim-lint",
-    -- event = "LazyFile",
     opts = {
       events = { "BufWritePost", "BufReadPost", "InsertLeave" },
       linters_by_ft = {
         markdown = { "markdownlint" },
         javascript = { "eslint" },
-        -- go = { "golangcilint" },
+        go = { "golangcilint" },
       },
       linters = {
         markdownlint = {

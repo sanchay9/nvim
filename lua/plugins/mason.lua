@@ -21,6 +21,7 @@ return {
         "markdownlint",
         "clangd",
         "clang-format",
+        "latexindent",
         "bash-language-server",
         "pyright",
         "black",
@@ -33,6 +34,7 @@ return {
         "goimports",
         "golines",
         "gofumpt",
+        "delve",
         "texlab",
       },
 

@@ -19,6 +19,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
+    enabled = false,
     dependencies = {
       {
         "nvim-telescope/telescope-fzf-native.nvim",
@@ -43,7 +44,6 @@ return {
       "nvim-telescope/telescope-symbols.nvim",
     },
     keys = {
-
       { "<leader>ff", "<cmd>lua require'telescope.builtin'.find_files()<cr>", desc = "Find Files" },
       {
         "<leader>f.",

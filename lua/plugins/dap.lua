@@ -19,62 +19,78 @@ return {
     { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
     { "<leader>da", function() require("dap").continue({ before = get_args }) end, desc = "Run with Args" },
     { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
-    { "<leader>dg", function() require("dap").goto_() end, desc = "Go to line (no execute)" },
     { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
     { "<leader>dj", function() require("dap").down() end, desc = "Down" },
     { "<leader>dk", function() require("dap").up() end, desc = "Up" },
-    { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last" },
     { "<leader>dO", function() require("dap").step_out() end, desc = "Step Out" },
     { "<leader>do", function() require("dap").step_over() end, desc = "Step Over" },
-    { "<leader>dp", function() require("dap").pause() end, desc = "Pause" },
-    { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
-    { "<leader>ds", function() require("dap").session() end, desc = "Session" },
+    { "<leader>dt", function() require("dap").repl.toggle({wrap=true,nu=false}, "botright split") end, desc = "Toggle REPL" },
     { "<leader>dq", function() require("dap").terminate() end, desc = "Terminate" },
-    { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
+    { "<leader>de", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
+    { "<Leader>df", function() local widgets = require('dap.ui.widgets') widgets.centered_float(widgets.frames) end },
+    { "<Leader>dp", function() local widgets = require('dap.ui.widgets') widgets.centered_float(widgets.scopes) end },
   },
-
   dependencies = {
-    {
-      "rcarriga/nvim-dap-ui",
-      keys = {
-        { "<leader>dt", "<cmd>lua require('dapui').toggle({ })<cr>", desc = "Dap UI Toggle" },
-        { "<leader>de", "<cmd>lua require('dapui').eval()<cr>", desc = "Eval", mode = { "n", "v" } },
-      },
-      opts = {},
-      config = function(_, opts)
-        local dapui = require "dapui"
-        dapui.setup(opts)
-        -- local dap = require "dap"
-        -- dap.listeners.after.event_initialized["dapui_config"] = function()
-        --   dapui.open {}
-        -- end
-        -- dap.listeners.before.event_terminated["dapui_config"] = function()
-        --   dapui.close {}
-        -- end
-        -- dap.listeners.before.event_exited["dapui_config"] = function()
-        --   dapui.close {}
-        -- end
-      end,
-    },
     {
       "theHamsta/nvim-dap-virtual-text",
       opts = {},
     },
-    {
-      "jay-babu/mason-nvim-dap.nvim",
-      dependencies = "mason.nvim",
-      cmd = { "DapInstall", "DapUninstall" },
-      opts = {
-        automatic_installation = true,
-        handlers = {},
-        ensure_installed = { "go" },
-      },
-    },
   },
-
   config = function()
+    local dap = require "dap"
+
+    dap.adapters.delve = {
+      type = "server",
+      port = "${port}",
+      executable = {
+        command = "dlv",
+        args = { "dap", "-l", "127.0.0.1:${port}" },
+      },
+    }
+
+    dap.configurations.go = {
+      {
+        type = "delve",
+        name = "Debug",
+        request = "launch",
+        program = "${workspaceFolder}",
+      },
+      {
+        type = "delve",
+        name = "Debug test",
+        request = "launch",
+        mode = "test",
+        program = "${file}",
+      },
+    }
+
+    dap.adapters.codelldb = {
+      type = "server",
+      host = "localhost",
+      port = "${port}",
+      executable = {
+        command = "codelldb",
+        args = {
+          "--port",
+          "${port}",
+        },
+      },
+    }
+
+    dap.configurations.cpp = {
+      {
+        type = "codelldb",
+        request = "launch",
+        name = "Launch file",
+        program = function()
+          return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+        end,
+        cwd = "${workspaceFolder}",
+      },
+    }
+
     local icons = {
-      Stopped = { "󰁕 ", "DiagnosticWarn", "DapStoppedLine" },
+      Stopped = { " ", "DiagnosticWarn", "DapStoppedLine" },
       Breakpoint = " ",
       BreakpointCondition = " ",
       BreakpointRejected = { " ", "DiagnosticError" },

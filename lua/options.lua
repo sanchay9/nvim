@@ -58,6 +58,9 @@ end
 
 vim.filetype.add {
   pattern = {
-    ["${XDG_CONFIG_HOME}/hypr/.*%.conf"] = "hyprlang",
+    [".*/waybar/config"] = "jsonc",
+    [".*/kitty/.+%.conf"] = "bash",
+    [".*/hypr/.+%.conf"] = "hyprlang",
+    ["%.env%.[%w_.-]+"] = "sh",
   },
 }

@@ -18,7 +18,8 @@ return {
         hl.TelescopeResultsTitle = { bg = c.bg_dark, fg = c.bg_dark }
         hl.CursorLine = { bg = "none" }
         hl.CursorLineNr = { fg = c.fg }
-        hl.WinSeparator = { fg = "#000000" }
+        hl.WinSeparator = { fg = c.bg_dark }
+        hl.FzfLuaBorder = { fg = c.blue }
 
         local colours = { c.magenta, c.cyan, c.blue }
         math.randomseed(os.time())

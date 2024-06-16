@@ -10,7 +10,7 @@ return {
       },
       {
         "nvim-treesitter/nvim-treesitter-context",
-        opts = { mode = "cursor" },
+        opts = { mode = "cursor", max_lines = 3 },
       },
     },
     config = function()
@@ -33,6 +33,9 @@ return {
           "hyprlang",
           "json",
           "gitcommit",
+          "git_config",
+          "dap_repl",
+          "rasi",
           "go",
           "gomod",
           "gosum",
