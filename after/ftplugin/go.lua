@@ -23,18 +23,10 @@ end
 
 vim.keymap.set("n", "<C-'>", function()
   vim.cmd "wa"
-  vim.api.nvim_chan_send(get_term_id(), "clear; go run " .. vim.fn.expand "%" .. "\n")
-end, { buffer = true })
-
-vim.keymap.set("n", "<leader>i", function()
-  if vim.fn.bufloaded(vim.fn.expand "~" .. "/code/lab/input") == 0 then
-    vim.cmd [[sp ~/code/lab/input | resize 15 | vs ~/code/lab/output | wincmd k]]
-    -- vim.cmd [[vs ~/code/lab/input | vertical resize 80 | set winfixwidth | sp ~/code/lab/output | wincmd h]]
-  else
-    vim.cmd [[wa | bunload input output]]
-  end
-
-  print " "
+  -- vim.api.nvim_chan_send(get_term_id(), "clear; go run " .. vim.fn.expand "%" .. "\n")
+  vim.fn.jobstart(
+    "sleep 2; kitty @ launch --keep-focus --hold --cwd=" .. vim.uv.cwd() .. " go run " .. vim.fn.expand "%"
+  )
 end, { buffer = true })
 
 -- don't add comment on enter/o/O on comment line

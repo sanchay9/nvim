@@ -1,13 +1,17 @@
 return {
   {
     "folke/todo-comments.nvim",
-    cmd = { "TodoTrouble", "TodoTelescope" },
-    config = true,
-    -- stylua: ignore
+    cmd = "TodoTrouble",
+    opts = {},
     keys = {
-      { "]t", function() require("todo-comments").jump_next() end, desc = "next todo comment" },
-      { "[t", function() require("todo-comments").jump_prev() end, desc = "previous todo comment" },
-      { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "todo trouble" },
+      { "<leader>xt", "<cmd>Trouble todo toggle<cr>", desc = "Todo (Trouble)" },
+      {
+        "<leader>st",
+        function()
+          require("todo-comments.fzf").todo()
+        end,
+        desc = "Todo",
+      },
     },
   },
 }

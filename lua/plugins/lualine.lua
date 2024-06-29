@@ -70,7 +70,7 @@ return {
               "filename",
               path = 1,
               separator = { left = "", right = separators[2] },
-              padding = { left = 0, right = 1 },
+              padding = { left = 0, right = 0 },
             },
             space,
             {

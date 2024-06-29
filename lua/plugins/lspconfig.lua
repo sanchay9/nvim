@@ -68,15 +68,18 @@ return {
         vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
       end
       if client.server_capabilities.definitionProvider then
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+        -- vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+        vim.keymap.set("n", "gd", "<cmd>FzfLua lsp_definitions jump_to_single_result=true ignore_current_line=true<cr>")
       end
       if client.server_capabilities.implementationProvider then
-        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+        -- vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+        vim.keymap.set(
+          "n",
+          "gi",
+          "<cmd>FzfLua lsp_implementations jump_to_single_result=true ignore_current_line=true<cr>"
+        )
       end
-      -- if client.server_capabilities.signatureHelpProvider then
-      --   require("plugins.configs.signature").setup(client)
-      --   vim.keymap.set("i", "<c-k>", vim.lsp.buf.signature_help, opts)
-      -- end
+      vim.keymap.set("n", "gy", "<cmd>FzfLua lsp_typedefs jump_to_single_result=true ignore_current_line=true<cr>")
       vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
       vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
       vim.keymap.set("n", "<leader>wl", function()
@@ -103,10 +106,11 @@ return {
         end)
       end
       if client.server_capabilities.referencesProvider then
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+        -- vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+        vim.keymap.set("n", "gr", "<cmd>FzfLua lsp_references jump_to_single_result=true ignore_current_line=true<cr>")
       end
       vim.keymap.set("n", "ge", vim.diagnostic.open_float, opts)
-      vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
+      -- vim.keymap.set("n", "<leader>q", vim.diagnostic.setqflist, opts)
       vim.keymap.set("n", "<leader>f", function()
         vim.lsp.buf.format { async = true }
       end, opts)
@@ -152,7 +156,7 @@ return {
         flags = {
           debounce_text_changes = 300,
         },
-        root_dir = vim.loop.cwd,
+        root_dir = vim.uv.cwd,
       }
     end
 

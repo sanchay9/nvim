@@ -30,6 +30,14 @@ vim.opt.cmdheight = 0
 vim.opt.colorcolumn = "120"
 vim.opt.shortmess:append "sI" -- disable nvim intro screen
 vim.opt.fillchars = {
+  horiz = "━",
+  horizup = "┻",
+  horizdown = "┳",
+  vert = "┃",
+  vertleft = "┫",
+  vertright = "┣",
+  verthoriz = "╋",
+
   foldopen = "",
   foldclose = "",
   -- fold = "⸱",

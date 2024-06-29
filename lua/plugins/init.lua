@@ -1,19 +1,11 @@
 return {
   {
     "NvChad/nvim-colorizer.lua",
-    event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("colorizer").setup {
-        filetypes = {
-          "*",
-          "!NvimTree",
-        },
-      }
-
-      vim.defer_fn(function()
-        require("colorizer").attach_to_buffer(0)
-      end, 0)
-    end,
+    ft = { "css", "scss" },
+    cmd = "ColorizerToggle",
+    opts = {
+      filetypes = { "*" },
+    },
   },
 
   {

@@ -39,12 +39,18 @@ end
 
 vim.keymap.set("n", "<C-'>", function()
   vim.cmd "wa"
-  vim.api.nvim_chan_send(get_term_id(), "clear; ch samples " .. vim.fn.expand "%:r" .. "\n")
+  vim.api.nvim_chan_send(
+    get_term_id(),
+    "clear; ch samples " .. vim.fn.expand "%:r" .. " " .. vim.api.nvim_get_vvar "servername" .. "\n"
+  )
 end, { buffer = true })
 
 vim.keymap.set("n", "<C-S-'>", function()
   vim.cmd "wa"
-  vim.api.nvim_chan_send(get_term_id(), "clear; ch run " .. vim.fn.expand "%:r" .. "\n")
+  vim.api.nvim_chan_send(
+    get_term_id(),
+    "clear; ch run " .. vim.fn.expand "%:r" .. " " .. vim.api.nvim_get_vvar "servername" .. "\n"
+  )
 end, { buffer = true })
 
 vim.keymap.set("n", "<leader>n", 'gg"_dG<CMD> 0r ~/code/template/templatesingle.cpp | :9<CR>i    ', { buffer = true })
@@ -60,9 +66,9 @@ vim.keymap.set("n", "<leader>m", 'gg"_dG<CMD> 0r ~/code/template/templatemulti.c
 -- end
 
 vim.keymap.set("n", "<leader>i", function()
-  if vim.fn.bufloaded(vim.fn.expand "~" .. "/code/lab/input") == 0 then
-    vim.cmd [[sp ~/code/lab/input | resize 15 | vs ~/code/lab/output | wincmd k]]
-    -- vim.cmd [[vs ~/code/lab/input | vertical resize 80 | set winfixwidth | sp ~/code/lab/output | wincmd h]]
+  if vim.fn.bufloaded(vim.fn.expand "~" .. "/code/bin/input") == 0 then
+    vim.cmd [[sp ~/code/bin/input | resize 15 | vs ~/code/bin/output | wincmd k]]
+    -- vim.cmd [[vs ~/code/bin/input | vertical resize 80 | set winfixwidth | sp ~/code/bin/output | wincmd h]]
   else
     vim.cmd [[wa | bunload input output]]
   end

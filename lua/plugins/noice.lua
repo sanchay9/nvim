@@ -9,25 +9,32 @@ return {
       { "<leader>`", function() require("noice").cmd("history") end, desc = "Noice History" },
       { "<leader>sna", function() require("noice").cmd("all") end, desc = "Noice All" },
       { "<leader>snd", function() require("noice").cmd("dismiss") end, desc = "Dismiss All" },
+      { "<c-f>", function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end, silent = true, expr = true, desc = "Scroll forward", mode = {"i", "n", "s"} },
+      { "<c-b>", function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true, expr = true, desc = "Scroll backward", mode = {"i", "n", "s"}},
     },
     opts = {
       cmdline = {
+        opts = {
+          border = {
+            -- style = "none",
+            -- padding = { "1", "2" },
+            text = {
+              top = "",
+            },
+          },
+        },
         format = {
-          search_down = { kind = "search", pattern = "^/", icon = " ", lang = "regex" },
-          search_up = { kind = "search", pattern = "^%?", icon = "  ", lang = "regex" },
+          search_down = { kind = "search", pattern = "^/", icon = " ", lang = "regex" },
+          search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex" },
           lua = { pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" }, icon = " ", lang = "lua" },
+          cmdline = { pattern = "^:", icon = "", lang = "vim" },
         },
       },
       views = {
         cmdline_popup = {
-          border = {
-            style = "none",
-            padding = { 1, 1 },
-          },
-          filter_options = {},
-          win_options = {
-            winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-          },
+          -- win_options = {
+          --   winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+          -- },
         },
       },
       lsp = {

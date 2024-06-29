@@ -33,6 +33,12 @@ vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
+vim.keymap.set("n", "<leader>qt", function()
+  local qf_winid = vim.fn.getqflist({ winid = 0 }).winid
+  local action = qf_winid > 0 and "cclose" or "copen"
+  vim.cmd("botright " .. action)
+end, { silent = true })
+
 vim.keymap.set("n", "<bs>", function()
   local buf = vim.api.nvim_get_current_buf()
 

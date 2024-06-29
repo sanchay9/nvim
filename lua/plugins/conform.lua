@@ -4,7 +4,7 @@ return {
     dependencies = { "mason.nvim" },
     event = "BufWritePre",
     cmd = "ConformInfo",
-    config = function()
+    config = function(_, opts)
       require("conform").setup {
         format_on_save = {
           -- These options will be passed to conform.format()
@@ -25,7 +25,13 @@ return {
           sh = { "shfmt" },
           zsh = { "shfmt" },
           cpp = { "clang-format" },
+          sql = { "sqlfluff" },
           ["*"] = { "trim_whitespace" },
+        },
+        formatters = {
+          sqlfluff = {
+            args = { "format", "--dialect=postgres", "-" },
+          },
         },
       }
     end,

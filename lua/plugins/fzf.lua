@@ -3,6 +3,7 @@ return {
     "ibhagwan/fzf-lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     cmd = "FzfLua",
+    event = "VeryLazy",
     -- stylua: ignore
     keys = {
       { "<leader>ff",    "<cmd>lua require('fzf-lua').files()<cr>",                                            desc = "Find Files" },
@@ -10,6 +11,7 @@ return {
       { "<leader>gg",    "<cmd>lua require('fzf-lua').live_grep_native()<cr>",                                 desc = "Grep" },
       { "<leader>g.",    "<cmd>lua require('fzf-lua').live_grep_native({ cwd = vim.fn.expand('%:p:h') })<cr>", desc = "Grep in cwd", },
       { "<leader>r",     "<cmd>lua require('fzf-lua').oldfiles()<cr>",                                         desc = "Recent Files" },
+      { "<leader>hh",    "<cmd>lua require('fzf-lua').helptags()<cr>",                                         desc = "Help" },
       { "<leader>b",     "<cmd>lua require('fzf-lua').buffers()<cr>",                                          desc = "Buffers", },
       { "<leader><esc>", "<cmd>lua require('fzf-lua').files({ resume = true })<cr>",                           desc = "Resume last prompt", },
       -- { "<leader>.", "<cmd>lua require'telescope.builtin'.symbols{ sources = {'nerd'} }<cr>", desc = "Nerd Font Symbols", },
@@ -17,14 +19,18 @@ return {
     },
     opts = {
       file_ignore_patterns = { "vendor/.*", "node_modules/.*", ".*%.jpg", ".*%.png", ".*%.gif", ".*%.jpeg" },
-      -- fzf_colors = true,
+      fzf_colors = true,
       keymap = {
         builtin = {
-          ["<F3>"] = "toggle-preview-wrap",
           ["<leader>p"] = "toggle-preview",
           ["<leader>f"] = "toggle-fullscreen",
           ["<C-f>"] = "preview-page-down",
           ["<C-b>"] = "preview-page-up",
+        },
+      },
+      builtin = {
+        extensions = {
+          ["dir"] = { "ls" },
         },
       },
       global_git_icons = false,
@@ -39,8 +45,7 @@ return {
         ["--info"] = "hidden",
         -- ["--padding"] = "2%,2%,2%,2%",
         ["--header"] = " ",
-        ["--pointer"] = "▶",
-        -- ["--no-scrollbar"] = "",
+        ["--pointer"] = "▌",
       },
       files = {
         file_icons = true,
