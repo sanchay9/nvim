@@ -34,7 +34,6 @@ return {
           "json",
           "gitcommit",
           "git_config",
-          "dap_repl",
           "rasi",
           "go",
           "gomod",
