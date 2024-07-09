@@ -27,6 +27,7 @@ return {
           "html",
           "css",
           "markdown",
+          "markdown_inline",
           "regex",
           "vimdoc",
           "zathurarc",
