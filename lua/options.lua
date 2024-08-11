@@ -65,6 +65,9 @@ for _, provider in ipairs { "node", "perl", "python3", "ruby" } do
 end
 
 vim.filetype.add {
+  extension = {
+    http = "http",
+  },
   pattern = {
     [".*/waybar/config"] = "jsonc",
     [".*/kitty/.+%.conf"] = "bash",
