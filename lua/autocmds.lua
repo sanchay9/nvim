@@ -29,22 +29,24 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
-  desc = "open oil on directory",
-  group = augroup "oil",
+  desc = "open oil on directory, alpha on no args",
+  group = augroup "vim enter",
   callback = function(data)
     if vim.fn.isdirectory(data.file) == 1 then
       vim.cmd.cd(data.file)
-      require("lazy").load { plugins = { "oil.nvim" } }
-    end
-  end,
-})
+      require("oil").open(data.file)
+    else
+      if vim.fn.argc() > 0 or vim.fn.line2byte "$" ~= -1 or not vim.o.modifiable then
+        return
+      end
 
-vim.api.nvim_create_autocmd("BufReadPost", {
-  desc = "open selected and close qf",
-  group = augroup "close_qf",
-  pattern = "quickfix",
-  callback = function(event)
-    vim.keymap.set("n", "<leader><CR>", "<cr><cmd>cclose<cr>", { buffer = event.buf, silent = true })
+      for _, arg in pairs(vim.v.argv) do
+        if arg == "-b" or arg == "-c" or vim.startswith(arg, "+") or arg == "-S" then
+          return
+        end
+      end
+      require("alpha").start()
+    end
   end,
 })
 

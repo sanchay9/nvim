@@ -1,7 +1,7 @@
 return {
   {
     "goolord/alpha-nvim",
-    event = "VimEnter",
+    cmd = "Alpha",
     keys = {
       { "<leader>,", "<cmd>Alpha<cr>", desc = "open alpha" },
     },
