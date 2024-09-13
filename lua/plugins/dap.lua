@@ -35,6 +35,10 @@ return {
       "theHamsta/nvim-dap-virtual-text",
       opts = {},
     },
+    {
+      "leoluz/nvim-dap-go",
+      opts = {},
+    },
   },
   config = function()
     local dap = require "dap"
@@ -54,13 +58,6 @@ return {
         name = "Debug",
         request = "launch",
         program = "${workspaceFolder}",
-      },
-      {
-        type = "delve",
-        name = "Debug test",
-        request = "launch",
-        mode = "test",
-        program = "${file}",
       },
     }
 
@@ -96,7 +93,7 @@ return {
       BreakpointRejected = { " ", "DiagnosticError" },
       LogPoint = ".>",
     }
-    vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
+    vim.api.nvim_set_hl(0, "DapStoppedLine", { default = false, link = "Visual" })
     for name, sign in pairs(icons) do
       sign = type(sign) == "table" and sign or { sign }
       vim.fn.sign_define(
