@@ -3,28 +3,27 @@ return {
     "nvim-neotest/neotest",
     dependencies = {
       "nvim-neotest/nvim-nio",
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-neotest/neotest-go",
+      "fredrikaverpil/neotest-golang",
     },
     -- stylua: ignore
     keys = {
       { "<leader>tt", function() require("neotest").run.run() end, desc = "Test Nearest" },
+      { "<leader>td", function() require("neotest").run.run({strategy = "dap"}) end, desc = "Debug Nearest" },
       { "<leader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Test File" },
       { "<leader>t.", function() require("neotest").run.run(vim.fn.expand("%:p:h")) end, desc = "Test Directory" },
       { "<leader>ta", function() require("neotest").run.run(vim.uv.cwd()) end, desc = "Test All" },
-      { "<leader>ts", function() require("neotest").run.stop() end, desc = "Stop" },
+      { "<leader>tq", function() require("neotest").run.stop() end, desc = "Test Terminate" },
       { "<leader>to", function() require("neotest").summary.toggle() end, desc = "Toggle Summary" },
       { "<leader>te", function() require("neotest").output.open({ enter = false, auto_close = true }) end, desc = "Show Output" },
       { "<leader>tp", function() require("neotest").output_panel.toggle() end, desc = "Toggle Output Panel" },
-      { "[u", function() require("neotest").jump.prev() end, desc = "Prev test" },
-      { "]u", function() require("neotest").jump.next() end, desc = "Next test" },
+      { "[t", function() require("neotest").jump.prev() end, desc = "Prev test" },
+      { "]t", function() require("neotest").jump.next() end, desc = "Next test" },
     },
     opts = {
       adapters = {
-        ["neotest-go"] = {
-          -- args = { "-tags=integration" }
-          recursive_run = true,
+        ["neotest-golang"] = {
+          -- go_test_args = { "-v", "-race", "-count=1", "-timeout=60s" },
+          dap_go_enabled = true,
         },
       },
       status = { virtual_text = false },
@@ -72,8 +71,8 @@ return {
               end
             end
           end)
+          return {}
         end
-        return {}
       end
 
       if opts.adapters then
@@ -90,6 +89,9 @@ return {
               local meta = getmetatable(adapter)
               if adapter.setup then
                 adapter.setup(config)
+              elseif adapter.adapter then
+                adapter.adapter(config)
+                adapter = adapter.adapter
               elseif meta and meta.__call then
                 adapter(config)
               else

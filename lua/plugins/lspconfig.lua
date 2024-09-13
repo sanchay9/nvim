@@ -29,7 +29,7 @@ return {
       float = {
         focusable = true,
         -- style = "minimal",
-        border = "none",
+        border = "rounded",
         -- source = "always",
         header = "",
         prefix = "",
@@ -37,7 +37,6 @@ return {
           return string.format("%s\n(%s) [%s]", diagnostic.message, diagnostic.source, diagnostic.code)
         end,
       },
-      signs = true,
       underline = true,
       severity_sort = true,
       update_in_insert = false,
@@ -51,7 +50,7 @@ return {
     --   -- focusable = false,
     --   -- relative = "cursor",
     -- })
-    require("lspconfig.ui.windows").default_options.border = "none"
+    -- require("lspconfig.ui.windows").default_options.border = "none"
 
     local navic = require "nvim-navic"
 
@@ -148,7 +147,7 @@ return {
 
     local lspconfig = require "lspconfig"
 
-    local servers = { "cssls", "tsserver", "html", "marksman", "eslint", "texlab", "pyright" }
+    local servers = { "cssls", "ts_ls", "html", "marksman", "eslint", "texlab", "pyright" }
     for _, lsp in ipairs(servers) do
       lspconfig[lsp].setup {
         on_attach = on_attach,
@@ -278,6 +277,7 @@ return {
               [vim.fn.stdpath "config" .. "/meta"] = true,
               [vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy"] = true,
               [vim.fn.expand "$HOME/.hammerspoon/Spoons/EmmyLua.spoon/annotations"] = true,
+              ["${3rd}/luv/library"] = true,
             },
             maxPreload = 100000,
             preloadFileSize = 10000,

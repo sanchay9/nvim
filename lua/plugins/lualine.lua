@@ -30,13 +30,14 @@ return {
         arrow = { "", "" },
       }
 
-      local separators = default_sep_icons["round"]
+      local separators = default_sep_icons["block"]
 
       local space = {
         function()
           return " "
         end,
         color = { bg = color("Normal").bg },
+        padding = { left = 0, right = 0 },
       }
 
       return {
@@ -55,6 +56,7 @@ return {
             space,
             {
               "mode",
+              color = { gui = "bold" },
               separator = { left = separators[1], right = separators[2] },
               padding = { left = 0, right = 0 },
             },
@@ -73,6 +75,8 @@ return {
               padding = { left = 0, right = 0 },
             },
             space,
+            "kulala",
+            "require'lsp-status'.status()",
             {
               "branch",
               icon = "",
@@ -83,6 +87,7 @@ return {
               "diff",
               separator = { left = separators[1], right = separators[2] },
               symbols = { added = " ", modified = " ", removed = " " },
+              padding = { left = 1, right = 0 },
             },
           },
           lualine_c = {

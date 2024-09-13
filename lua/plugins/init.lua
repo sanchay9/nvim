@@ -41,41 +41,48 @@ return {
   },
 
   {
-    "wfxr/minimap.vim",
-    cmd = "MinimapToggle",
-    config = function()
-      vim.g.minimap_width = 14
-      vim.g.minimap_git_colors = 1
-    end,
-  },
-
-  {
-    "lukas-reineke/headlines.nvim",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
-    opts = function()
-      local opts = {}
-      opts["markdown"] = {
-        headline_highlights = {},
-        -- disable bullets for now. See https://github.com/lukas-reineke/headlines.nvim/issues/66
-        bullets = {},
-      }
-      for i = 1, 6 do
-        local hl = "Headline" .. i
-        vim.api.nvim_set_hl(0, hl, { link = "Headline", default = true })
-        table.insert(opts["markdown"].headline_highlights, hl)
-      end
-      return opts
-    end,
-    ft = { "markdown" },
-    config = function(_, opts)
-      -- PERF: schedule to prevent headlines slowing down opening a file
-      vim.schedule(function()
-        require("headlines").setup(opts)
-        require("headlines").refresh()
-      end)
-    end,
+    -- "echasnovski/mini.map",
+    -- "Isrothy/neominimap.nvim",
+    -- setup = function()
+    --   require("mini.map").setup()
+    -- end,
+    -- opts = {
+    --   -- Highlight integrations (none by default)
+    --   integrations = nil,
+    --
+    --   -- Symbols used to display data
+    --   symbols = {
+    --     -- Encode symbols. See `:h MiniMap.config` for specification and
+    --     -- `:h MiniMap.gen_encode_symbols` for pre-built ones.
+    --     -- Default: solid blocks with 3x2 resolution.
+    --     encode = nil,
+    --
+    --     -- Scrollbar parts for view and line. Use empty string to disable any.
+    --     scroll_line = "█",
+    --     scroll_view = "┃",
+    --   },
+    --
+    --   -- Window options
+    --   window = {
+    --     -- Whether window is focusable in normal way (with `wincmd` or mouse)
+    --     focusable = false,
+    --
+    --     -- Side to stick ('left' or 'right')
+    --     side = "right",
+    --
+    --     -- Whether to show count of multiple integration highlights
+    --     show_integration_count = true,
+    --
+    --     -- Total width
+    --     width = 10,
+    --
+    --     -- Value of 'winblend' option
+    --     winblend = 25,
+    --
+    --     -- Z-index
+    --     zindex = 10,
+    --   },
+    -- },
   },
   {
     "iamcco/markdown-preview.nvim",

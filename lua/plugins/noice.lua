@@ -30,13 +30,13 @@ return {
           cmdline = { pattern = "^:", icon = "", lang = "vim" },
         },
       },
-      views = {
-        cmdline_popup = {
-          -- win_options = {
-          --   winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-          -- },
-        },
-      },
+      -- views = {
+      --   cmdline_popup = {
+      --     win_options = {
+      --       winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+      --     },
+      --   },
+      -- },
       lsp = {
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
