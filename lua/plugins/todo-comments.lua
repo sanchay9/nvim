@@ -1,17 +1,10 @@
 return {
   {
     "folke/todo-comments.nvim",
-    cmd = "TodoTrouble",
+    cmd = { "TodoTrouble", "TodoFzfLua" },
     opts = {},
     keys = {
-      { "<leader>xt", "<cmd>Trouble todo toggle<cr>", desc = "Todo (Trouble)" },
-      {
-        "<leader>st",
-        function()
-          require("todo-comments.fzf").todo()
-        end,
-        desc = "Todo",
-      },
+      { "<leader>t", "<cmd>TodoFzfLua<cr>", desc = "Todo" },
     },
   },
 }
