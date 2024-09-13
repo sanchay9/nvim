@@ -27,7 +27,7 @@ vim.opt.cursorline = true
 vim.opt.laststatus = 3 -- global statusline
 vim.opt.linebreak = true
 vim.opt.cmdheight = 0
-vim.opt.colorcolumn = "120"
+-- vim.opt.colorcolumn = "120"
 vim.opt.shortmess:append "sI" -- disable nvim intro screen
 vim.opt.fillchars = {
   horiz = "━",

@@ -6,7 +6,6 @@ return {
       style = "night",
       transparent = false,
       sidebars = { "terminal", "qf", "help" },
-      day_brightness = 0.2,
       on_highlights = function(hl, c)
         -- local prompt = "#2d3149"
         -- hl.TelescopeNormal = { bg = c.bg_dark, fg = c.fg_dark }
@@ -16,7 +15,7 @@ return {
         -- hl.TelescopePromptTitle = { bg = prompt, fg = prompt }
         -- hl.TelescopePreviewTitle = { bg = c.bg_dark, fg = c.bg_dark }
         -- hl.TelescopeResultsTitle = { bg = c.bg_dark, fg = c.bg_dark }
-        hl.CursorLine = { bg = "none" }
+        -- hl.CursorLine = { bg = "none" }
         hl.CursorLineNr = { fg = c.fg }
         hl.FzfLuaBorder = { fg = c.blue }
 

@@ -39,6 +39,21 @@ vim.keymap.set("n", "<leader>qt", function()
   vim.cmd("botright " .. action)
 end, { silent = true })
 
+-- Toggle the quickfix/loclist window.
+-- When toggling these, ignore error messages and restore the cursor to the original window when opening the list.
+local silent_mods = { mods = { silent = true, emsg_silent = true } }
+vim.keymap.set("n", "<leader>xq", function()
+  if vim.fn.getqflist({ winid = 0 }).winid ~= 0 then
+    vim.cmd.cclose(silent_mods)
+  elseif #vim.fn.getqflist() > 0 then
+    local win = vim.api.nvim_get_current_win()
+    vim.cmd.copen(silent_mods)
+    if win ~= vim.api.nvim_get_current_win() then
+      vim.cmd.wincmd "p"
+    end
+  end
+end, { desc = "Toggle quickfix list" })
+
 vim.keymap.set("n", "<bs>", function()
   local buf = vim.api.nvim_get_current_buf()
 

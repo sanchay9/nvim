@@ -33,43 +33,29 @@ return {
       --     "https://vtip.43z.one",
       --   })
       --   :wait().stdout,
-      local project_list = {
-        vim.fn.expand "~" .. "/.config",
-        vim.fn.expand "~" .. "/bin",
-        vim.fn.expand "~" .. "/notes",
-      }
 
       db.section.buttons.val = {
-        db.button("w", "  Notes", "<cmd>cd ~/docs/notes | e index.md<cr>"),
-        -- db.button("c", "  Config", "<cmd>cd ~/.config/nvim | lua require('fzf-lua').args()<cr>"),
-        db.button("c", "  Workdirs", function()
+        db.button("w", "  notes", function()
+          vim.uv.chdir(vim.uv.os_homedir() .. "/docs/notes")
+          vim.cmd.e "index.md"
+        end),
+
+        db.button("c", "  workdirs", function()
           local fzf_lua = require "fzf-lua"
           fzf_lua.files {
-            fzf_opts = {
-              ["--preview"] = function(selected)
-                local newcwd = vim.fs.normalize(selected[1]:match "[^ ]*$")
-                return vim.fn.system("eza --tree --icons " .. newcwd)
-              end,
-            },
             cmd = "fd --min-depth 1 --max-depth 1 --type d . ~ ~/work ~/work/learngo ~/personal ~/.config",
             actions = {
-              ["default"] = function(selected)
+              ["enter"] = function(selected)
                 if not selected[1] then
                   return
                 end
-                -- local newcwd = vim.fs.normalize(selected[1]:match "[^ ]*$")
-                local p = string.find(selected[1], "~")
-                if p == nil then
-                  vim.notify("no ~ in path", vim.log.levels.ERROR)
-                  return
-                end
-                local newcwd = string.sub(selected[1], p)
+                local newcwd = string.sub(selected[1], 8)
                 fzf_lua.files {
                   cwd = newcwd,
                   actions = {
-                    ["default"] = function(selecte, opts)
+                    ["enter"] = function(selecte, opts)
                       require("fzf-lua").actions.file_edit(selecte, opts)
-                      vim.cmd("cd " .. newcwd)
+                      vim.uv.chdir(vim.fn.expand(newcwd))
                     end,
                   },
                 }
@@ -77,7 +63,8 @@ return {
             },
           }
         end),
-        db.button("q", "  Quit", vim.cmd.q),
+
+        db.button("q", "  quit", vim.cmd.q),
       }
 
       for _, button in ipairs(db.section.buttons.val) do

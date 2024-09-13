@@ -24,6 +24,7 @@ end
 vim.keymap.set("n", "<C-'>", function()
   vim.cmd "wa"
   -- vim.api.nvim_chan_send(get_term_id(), "clear; go run " .. vim.fn.expand "%" .. "\n")
+  -- TODO: replace with vim.system ?
   vim.fn.jobstart(
     "sleep 2; kitty @ launch --keep-focus --hold --cwd=" .. vim.uv.cwd() .. " go run " .. vim.fn.expand "%"
   )

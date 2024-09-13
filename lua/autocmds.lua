@@ -84,6 +84,7 @@ vim.api.nvim_create_autocmd("FileType", {
   desc = "close ft with q",
   group = augroup "close_with_q",
   pattern = {
+    "gitsigns-blame",
     "PlenaryTestPopup",
     "dashboard",
     "Jaq",
