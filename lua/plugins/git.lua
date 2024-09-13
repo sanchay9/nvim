@@ -13,6 +13,11 @@ return {
   -- },
 
   {
+    "sindrets/diffview.nvim",
+    cmd = "DiffviewOpen",
+  },
+
+  {
     "NeogitOrg/neogit",
     dependencies = {
       "nvim-lua/plenary.nvim",
