@@ -51,18 +51,19 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
     if vim.fn.isdirectory(data.file) == 1 then
       vim.cmd.cd(data.file)
       require("oil").open(data.file)
-    else
-      if vim.fn.argc() > 0 or vim.fn.line2byte "$" ~= -1 or not vim.o.modifiable then
+      return
+    end
+
+    if vim.fn.argc() > 0 or vim.fn.line2byte "$" ~= -1 or not vim.o.modifiable then
+      return
+    end
+
+    for _, arg in pairs(vim.v.argv) do
+      if arg == "-b" or arg == "-c" or vim.startswith(arg, "+") or arg == "-S" then
         return
       end
-
-      for _, arg in pairs(vim.v.argv) do
-        if arg == "-b" or arg == "-c" or vim.startswith(arg, "+") or arg == "-S" then
-          return
-        end
-      end
-      require("alpha").start()
     end
+    require("alpha").start()
   end,
 })
 
