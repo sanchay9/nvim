@@ -12,4 +12,15 @@ return {
     "dstein64/vim-startuptime",
     cmd = "StartupTime",
   },
+  {
+    "nvzone/showkeys",
+    cmd = "ShowkeysToggle",
+    opts = {
+      timeout = 1,
+      maxkeys = 5,
+      show_count = false,
+      position = "bottom-right",
+    },
+    dependencies = { "NvChad/volt" },
+  },
 }
