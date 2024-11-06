@@ -12,7 +12,7 @@ return {
       "nvim-telescope/telescope.nvim",
     },
     keys = {
-      { "<leader>gs", "<cmd>Neogit kind=split<cr>", desc = "Neogit" },
+      { "<leader>gs", "<cmd>Neogit kind=split_below_all<cr>", desc = "Neogit" },
       { "<leader>gc", "<cmd>Neogit commit<cr>", desc = "Neogit Commit" },
       { "<leader>gb", "<cmd>Neogit branch<cr>", desc = "Neogit Branch" },
       { "<leader>gp", "<cmd>Neogit pull<cr>", desc = "Neogit Pull" },
