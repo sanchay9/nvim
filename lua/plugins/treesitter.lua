@@ -1,50 +1,15 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPost", "BufNewFile" },
-    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
-    dependencies = {
-      {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-      },
-      {
-        "nvim-treesitter/nvim-treesitter-context",
-        opts = { mode = "cursor", max_lines = 3 },
-      },
+    event = { "BufReadPost", "BufNewFile" },
+    lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
+    keys = {
+      { "<c-space>", desc = "Increment Selection" },
     },
     config = function()
       require("nvim-treesitter.configs").setup {
-        ensure_installed = {
-          "c",
-          "cpp",
-          "lua",
-          "python",
-          "rust",
-          "typescript",
-          "java",
-          "bash",
-          "html",
-          "css",
-          "markdown",
-          "markdown_inline",
-          "regex",
-          "vimdoc",
-          "zathurarc",
-          "hyprlang",
-          "json",
-          "yaml",
-          "gitcommit",
-          "git_config",
-          "rasi",
-          "go",
-          "gomod",
-          "gosum",
-          "gowork",
-          "http",
-          "terraform",
-        },
-        ignore_install = { "javascript" },
+        ensure_installed = "all",
         highlight = {
           enable = true,
           disable = function(lang, buf)
@@ -54,19 +19,16 @@ return {
               return true
             end
           end,
-          additional_vim_regex_highlighting = false,
         },
+        indent = { enable = true },
         incremental_selection = {
           enable = true,
           keymaps = {
-            init_selection = "<C-space>", -- set to `false` to disable one of the mappings
+            init_selection = "<C-space>",
             node_incremental = "<C-space>",
-            scope_incremental = "<C-s>",
+            scope_incremental = false,
             node_decremental = "<C-backspace>",
           },
-        },
-        indent = {
-          enable = true,
         },
         textobjects = {
           select = {
@@ -114,5 +76,15 @@ return {
         },
       }
     end,
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    event = "VeryLazy",
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = "VeryLazy",
+    opts = { mode = "cursor", max_lines = 3 },
   },
 }

@@ -30,7 +30,7 @@ return {
         arrow = { "", "" },
       }
 
-      local separators = default_sep_icons["block"]
+      local separators = default_sep_icons["round"]
 
       local space = {
         function()

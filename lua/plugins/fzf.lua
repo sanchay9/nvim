@@ -33,6 +33,7 @@ return {
       end
     end,
     opts = {
+      fzf_colors = true,
       file_ignore_patterns = { "vendor/.*", "node_modules/.*", ".*%.jpg", ".*%.png", ".*%.gif", ".*%.jpeg" },
       keymap = {
         builtin = {
