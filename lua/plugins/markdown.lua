@@ -82,6 +82,28 @@ return {
       "nvim-treesitter/nvim-treesitter",
       "echasnovski/mini.icons",
     },
-    opts = {},
+    opts = {
+      file_types = { "markdown" },
+      code = {
+        sign = false,
+        width = "block",
+        right_pad = 1,
+      },
+      heading = {
+        -- icons = { "◉ ", "○ ", "✸ ", "✿ " },
+      },
+    },
+  },
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle" },
+    build = function()
+      require("lazy").load { plugins = { "markdown-preview.nvim" } }
+      vim.fn["mkdp#util#install"]()
+    end,
+    keys = { { "<leader>d", ft = "markdown", "<cmd>MarkdownPreviewToggle<cr>", desc = "markdown preview" } },
+    config = function()
+      vim.cmd "do FileType"
+    end,
   },
 }
