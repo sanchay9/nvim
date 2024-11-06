@@ -8,21 +8,6 @@ return {
       large_file_overrides = {
         providers = { "lsp" },
       },
-      filetypes_denylist = {
-        "markdown",
-        "dirvish",
-        "fugitive",
-        "alpha",
-        "NvimTree",
-        "lazy",
-        "neogitstatus",
-        "Trouble",
-        "lir",
-        "Outline",
-        "spectre_panel",
-        "toggleterm",
-        "TelescopePrompt",
-      },
     },
     config = function(_, opts)
       require("illuminate").configure(opts)
@@ -36,13 +21,18 @@ return {
       map("]]", "next")
       map("[[", "prev")
 
+      -- also set it after loading ftplugins, since a lot overwrite [[ and ]]
       vim.api.nvim_create_autocmd("FileType", {
         callback = function()
-          map("]]", "next", vim.api.nvim_get_current_buf())
-          map("[[", "prev", vim.api.nvim_get_current_buf())
+          local buffer = vim.api.nvim_get_current_buf()
+          map("]]", "next", buffer)
+          map("[[", "prev", buffer)
         end,
       })
     end,
-    keys = { { "]]", desc = "Next Reference" }, { "[[", desc = "Prev Reference" } },
+    keys = {
+      { "]]", desc = "Next Reference" },
+      { "[[", desc = "Prev Reference" },
+    },
   },
 }
