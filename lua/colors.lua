@@ -2,6 +2,7 @@ local mode = "light"
 if
   vim.uv.os_uname().sysname == "Darwin"
     and vim.system({ "defaults", "read", "-g", "AppleInterfaceStyle" }):wait().stdout == "Dark\n"
+  or vim.system({ "gsettings", "get", "org.gnome.desktop.interface", "color-scheme" }):wait().stdout == "'prefer-dark'\n"
   or vim
       .system({
         "gdbus",
