@@ -19,8 +19,16 @@ return {
       desc = "Prev Reference",
       mode = { "n", "t" },
     },
+    {
+      "<leader>gx",
+      function()
+        Snacks.gitbrowse()
+      end,
+      desc = "Git Browse",
+    },
   },
   opts = {
+    quickfile = { enabled = true },
     words = { enabled = true },
   },
 }

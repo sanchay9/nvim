@@ -16,15 +16,30 @@ return {
       },
       -- virtual_text = false,
       virtual_text = {
+        format = function(diagnostic)
+          return diagnostic.message .. " "
+        end,
         spacing = 4,
-        -- format = function(diagnostic)
-        --     if diagnostic.severity == vim.diagnostic.severity.ERROR then
-        --         return string.format("E: %s", diagnostic.message)
-        --     end
-        --     return diagnostic.message
-        -- end
         source = "if_many",
-        prefix = "●",
+        prefix = " ■",
+      },
+      inlay_hints = {
+        enabled = true,
+        exclude = { "vue" },
+      },
+      codelens = {
+        enabled = false,
+      },
+      document_highlight = {
+        enabled = true,
+      },
+      capabilities = {
+        workspace = {
+          fileOperations = {
+            didRename = true,
+            willRename = true,
+          },
+        },
       },
       float = {
         focusable = true,
@@ -78,6 +93,12 @@ return {
           "<cmd>FzfLua lsp_implementations jump_to_single_result=true ignore_current_line=true<cr>"
         )
       end
+
+      if client.supports_method "textDocument/codeLens" then
+        vim.keymap.set("n", "<leader>cl", vim.lsp.codelens.run, opts)
+        vim.keymap.set("n", "<leader>cr", vim.lsp.codelens.refresh, opts)
+      end
+
       vim.keymap.set("n", "gy", "<cmd>FzfLua lsp_typedefs jump_to_single_result=true ignore_current_line=true<cr>")
       vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
       vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
@@ -113,8 +134,6 @@ return {
       vim.keymap.set("n", "<leader>f", function()
         vim.lsp.buf.format { async = true }
       end, opts)
-
-      -- require("illuminate").on_attach(client)
 
       if client.server_capabilities.documentSymbolProvider then
         navic.attach(client, bufnr)
@@ -203,11 +222,12 @@ return {
         gopls = {
           codelenses = {
             generate = true, -- show the `go generate` lens.
-            gc_details = true, -- Show a code lens toggling the display of gc's choices.
+            gc_details = false, -- Show a code lens toggling the display of gc's choices.
             test = true,
             tidy = true,
             vendor = true,
             regenerate_cgo = true,
+            run_govulncheck = true,
             upgrade_dependency = true,
           },
           analyses = {
@@ -266,6 +286,9 @@ return {
       capabilities = capabilities,
       settings = {
         Lua = {
+          codeLens = {
+            enable = true,
+          },
           hint = {
             enable = true,
             -- setType = false,
