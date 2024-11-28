@@ -255,6 +255,12 @@ return {
       },
     }
 
+    lspconfig.hyprls.setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+      filetypes = { "hyprlang" },
+    }
+
     lspconfig.lua_ls.setup {
       on_attach = on_attach,
       capabilities = capabilities,

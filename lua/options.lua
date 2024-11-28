@@ -70,7 +70,7 @@ vim.filetype.add {
   },
   pattern = {
     [".*/waybar/config"] = "jsonc",
-    [".*/kitty/.+%.conf"] = "bash",
+    [".*/kitty/.+%.conf"] = "sh",
     [".*/hypr/.+%.conf"] = "hyprlang",
     ["%.env%.[%w_.-]+"] = "sh",
   },

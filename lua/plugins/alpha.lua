@@ -55,7 +55,7 @@ return {
                   actions = {
                     ["enter"] = function(selecte, opts)
                       require("fzf-lua").actions.file_edit(selecte, opts)
-                      vim.uv.chdir(vim.fn.expand(newcwd))
+                      vim.cmd("cd " .. newcwd)
                     end,
                   },
                 }

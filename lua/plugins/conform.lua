@@ -26,6 +26,7 @@ return {
           zsh = { "shfmt" },
           cpp = { "clang-format" },
           sql = { "sqlfluff" },
+          rust = { "rustfmt" },
           ["*"] = { "trim_whitespace" },
         },
         formatters = {
