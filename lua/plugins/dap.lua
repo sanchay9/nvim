@@ -86,13 +86,7 @@ return {
       },
     }
 
-    local icons = {
-      Stopped = { " ", "DiagnosticWarn", "DapStoppedLine" },
-      Breakpoint = " ",
-      BreakpointCondition = " ",
-      BreakpointRejected = { " ", "DiagnosticError" },
-      LogPoint = ".>",
-    }
+    local icons = require("icons").icons.dap
     vim.api.nvim_set_hl(0, "DapStoppedLine", { default = false, link = "Visual" })
     for name, sign in pairs(icons) do
       sign = type(sign) == "table" and sign or { sign }

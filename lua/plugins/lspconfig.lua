@@ -1,17 +1,15 @@
 return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
-  dependencies = {
-    "williamboman/mason.nvim",
-  },
   config = function()
+    local icons = require("icons").icons.diagnostics
     vim.diagnostic.config {
       signs = {
         text = {
-          [vim.diagnostic.severity.ERROR] = "󰅙",
-          [vim.diagnostic.severity.WARN] = "",
-          [vim.diagnostic.severity.HINT] = "󰌵",
-          [vim.diagnostic.severity.INFO] = "󰋼",
+          [vim.diagnostic.severity.ERROR] = icons.Error,
+          [vim.diagnostic.severity.WARN] = icons.Warn,
+          [vim.diagnostic.severity.HINT] = icons.Hint,
+          [vim.diagnostic.severity.INFO] = icons.Info,
         },
       },
       -- virtual_text = false,
