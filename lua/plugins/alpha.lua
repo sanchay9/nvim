@@ -7,7 +7,6 @@ return {
     },
     config = function()
       local db = require "alpha.themes.dashboard"
-      local stats = require("lazy").stats()
 
       -- local term_height = 10
       -- require "alpha.term"
@@ -24,7 +23,6 @@ return {
 
       local logo = require("banners")["vim"]
       db.section.header.val = logo
-      -- db.section.header.val = vim.split(logo, "\n")
 
       -- db.section.footer.val = require "alpha.fortune"
       -- vim
@@ -43,7 +41,7 @@ return {
         db.button("c", "  workdirs", function()
           local fzf_lua = require "fzf-lua"
           fzf_lua.files {
-            cmd = "fd --min-depth 1 --max-depth 1 --type d . ~ ~/work ~/work/learngo ~/personal ~/.config",
+            cmd = "fd --min-depth 1 --max-depth 1 --type d . ~ ~/work ~/work/learngo ~/dev ~/.config 2>/dev/null",
             actions = {
               ["enter"] = function(selected)
                 if not selected[1] then
@@ -55,7 +53,7 @@ return {
                   actions = {
                     ["enter"] = function(selecte, opts)
                       require("fzf-lua").actions.file_edit(selecte, opts)
-                      vim.cmd("cd " .. newcwd)
+                      vim.uv.chdir(vim.fn.expand(newcwd))
                     end,
                   },
                 }
@@ -89,6 +87,7 @@ return {
         once = true,
         pattern = "LazyVimStarted",
         callback = function()
+          local stats = require("lazy").stats()
           db.section.footer.val = "⚡ Neovim loaded "
             .. stats.loaded
             .. "/"

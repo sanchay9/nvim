@@ -41,7 +41,7 @@ vim.keymap.set("n", "<C-'>", function()
   vim.cmd "wa"
   vim.api.nvim_chan_send(
     get_term_id(),
-    "clear; ch samples " .. vim.fn.expand "%:r" .. " " .. vim.api.nvim_get_vvar "servername" .. "\n"
+    "clear; ch samples " .. vim.fn.expand "%:t:r" .. " " .. vim.api.nvim_get_vvar "servername" .. "\n"
   )
 end, { buffer = true })
 
@@ -49,7 +49,7 @@ vim.keymap.set("n", "<C-S-'>", function()
   vim.cmd "wa"
   vim.api.nvim_chan_send(
     get_term_id(),
-    "clear; ch run " .. vim.fn.expand "%:r" .. " " .. vim.api.nvim_get_vvar "servername" .. "\n"
+    "clear; ch run " .. vim.fn.expand "%:t:r" .. " " .. vim.api.nvim_get_vvar "servername" .. "\n"
   )
 end, { buffer = true })
 

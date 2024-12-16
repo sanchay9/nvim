@@ -1,6 +1,6 @@
 return {
   "echasnovski/mini.surround",
-  recommended = true,
+  enabled = false,
   keys = function(_, keys)
     -- Populate the keys based on the user's options
     local mappings = {
