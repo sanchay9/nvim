@@ -1,0 +1,63 @@
+{
+  "feat": {
+    "prefix": "feat",
+    "body": "feat(${1:scope}): ${2:title}"
+  },
+  "fix": {
+    "prefix": "fix",
+    "body": "fix(${1:scope}): ${2:title}"
+  },
+  "docs": {
+    "prefix": "docs",
+    "body": "docs(${1:scope}): ${2:title}"
+  },
+  "style": {
+    "prefix": "style",
+    "body": "style(${1:scope}): ${2:title}"
+  },
+  "refactor": {
+    "prefix": "refactor",
+    "body": "refactor(${1:scope}): ${2:title}"
+  },
+  "perf": {
+    "prefix": "perf",
+    "body": "perf(${1:scope}): ${2:title}"
+  },
+  "test": {
+    "prefix": "test",
+    "body": "test(${1:scope}): ${2:title}"
+  },
+  "build": {
+    "prefix": "build",
+    "body": "build(${1:scope}): ${2:title}"
+  },
+  "ci": {
+    "prefix": "ci",
+    "body": "ci(${1:scope}): ${2:title}"
+  },
+  "chore": {
+    "prefix": "chore",
+    "body": "chore(${1:scope}): ${2:title}"
+  },
+  "co-authored by": {
+    "prefix": "co",
+    "body": [
+      "Co-authored-by: ${1:name} <${2:email}>",
+      "$0"
+    ]
+  },
+  "signed off by": {
+    "prefix": "si",
+    "body": [
+      "Signed-off-by: ${1:name} <${2:email}>",
+      "$0"
+    ]
+  },
+  "on behalf of": {
+    "prefix": "on",
+    "body": [
+      "On-behalf-of: ${1:org} <${2:email}>",
+      "$0"
+    ]
+  }
+}

@@ -1,0 +1,377 @@
+{
+  "import debug header": {
+    "prefix": "dbg",
+    "body": [
+      "#ifdef LOCAL",
+      "#include \"debug.h\"",
+      "#else",
+      "#define dbg(...)",
+      "#endif"
+    ]
+  },
+  "debug var": {
+    "prefix": "d",
+    "body": "dbg($0)"
+  },
+  "add enum": {
+    "prefix": "enum",
+    "body": [
+      "enum ${1:MyEnum} {",
+      "\t$0",
+      "};"
+    ]
+  },
+  "read array": {
+    "prefix": "ina",
+    "body": [
+      "for (auto &x : ${1:a}) cin >> x;",
+      "$0"
+    ]
+  },
+  "write array": {
+    "prefix": "outa",
+    "body": [
+      "for (int i = 0; i < ${1:n}; i++) {",
+      "\tcout << ${2:a}[i] << (i + 1 < $1 ? ' ' : '\\n');",
+      "}",
+      "$0"
+    ]
+  },
+  "priority queue": {
+    "prefix": "pq",
+    "body": [
+      "priority_queue<${1:pair<int, int>}, vector<$1>, greater<$1>> ${2:pq};",
+      "$0"
+    ]
+  },
+  "remove duplicates": {
+    "prefix": "remdup",
+    "body": [
+      "sort(${1:a}.begin(), $1.end()); $1.erase(unique($1.begin(), $1.end()), $1.end());",
+      "$0"
+    ]
+  },
+  "floating point precision": {
+    "prefix": "setpre",
+    "body": "cout << fixed << setprecision($1);"
+  },
+  "prefix sum": {
+    "prefix": "pref",
+    "body": [
+      "vector<int> pref(${1:n} + 1);",
+      "for (int i = 0; i < $1; i++) {",
+      "\tpref[i + 1] = pref[i] + ${2:a}[i];",
+      "}",
+      "$0"
+    ]
+  },
+  "suffix sum": {
+    "prefix": "suff",
+    "body": [
+      "vector<int> suff(${1:n} + 1);",
+      "for (int i = $1 - 1; i >= 0; i--) {",
+      "\tsuff[i] = suff[i + 1] + ${2:a}[i];",
+      "}",
+      "$0"
+    ]
+  },
+  "iterate thru all permutations": {
+    "prefix": "perms",
+    "body": [
+      "do {",
+      "\t$0",
+      "} while (next_permutation(${1:a}.begin(), $1.end()));"
+    ]
+  },
+  "new class": {
+    "prefix": "class",
+    "body": [
+      "/*! \\class ${1:Class name}",
+      " *  \\brief ${3:Brief class description}",
+      " *",
+      " *  ${4:Detailed class description}",
+      " */",
+      "class $1 {",
+      "public:",
+      "    $1(${2});",
+      "    virtual ~$1();",
+      "",
+      "protected:",
+      "    m_${5}; /*!< ${6:Member description} */",
+      "};"
+    ]
+  },
+  "uniform integer distribution": {
+    "prefix": "uid",
+    "body": [
+      "uniform_int_distribution<int>($1, $2)(rng)",
+      "mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());"
+    ]
+  },
+  "square root using binary search": {
+    "prefix": "sqrt",
+    "body": [
+      "int sqrrt(int n) {",
+      "\tint lo = 0, hi = 2e9;",
+      "\twhile (hi - lo > 1) {",
+      "\t\tint mid = lo + (hi - lo) / 2;",
+      "",
+      "\t\tif (mid * mid <= n) lo = mid;",
+      "\t\telse hi = mid;",
+      "\t}",
+      "\treturn lo;",
+      "}"
+    ]
+  },
+  "prime factorisation of a number": {
+    "prefix": "factorise",
+    "body": [
+      "vector<pair<int, int>> primeFactors(int n) {",
+      "\tvector<pair<int, int>> divisors;",
+      "",
+      "\tif (n % 2 == 0) {",
+      "\t\tdivisors.emplace_back(2, 0);",
+      "\t\tdo {",
+      "\t\t\tn /= 2;",
+      "\t\t\t++divisors.back().second;",
+      "\t\t} while (n % 2 == 0);",
+      "\t}",
+      "",
+      "\tfor (int i = 3; i * i <= n; i += 2) {",
+      "\t\tif (n % i == 0) {",
+      "\t\t\tdivisors.emplace_back(i, 0);",
+      "\t\t\tdo {",
+      "\t\t\t\tn /= i;",
+      "\t\t\t\t++divisors.back().second;",
+      "\t\t\t} while (n % i == 0);",
+      "\t\t}",
+      "\t}",
+      "\tif (n > 1) divisors.emplace_back(n, 1);",
+      "\treturn divisors;",
+      "}"
+    ]
+  },
+  "z-function": {
+    "prefix": "zfun",
+    "body": [
+      "vector<int> zFunc(string &s) {",
+      "\tint n = sz(s), l = 0, r = 0;",
+      "\tvector<int> z(n);",
+      "",
+      "\tfor (int i = 1; i < n; i++) {",
+      "\t\tif (i <= r) z[i] = min(r - i + 1, z[i - l]);",
+      "\t\twhile (i + z[i] < n && s[z[i]] == s[i + z[i]]) ++z[i];",
+      "\t\tif (i + z[i] - 1 > r) l = i, r = i + z[i] - 1;",
+      "\t}",
+      "\treturn z;",
+      "}"
+    ]
+  },
+  "prefix function": {
+    "prefix": "preffun",
+    "body": [
+      "vector<int> prefFunc(string &s) {",
+      "\tint n = sz(s);",
+      "\tvector<int> pi(n);",
+      "",
+      "\tfor (int i = 1; i < n; i++) {",
+      "\t\tint j = pi[i - 1];",
+      "\t\twhile (j > 0 && s[i] != s[j]) j = pi[j - 1];",
+      "\t\tif (s[i] == s[j]) ++j;",
+      "\t\tpi[i] = j;",
+      "\t}",
+      "\treturn pi;",
+      "}"
+    ]
+  },
+  "subsets using bitmask": {
+    "prefix": "subset",
+    "body": [
+      "for (int mask = 0; mask < (1 << n) - 1; mask++) {",
+      "\tfor (int j = 0; j < n; j++) {",
+      "\t\tif (mask >> j & 1) {",
+      "\t\t\t$0",
+      "\t\t}",
+      "\t}",
+      "}"
+    ]
+  },
+  "sieve of eratothenes": {
+    "prefix": "sieve",
+    "body": [
+      "int N = 2e5 + 5;",
+      "vector<bool> is_prime(N + 1, true);",
+      "",
+      "void init() {",
+      "\tis_prime[0] = is_prime[1] = false;",
+      "\tfor (int i = 2; i * i <= N; i++) {",
+      "\t\tif (is_prime[i]) {",
+      "\t\t\tfor (int j = i * i; j <= N; j += i) {",
+      "\t\t\t\tis_prime[j] = false;",
+      "\t\t\t}",
+      "\t\t}",
+      "\t}",
+      "}"
+    ]
+  },
+  "check palindrome": {
+    "prefix": "isp",
+    "body": [
+      "bool isPalindrome(const string_view &s) {",
+      "\treturn equal(s.begin(), s.begin() + s.size()/2, s.rbegin());",
+      "}"
+    ]
+  },
+  "disjoint set union": {
+    "prefix": "dsu",
+    "body": [
+      "class DSU {",
+      "\tint n;",
+      "\tvector<vector<int>> graph;",
+      "\tvector<int> label, SZ;",
+      "",
+      "\tvoid init(int _n) {",
+      "\t\tn = _n;",
+      "\t\tgraph = vector<vector<int>> (n);",
+      "\t\tlabel = SZ = vector<int> (n);",
+      "\t\tfor (int i = 0; i < n; i++) {",
+      "\t\t\tSZ[i] = 1; label[i] = i;",
+      "\t\t}",
+      "\t}",
+      "",
+      "\tvoid relabel(int v, int target) { //relabel comp of v to target",
+      "\t\tif (label[v] == target) return;",
+      "\t\tlabel[v] = target;",
+      "",
+      "\t\tfor (int x: graph[v]) relabel(x, target);",
+      "\t}",
+      "",
+      "\tvoid merge(int a, int b) {",
+      "\t\tif (label[a] == label[b]) return;",
+      "",
+      "\t\tgraph[a].push_back(b);",
+      "\t\tgraph[b].push_back(a);",
+      "",
+      "\t\tif (SZ[label[a]] > SZ[label[b]]) swap(a, b); // assume SZ[label[a]] <= SZ[label[b]]",
+      "",
+      "\t\tSZ[label[b]] += SZ[label[a]];",
+      "\t\tSZ[label[a]] = 0;",
+      "\t\trelabel(a, label[b]);",
+      "\t}",
+      "",
+      "\tint find(int n) { return label[n]; }",
+      "};"
+    ]
+  },
+  "modular arithmetic": {
+    "prefix": "mod",
+    "body": [
+      "const int64_t MOD = 1e9 + 7; // 998244353;",
+      "",
+      "int64_t madd(int64_t a, int64_t b) { return (a % MOD + b % MOD) % MOD; }",
+      "int64_t msub(int64_t a, int64_t b) { return ((a - b) % MOD + MOD) % MOD; }",
+      "int64_t mmul(int64_t a, int64_t b) { return ((a % MOD) * (b % MOD)) % MOD; }",
+      "int64_t mpow(int64_t a, int64_t b) {",
+      "\ta %= MOD;",
+      "\tint64_t res = 1;",
+      "\twhile (b > 0) {",
+      "\t\tif (b & 1) res = res * a % MOD;",
+      "\t\ta = a * a % MOD;",
+      "\t\tb >>= 1;",
+      "\t}",
+      "\treturn res;",
+      "}",
+      "int64_t minv(int64_t a) { return mpow(a, MOD - 2); }",
+      "int64_t mdiv(int64_t a, int64_t b) { return mmul(a, minv(b)); }"
+    ]
+  },
+  "combinatorics": {
+    "prefix": "pnc",
+    "body": [
+      "const int64_t NC = 1.1e6; // 2e5 + 5;",
+      "array<int64_t, NC> fact, factinv, inv;",
+      "",
+      "void init() {",
+      "\tfact[0] = fact[1] = 1;",
+      "\tfor (int64_t i = 2; i < NC; i++) {",
+      "\t\tfact[i] = mmul(i, fact[i - 1]);",
+      "\t}",
+      "",
+      "\tinv[1] = 1;",
+      "\tfor (int64_t i = 2; i < NC; i++) {",
+      "\t\tinv[i] = mmul((MOD - MOD / i), inv[MOD % i]);",
+      "\t}",
+      "",
+      "\tfactinv[0] = factinv[1] = 1;",
+      "\tfor (int64_t i = 2; i < NC; i++) {",
+      "\t\tfactinv[i] = mmul(inv[i], factinv[i - 1]);",
+      "\t}",
+      "}",
+      "",
+      "int64_t ncr(int64_t n, int64_t r) {",
+      "\tif (n < r) return 0;",
+      "\treturn mmul(fact[n], mmul(factinv[r], factinv[n - r]));",
+      "}"
+    ]
+  },
+  "policy based data structures": {
+    "prefix": "pbds",
+    "body": [
+      "#include <ext/pb_ds/assoc_container.hpp>",
+      "#include <ext/pb_ds/tree_policy.hpp>",
+      "using namespace __gnu_pbds;",
+      "",
+      "template <typename T> using oset = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;",
+      "// find_by_order(k) return kth element. 0 indexed",
+      "// order_of_key(k) returns count of elements strictly less than k",
+      "",
+      "struct custom_hash {",
+      "\tstatic uint64_t splitmix64(uint64_t x) {",
+      "\t\t// http://xorshift.di.unimi.it/splitmix64.c",
+      "\t\tx += 0x9e3779b97f4a7c15;",
+      "\t\tx = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;",
+      "\t\tx = (x ^ (x >> 27)) * 0x94d049bb133111eb;",
+      "\t\treturn x ^ (x >> 31);",
+      "\t}",
+      "",
+      "\tsize_t operator()(uint64_t x) const {",
+      "\t\tstatic const uint64_t FIXED_RANDOM =",
+      "\t\t\tchrono::steady_clock::now().time_since_epoch().count();",
+      "\t\treturn splitmix64(x + FIXED_RANDOM);",
+      "\t}",
+      "};",
+      "",
+      "template <class K, class V>",
+      "using safe_map = gp_hash_table<K, V, custom_hash>;"
+    ]
+  },
+  "Execution Time": {
+    "prefix": "tim",
+    "body": [
+      "auto begin = std::chrono::high_resolution_clock::now();",
+      "$0",
+      "auto end = std::chrono::high_resolution_clock::now();",
+      "cerr << \"\\nExecution time: \" << std::chrono::duration_cast<std::chrono::duration<double>> (end-begin).count() << \" seconds\\n\";"
+    ]
+  },
+  "Generator Template": {
+    "prefix": "gen",
+    "body": [
+      "#include <bits/stdc++.h>",
+      "using namespace std;",
+      "#define int int64_t",
+      "",
+      "// #define uid(a, b) uniform_int_distribution<int>(a, b)(rng)",
+      "mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());",
+      "",
+      "int randNo(int lower_limit, int upper_limit) {",
+      "\treturn lower_limit + rng() % (upper_limit - lower_limit);",
+      "}",
+      "",
+      "int32_t main() {",
+      "\tios_base::sync_with_stdio(false);",
+      "\tcin.tie(nullptr);",
+      "}"
+    ]
+  }
+}

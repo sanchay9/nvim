@@ -1,0 +1,125 @@
+{
+  "note": {
+    "prefix": "note",
+    "body": "> [!NOTE]\n> ${1:Useful information that users should know, even when skimming content.}"
+  },
+  "tip": {
+    "prefix": "tip",
+    "body": "> [!TIP]\n> ${1:Helpful advice for doing things better or more easily.}"
+  },
+  "important": {
+    "prefix": "important",
+    "body": "> [!IMPORTANT]\n> ${1:Key information users need to know to achieve their goal.}"
+  },
+  "Warning": {
+    "prefix": "warning",
+    "body": "> [!WARNING]\n> ${1:Urgent info that needs immediate user attention to avoid problems.}"
+  },
+  "caution": {
+    "prefix": "caution",
+    "body": "> [!CAUTION]\n> ${1:Advises about risks or negative outcomes of certain actions.}"
+  },
+  "header 1": {
+    "prefix": "h1",
+    "body": "# $0"
+  },
+  "header 2": {
+    "prefix": "h2",
+    "body": "## $0"
+  },
+  "header 3": {
+    "prefix": "h3",
+    "body": "### $0"
+  },
+  "header 4": {
+    "prefix": "h4",
+    "body": "#### $0"
+  },
+  "header 5": {
+    "prefix": "h5",
+    "body": "##### $0"
+  },
+  "header 6": {
+    "prefix": "h6",
+    "body": "###### $0"
+  },
+  "link": {
+    "prefix": "link",
+    "body": "[${1:text}](${2:url}) $0"
+  },
+  "url": {
+    "prefix": "url",
+    "body": "<${1}> $0"
+  },
+  "image": {
+    "prefix": "image",
+    "body": "![${1:alt text}](${2:path}) $0"
+  },
+  "strikethrough": {
+    "prefix": "strikethrough",
+    "body": "~~${1}~~ $0"
+  },
+  "bold": {
+    "prefix": "bold",
+    "body": "**${1}** $0"
+  },
+  "italic": {
+    "prefix": "italic",
+    "body": "*${1}* $0"
+  },
+  "bold and italic": {
+    "prefix": "bold and italic",
+    "body": "***${1}*** $0"
+  },
+  "quote": {
+    "prefix": "quote",
+    "body": "> $1"
+  },
+  "code": {
+    "prefix": "code",
+    "body": "`${1}` $0"
+  },
+  "codeblock": {
+    "prefix": "codeblock",
+    "body": [
+      "```${1:language}",
+      "$0",
+      "```"
+    ]
+  },
+  "unordered list": {
+    "prefix": "unordered list",
+    "body": [
+      "- ${1:first}",
+      "- ${2:second}",
+      "- ${3:third}",
+      "$0"
+    ]
+  },
+  "ordered list": {
+    "prefix": "ordered list",
+    "body": [
+      "1. ${1:first}",
+      "2. ${2:second}",
+      "3. ${3:third}",
+      "$0"
+    ]
+  },
+  "table": {
+    "prefix": "table",
+    "body": [
+      "| ${1:col1} | ${2:col2} |",
+      "| - | - |",
+      "| ${3:item1} | ${4:item1} |",
+      "${0}"
+    ]
+  },
+  "subscript": {
+    "prefix": "subscript",
+    "body": "$1<sub>$0"
+  },
+  "superscript": {
+    "prefix": "superscript",
+    "body": "${1}<sup>${0}"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "debug": {
+    "prefix": "dbg",
+    "body": "fmt.Printf(\"%+v\", $0)"
+  },
+  "error": {
+    "prefix": "err",
+    "body": "if err != nil {\n\treturn err\n}"
+  },
+  "json tag": {
+    "prefix": "json",
+    "body": "`json:\"$1\"`"
+  },
+  "if key exists in map": {
+    "prefix": "ifkeyinmap",
+    "body": "if ${1:value}, ok := ${2:map}[${3:key}]; ok {\n\t$4\n}"
+  },
+  "table driven test": {
+    "prefix": "tdt",
+    "body": "func Test$1(t *testing.T) {\n\ttestCases := []struct {\n\t\tdesc\tstring\n\t\t$2\n\t}{\n\t\t{\n\t\t\tdesc: \"$3\",\n\t\t\t$4\n\t\t},\n\t}\n\tfor _, tC := range testCases {\n\t\tt.Run(tC.desc, func(t *testing.T) {\n\t\t\t$0\n\t\t})\n\t}\n}"
+  },
+  "switch statement": {
+    "prefix": "switch",
+    "body": "switch ${1:expression} {\ncase ${2:condition}:\n\t$0\n}"
+  }
+}

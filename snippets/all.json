@@ -1,0 +1,46 @@
+{
+  "copyright": {
+    "prefix": "c)",
+    "body": [
+      "Copyright (c) ${CURRENT_YEAR} ${0:Author}. All Rights Reserved."
+    ]
+  },
+  "ISO date time stamp": {
+    "prefix": "diso",
+    "body": [
+      "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}T${CURRENT_HOUR}:${CURRENT_MINUTE}:${CURRENT_SECOND}"
+    ]
+  },
+  "date in y-m-d format": {
+    "prefix": "date",
+    "body": [
+      "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}"
+    ]
+  },
+  "time in h:m:s format": {
+    "prefix": "time",
+    "body": [
+      "${CURRENT_HOUR}:${CURRENT_MINUTE}:${CURRENT_SECOND}"
+    ]
+  },
+  "v4 uuid": {
+    "prefix": "uuid",
+    "body": "${UUID}"
+  },
+  "lorem ipsum": {
+    "prefix": "lorem",
+    "body": "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat."
+  },
+  "TODO": {
+    "body": "$LINE_COMMENT TODO: ",
+    "prefix": "todo"
+  },
+  "middle dot": {
+    "body": "·",
+    "prefix": "middle dot"
+  },
+  "square": {
+    "body": "■",
+    "prefix": "square"
+  }
+}
