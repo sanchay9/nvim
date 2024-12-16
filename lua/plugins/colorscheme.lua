@@ -38,6 +38,7 @@ return {
         headlines = true,
         gitsigns = true,
         illuminate = true,
+        blink_cmp = true,
         indent_blankline = { enabled = true },
         lsp_trouble = true,
         mason = true,

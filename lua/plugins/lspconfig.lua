@@ -142,8 +142,7 @@ return {
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-    -- nvim-cmp supports additional completion capabilities
-    capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+    capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
     capabilities.offsetEncoding = "utf-8"
     capabilities.textDocument.completion.completionItem = {
