@@ -7,7 +7,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4 -- spaces to use for indent
 vim.opt.expandtab = true -- use spaces instead of tabs
 vim.opt.number = true -- line numbers
-vim.opt.relativenumber = false -- relative line numbers
+vim.opt.relativenumber = true -- relative line numbers
 vim.opt.wrap = false -- no line wrap
 vim.opt.undofile = true -- persistant undo
 vim.opt.scrolloff = 5
@@ -27,6 +27,7 @@ vim.opt.cursorline = true
 vim.opt.laststatus = 3 -- global statusline
 vim.opt.linebreak = true
 vim.opt.cmdheight = 0
+vim.opt.smoothscroll = true
 -- vim.opt.colorcolumn = "120"
 vim.opt.shortmess:append "sI" -- disable nvim intro screen
 vim.opt.fillchars = {
@@ -47,11 +48,21 @@ vim.opt.fillchars = {
   eob = " ",
 }
 vim.opt.foldlevel = 99
-vim.opt.foldtext = "v:lua.require'statuscol'.foldtext()"
+vim.opt.foldtext = ""
 vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+_G.foldexpr = function()
+  local buf = vim.api.nvim_get_current_buf()
+  if vim.b[buf].ts_folds == nil then
+    if vim.bo[buf].filetype == "" then
+      return "0"
+    end
+    vim.b[buf].ts_folds = pcall(vim.treesitter.get_parser, buf)
+  end
+  return vim.b[buf].ts_folds and vim.treesitter.foldexpr() or "0"
+end
+vim.opt.foldexpr = "v:lua.foldexpr()"
 
-vim.opt.statuscolumn = "%!v:lua.require'statuscol'.statuscolumn()"
+vim.opt.statuscolumn = "%!v:lua.require'snacks.statuscolumn'.get()"
 
 -- vim.opt.numberwidth = 2 -- set number column width (default 4)
 -- vim.opt.signcolumn = "yes:2"
