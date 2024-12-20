@@ -9,6 +9,21 @@
       "#endif"
     ]
   },
+  "iterate directions 4": {
+    "prefix": "dirs",
+    "body": [
+      "const vector<pair<int, int>> dirs{",
+      "\t{-1, 0 },",
+      "\t{0,  1 },",
+      "\t{1,  0 },",
+      "\t{0,  -1}",
+      "};"
+    ]
+  },
+  "iterate directions 8": {
+    "prefix": "d",
+    "body": "dbg($0)"
+  },
   "debug var": {
     "prefix": "d",
     "body": "dbg($0)"

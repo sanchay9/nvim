@@ -9,7 +9,6 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "sindrets/diffview.nvim",
-      "nvim-telescope/telescope.nvim",
     },
     keys = {
       { "<leader>gs", "<cmd>Neogit kind=split_below_all<cr>", desc = "Neogit" },

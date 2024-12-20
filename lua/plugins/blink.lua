@@ -12,7 +12,7 @@ return {
         nerd_font_variant = "normal",
         kind_icons = vim.tbl_extend("keep", {
           Color = "██",
-        }, require("icons").icons.kinds),
+        }, require("icons").kinds),
       },
       completion = {
         accept = {

@@ -1,8 +1,11 @@
 return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
+  dependencies = {
+    "williamboman/mason.nvim",
+  },
   config = function()
-    local icons = require("icons").icons.diagnostics
+    local icons = require("icons").diagnostics
     vim.diagnostic.config {
       signs = {
         text = {
