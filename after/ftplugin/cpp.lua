@@ -8,6 +8,7 @@ vim.cmd.iabbrev { "<buffer>", "cotu", "cout" }
 vim.cmd.iabbrev { "<buffer>", "endl", "'\\n'" }
 vim.cmd.iabbrev { "<buffer>", "vi", "vector<int>" }
 vim.cmd.iabbrev { "<buffer>", "vvi", "vector<vector<int>>" }
+vim.cmd.iabbrev { "<buffer>", "vvpi", "vector<vector<pair<int, int>>>" }
 vim.cmd.iabbrev { "<buffer>", "vvvi", "vector<vector<vector<int>>>" }
 vim.cmd.iabbrev { "<buffer>", "vpi", "vector<pair<int, int>>" }
 vim.cmd.iabbrev { "<buffer>", "pii", "pair<int, int>" }

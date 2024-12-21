@@ -20,9 +20,7 @@ return {
             enabled = true,
           },
         },
-        trigger = {
-          show_on_insert_on_trigger_character = false,
-        },
+        list = { selection = "auto_insert" },
         menu = {
           border = "none",
           winblend = 10,

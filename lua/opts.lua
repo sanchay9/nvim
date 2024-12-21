@@ -62,8 +62,6 @@ _G.foldexpr = function()
 end
 vim.opt.foldexpr = "v:lua.foldexpr()"
 
-vim.opt.statuscolumn = "%!v:lua.require'snacks.statuscolumn'.get()"
-
 -- vim.opt.numberwidth = 2 -- set number column width (default 4)
 -- vim.opt.signcolumn = "yes:2"
 -- vim.opt.mousemodel = "extend"
