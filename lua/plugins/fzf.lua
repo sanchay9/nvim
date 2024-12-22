@@ -64,25 +64,22 @@ return {
       files = {
         file_icons = true,
         prompt = " ∷ ",
-        preview_opts = "hidden",
         no_header = true,
         cwd_header = false,
         cwd_prompt = false,
       },
       grep = {
         prompt = " ∷ ",
-        header_prefix = " ",
+        -- no_header = true,
       },
       buffers = {
         formatter = "path.filename_first",
         prompt = " ∷ ",
-        preview_opts = "hidden",
         no_header = true,
         fzf_opts = { ["--delimiter"] = " ", ["--with-nth"] = "-1.." },
       },
       helptags = {
         prompt = "💡:",
-        preview_opts = "hidden",
         winopts = {
           row = 1,
           width = vim.api.nvim_win_get_width(0),
@@ -94,7 +91,6 @@ return {
           prompt = "logs:",
           cmd = "git log --color --pretty=format:'%C(yellow)%h%Creset %Cgreen%><(12)%cr%><|(12)%Creset %s' <file>",
           preview = "git show --stat --color --format='%C(cyan)%an%C(reset)%C(bold yellow)%d%C(reset): %s' {1} -- <file>",
-          preview_opts = "nohidden",
           winopts = {
             preview = {
               layout = "vertical",
