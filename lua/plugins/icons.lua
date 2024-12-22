@@ -1,14 +1,5 @@
 return {
   {
-    "NvChad/nvim-colorizer.lua",
-    ft = { "css", "scss" },
-    cmd = "ColorizerToggle",
-    opts = {
-      filetypes = { "*" },
-    },
-  },
-
-  {
     "echasnovski/mini.icons",
     lazy = true,
     opts = {
@@ -23,16 +14,5 @@ return {
         return package.loaded["nvim-web-devicons"]
       end
     end,
-  },
-
-  {
-    "SmiteshP/nvim-navic",
-    event = { "BufReadPre", "BufNewFile" },
-    opts = {
-      highlight = true,
-      depth_limit = 0,
-      depth_limit_indicator = require("icons").misc.depth_indicator,
-      safe_output = true,
-    },
   },
 }
