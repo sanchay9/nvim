@@ -1,14 +1,58 @@
 return {
   {
-    "sindrets/diffview.nvim",
-    cmd = "DiffviewOpen",
-  },
-
-  {
     "NeogitOrg/neogit",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "sindrets/diffview.nvim",
+      {
+        "sindrets/diffview.nvim",
+        keys = {
+          {
+            "<leader>dv",
+            function()
+              if next(require("diffview.lib").views) then
+                vim.cmd "DiffviewClose"
+              else
+                vim.cmd "DiffviewOpen"
+              end
+            end,
+            desc = "Toggle Diffview",
+          },
+          {
+            "<leader>fh",
+            "<cmd>DiffviewFileHistory --follow %<cr>",
+            desc = "File History",
+          },
+          {
+            "<leader>lh",
+            "<cmd>.DiffviewFileHistory --follow<cr>",
+            desc = "Line History",
+          },
+        },
+        cmd = "DiffviewOpen",
+        config = function()
+          local actions = require "diffview.actions"
+          require("diffview").setup {
+            enhanced_diff_hl = true,
+            -- stylua: ignore
+            keymaps = {
+              disable_defaults = true,
+              view = {
+                { "n", "?",          actions.help { "view", "diff1" },  { desc = "Open the help panel" } },
+                { "n", "<C-e>",      actions.toggle_files,              { desc = "Toggle the file panel." } },
+                { "n", "<tab>",      actions.select_next_entry,         { desc = "Open the diff for the next file" } },
+                { "n", "<s-tab>",    actions.select_prev_entry,         { desc = "Open the diff for the previous file" } },
+                { "n", "<leader>co", actions.conflict_choose("ours"),   { desc = "Choose the OURS version of a conflict" } },
+                { "n", "<leader>ct", actions.conflict_choose("theirs"), { desc = "Choose the THEIRS version of a conflict" } },
+                { "n", "<leader>ca", actions.conflict_choose("all"),    { desc = "Choose all the versions of a conflict" } },
+              },
+              file_panel = {
+                { "n", "?",     actions.help { "view", "diff1" }, { desc = "Open the help panel" } },
+                { "n", "<C-e>", actions.toggle_files,             { desc = "Toggle the file panel" } },
+              },
+            },
+          }
+        end,
+      },
     },
     keys = {
       { "<leader>gs", "<cmd>Neogit kind=split_below_all<cr>", desc = "Neogit" },
@@ -62,17 +106,17 @@ return {
         local gs = package.loaded.gitsigns
         local opts = { buffer = bufnr }
 
-        vim.keymap.set("n", "]h", function()
+        vim.keymap.set("n", "]c", function()
           if vim.wo.diff then
-            vim.cmd.normal { "]h", bang = true }
+            vim.cmd.normal { "]c", bang = true }
           else
             gs.nav_hunk "next"
           end
         end, opts)
 
-        vim.keymap.set("n", "[h", function()
+        vim.keymap.set("n", "[c", function()
           if vim.wo.diff then
-            vim.cmd.normal { "[h", bang = true }
+            vim.cmd.normal { "[c", bang = true }
           else
             gs.nav_hunk "prev"
           end
@@ -80,14 +124,13 @@ return {
 
         vim.keymap.set({ "n", "v" }, "<leader>hs", "<cmd>Gitsigns stage_hunk<cr>", opts)
         vim.keymap.set({ "n", "v" }, "<leader>hr", "<cmd>Gitsigns reset_hunk<cr>", opts)
-        vim.keymap.set("n", "<leader>he", gs.preview_hunk, opts)
         vim.keymap.set("n", "<leader>hu", gs.undo_stage_hunk, opts)
+        vim.keymap.set("n", "<leader>he", gs.preview_hunk, opts)
 
         vim.keymap.set("n", "<leader>ge", function()
           gs.blame_line { full = true }
         end, opts)
         vim.keymap.set("n", "<leader>gB", gs.blame, opts)
-        vim.keymap.set("n", "<leader>gt", gs.toggle_current_line_blame, opts)
 
         vim.keymap.set({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<cr>")
       end,

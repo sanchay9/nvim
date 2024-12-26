@@ -128,6 +128,7 @@ return {
         },
         extensions = {
           "lazy",
+          "fzf",
           "mason",
           "man",
           "trouble",
@@ -135,7 +136,6 @@ return {
           "nvim-dap-ui",
           "quickfix",
           "symbols-outline",
-          "fugitive",
         },
       }
     end,
