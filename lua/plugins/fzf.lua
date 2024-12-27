@@ -42,6 +42,11 @@ return {
           ["<C-b>"] = "preview-page-up",
         },
       },
+      previewers = {
+        builtin = {
+          syntax_limit_b = 1024 * 100, -- 100KB
+        },
+      },
       builtin = {
         extensions = {
           ["dir"] = { "ls" },

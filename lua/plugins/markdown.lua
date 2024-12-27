@@ -11,21 +11,19 @@ return {
           name = "personal",
           path = "~/docs/notes",
         },
+        {
+          name = "work",
+          path = "~/docs/worknotes",
+        },
       },
-
       daily_notes = {
         folder = "notes/dailies",
         date_format = "%Y-%m-%d",
         alias_format = "%B %-d, %Y",
       },
-      mappings = {
-        ["<cr>"] = {
-          action = function()
-            return require("obsidian").util.smart_action()
-          end,
-          opts = { buffer = true, expr = true },
-        },
-      },
+      follow_url_func = function(url)
+        vim.system { "open", url }
+      end,
 
       -- Optional, customize how note IDs are generated given an optional title.
       ---@param title string|?
@@ -90,7 +88,7 @@ return {
         right_pad = 1,
       },
       heading = {
-        -- icons = { "◉ ", "○ ", "✸ ", "✿ " },
+        icons = { "◉ ", "○ ", "✸ ", "✿ " },
       },
     },
   },

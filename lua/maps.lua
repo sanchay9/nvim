@@ -57,6 +57,12 @@ end, { desc = "Toggle quickfix list" })
 vim.keymap.set("n", "<bs>", function()
   local buf = vim.api.nvim_get_current_buf()
 
+  local buf_name = vim.api.nvim_buf_get_name(buf)
+  local file_name = vim.fn.fnamemodify(buf_name, ":t")
+  if file_name == "index.md" then
+    return
+  end
+
   if vim.bo.modified then
     local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
     if choice == 0 then -- Cancel

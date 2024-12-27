@@ -38,6 +38,11 @@ return {
           vim.cmd.e "index.md"
         end),
 
+        db.button("e", "  work notes", function()
+          vim.uv.chdir(vim.uv.os_homedir() .. "/docs/worknotes")
+          vim.cmd.e "index.md"
+        end),
+
         db.button("c", "  workdirs", function()
           local fzf_lua = require "fzf-lua"
           fzf_lua.files {

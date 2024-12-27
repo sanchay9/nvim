@@ -178,6 +178,15 @@ return {
       }
     end
 
+    lspconfig.zls.setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+      cmd = { "zls" },
+      filetypes = { "zig", "zir" },
+      root_dir = lspconfig.util.root_pattern("zls.json", "build.zig"),
+      single_file_support = true,
+    }
+
     lspconfig.clangd.setup {
       on_attach = on_attach,
       capabilities = capabilities,

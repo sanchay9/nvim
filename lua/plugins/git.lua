@@ -55,7 +55,7 @@ return {
       },
     },
     keys = {
-      { "<leader>gs", "<cmd>Neogit kind=split_below_all<cr>", desc = "Neogit" },
+      { "<leader>gs", "<cmd>Neogit<cr>", desc = "Neogit" },
       { "<leader>gc", "<cmd>Neogit commit<cr>", desc = "Neogit Commit" },
       { "<leader>gb", "<cmd>Neogit branch<cr>", desc = "Neogit Branch" },
       { "<leader>gp", "<cmd>Neogit pull<cr>", desc = "Neogit Pull" },
@@ -63,10 +63,15 @@ return {
     },
     cmd = "Neogit",
     opts = {
+      disable_hint = true,
+      auto_close_console = false,
+      remember_settings = false,
       integrations = {
         diffview = true,
         fzf_lua = true,
-        auto_close_console = false,
+      },
+      commit_editor = {
+        spell_check = false,
       },
     },
   },
