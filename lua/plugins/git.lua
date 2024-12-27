@@ -93,7 +93,7 @@ return {
     cmd = "Neogit",
     opts = {
       disable_hint = true,
-      auto_close_console = false,
+      console_timeout = 5000,
       remember_settings = false,
       integrations = {
         diffview = true,
