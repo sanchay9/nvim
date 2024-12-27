@@ -96,7 +96,6 @@ vim.api.nvim_create_autocmd("FileType", {
     "checkhealth",
     "lspinfo",
     "spectre_panel",
-    "DiffviewFiles",
     "dap-repl",
     "dap-float",
     "fugitive",

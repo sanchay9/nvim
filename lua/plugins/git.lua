@@ -6,17 +6,7 @@ return {
       {
         "sindrets/diffview.nvim",
         keys = {
-          {
-            "<leader>dv",
-            function()
-              if next(require("diffview.lib").views) then
-                vim.cmd "DiffviewClose"
-              else
-                vim.cmd "DiffviewOpen"
-              end
-            end,
-            desc = "Toggle Diffview",
-          },
+          { "<leader>dv", "<cmd>DiffviewOpen<cr>", desc = "Open Diffview" },
           {
             "<leader>fh",
             "<cmd>DiffviewFileHistory --follow %<cr>",
@@ -33,21 +23,60 @@ return {
           local actions = require "diffview.actions"
           require("diffview").setup {
             enhanced_diff_hl = true,
+            show_help_hints = false,
             -- stylua: ignore
             keymaps = {
-              disable_defaults = true,
               view = {
-                { "n", "?",          actions.help { "view", "diff1" },  { desc = "Open the help panel" } },
-                { "n", "<C-e>",      actions.toggle_files,              { desc = "Toggle the file panel." } },
-                { "n", "<tab>",      actions.select_next_entry,         { desc = "Open the diff for the next file" } },
-                { "n", "<s-tab>",    actions.select_prev_entry,         { desc = "Open the diff for the previous file" } },
-                { "n", "<leader>co", actions.conflict_choose("ours"),   { desc = "Choose the OURS version of a conflict" } },
-                { "n", "<leader>ct", actions.conflict_choose("theirs"), { desc = "Choose the THEIRS version of a conflict" } },
-                { "n", "<leader>ca", actions.conflict_choose("all"),    { desc = "Choose all the versions of a conflict" } },
+                { "n", "?",     actions.help { "view", "diff1" },        { desc = "Open the help panel" } },
+                { "n", "q",     function () vim.cmd "DiffviewClose" end, { desc = "Close Diffview" } },
+                { "n", "<C-e>", actions.toggle_files,                    { desc = "Toggle the file panel." } },
+
+                ["[F"] = false,
+                ["]F"] = false,
+                ["gf"] = false,
+                ["g?"] = false,
+                ["<C-w><C-f>"] = false,
+                ["<C-w>gf"] = false,
+                ["<leader>e"] = false,
+                ["<leader>b"] = false,
+                ["g<C-x>"] = false,
+                ["<leader>cb"] = false,
+                ["dx"] = false,
+                ["<leader>cB"] = false,
+                ["dX"] = false,
               },
               file_panel = {
-                { "n", "?",     actions.help { "view", "diff1" }, { desc = "Open the help panel" } },
-                { "n", "<C-e>", actions.toggle_files,             { desc = "Toggle the file panel" } },
+                { "n", "?",     actions.help("file_panel"),              { desc = "Open the help panel" } },
+                { "n", "q",     function () vim.cmd "DiffviewClose" end, { desc = "Close Diffview" } },
+                { "n", "<C-e>", actions.toggle_files,                    { desc = "Toggle the file panel" } },
+
+                ["o"] = false,
+                ["-"] = false,
+                ["s"] = false,
+                ["S"] = false,
+                ["U"] = false,
+                ["X"] = false,
+                ["<c-b>"] = false,
+                ["<c-f>"] = false,
+                ["[F"] = false,
+                ["]F"] = false,
+                ["gf"] = false,
+                ["<C-w><C-f>"] = false,
+                ["<C-w>gf"] = false,
+                ["i"] = false,
+                ["f"] = false,
+                ["R"] = false,
+                ["<leader>e"] = false,
+                ["<leader>b"] = false,
+                ["g<C-x>"] = false,
+                ["[x"] = false,
+                ["]x"] = false,
+                ["g?"] = false,
+                ["<leader>cO"] = false,
+                ["<leader>cT"] = false,
+                ["<leader>cB"] = false,
+                ["<leader>cA"] = false,
+                ["dX"] = false,
               },
             },
           }
@@ -72,6 +101,10 @@ return {
       },
       commit_editor = {
         spell_check = false,
+      },
+      signs = {
+        item = { "", "" },
+        section = { "", "" },
       },
     },
   },
