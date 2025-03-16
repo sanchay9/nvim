@@ -50,11 +50,18 @@ return {
                 { find = "%d+L, %d+B" },
                 { find = "; after #%d+" },
                 { find = "; before #%d+" },
-                -- https://github.com/zbirenbaum/copilot.lua/issues/321
-                { find = "Agent service not initialized" },
               },
             },
             view = "mini",
+          },
+          {
+            filter = {
+              event = "msg_show",
+              any = {
+                { find = "Agent service not initialized" },
+              },
+            },
+            opts = { skip = true },
           },
         },
         presets = {
