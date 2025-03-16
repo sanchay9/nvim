@@ -1,102 +1,54 @@
 vim.keymap.set("n", "<space>", "<nop>")
 vim.keymap.set("n", "<C-w><C-w>", "<nop>")
-vim.keymap.set("n", "<esc>", vim.cmd.noh)
--- vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>")
-vim.keymap.set("n", "<leader><tab>", "<C-^>")
 
-vim.keymap.set("n", "[q", vim.cmd.cprev)
-vim.keymap.set("n", "]q", vim.cmd.cnext)
+vim.keymap.set({ "i", "n", "s" }, "<esc>", function()
+  vim.cmd.noh()
+  -- TODO: LazyVim.cmp.actions.snippet_stop()
+  return "<esc>"
+end, { expr = true, desc = "Escape and Clear hlsearch" })
 
-vim.keymap.set("n", "[b", vim.cmd.bprev)
-vim.keymap.set("n", "]b", vim.cmd.bnext)
+for _, char in ipairs { ",", ".", ";" } do
+  vim.keymap.set("i", char, char .. "<c-g>u", { desc = "add undo break-point on " .. char })
+end
 
-vim.keymap.set({ "n", "x" }, "j", "v:count ? 'j' : 'gj'", { expr = true })
-vim.keymap.set({ "n", "x" }, "k", "v:count ? 'k' : 'gk'", { expr = true })
+vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>", { desc = "exit terminal mode" })
+vim.keymap.set("n", "<leader><tab>", "<C-^>", { desc = "switch to alternate buffer" })
 
-vim.keymap.set("n", "<A-up>", "<cmd>resize -2<cr>")
-vim.keymap.set("n", "<A-down>", "<cmd>resize +2<cr>")
-vim.keymap.set("n", "<A-left>", "<cmd>vertical resize -2<cr>")
-vim.keymap.set("n", "<A-right>", "<cmd>vertical resize +2<cr>")
+vim.keymap.set("n", "[q", vim.cmd.cprev, { desc = "previous quickfix item" })
+vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "next quickfix item" })
 
-vim.keymap.set("n", "<A-j>", ":m .+1<cr>==")
-vim.keymap.set("n", "<A-k>", ":m .-2<cr>==")
-vim.keymap.set("v", "<A-j>", ":m '>+1<cr>gv=gv")
-vim.keymap.set("v", "<A-k>", ":m '<-2<cr>gv=gv")
+vim.keymap.set("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Below" })
+vim.keymap.set("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Above" })
 
-vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
-vim.keymap.set({ "n", "x" }, "<leader>p", [["0p]])
+vim.keymap.set("n", "<leader>qt", function()
+  local success, err = pcall(vim.fn.getqflist({ winid = 0 }).winid ~= 0 and vim.cmd.cclose or vim.cmd.copen)
+  if not success and err then
+    vim.notify(err, vim.log.levels.ERROR)
+  end
+end, { desc = "Toggle Quickfix List" })
+
+vim.keymap.set("n", "<C-up>", "<cmd>resize +2<cr>", { desc = "increase window height" })
+vim.keymap.set("n", "<C-down>", "<cmd>resize -2<cr>", { desc = "decrease window height" })
+vim.keymap.set("n", "<C-left>", "<cmd>vertical resize -2<cr>", { desc = "decrease window width" })
+vim.keymap.set("n", "<C-right>", "<cmd>vertical resize +2<cr>", { desc = "increase window width" })
+
+vim.keymap.set("n", "<A-j>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "move lines down" })
+vim.keymap.set("n", "<A-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "move lines up" })
+vim.keymap.set("v", "<A-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "move lines down" })
+vim.keymap.set("v", "<A-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "move lines up" })
+
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "delete without yanking" })
+vim.keymap.set({ "n", "x" }, "<leader>p", [["0p]], { desc = "paste from 0 register" })
 
 vim.keymap.set("n", "Q", "@q", { desc = "play macro recorded in q register" })
 vim.keymap.set("n", "S", ":%s///g<Left><Left><Left>")
 
-vim.keymap.set("n", "J", "mzJ`z")
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
-
-vim.keymap.set("n", "<leader>qt", function()
-  local qf_winid = vim.fn.getqflist({ winid = 0 }).winid
-  local action = qf_winid > 0 and "cclose" or "copen"
-  vim.cmd("botright " .. action)
-end, { silent = true })
-
--- Toggle the quickfix/loclist window.
--- When toggling these, ignore error messages and restore the cursor to the original window when opening the list.
-local silent_mods = { mods = { silent = true, emsg_silent = true } }
-vim.keymap.set("n", "<leader>xq", function()
-  if vim.fn.getqflist({ winid = 0 }).winid ~= 0 then
-    vim.cmd.cclose(silent_mods)
-  elseif #vim.fn.getqflist() > 0 then
-    local win = vim.api.nvim_get_current_win()
-    vim.cmd.copen(silent_mods)
-    if win ~= vim.api.nvim_get_current_win() then
-      vim.cmd.wincmd "p"
-    end
-  end
-end, { desc = "Toggle quickfix list" })
-
 vim.keymap.set("n", "<bs>", function()
-  local buf = vim.api.nvim_get_current_buf()
-
-  local buf_name = vim.api.nvim_buf_get_name(buf)
-  local file_name = vim.fn.fnamemodify(buf_name, ":t")
-  if file_name == "index.md" then
-    return
-  end
-
-  if vim.bo.modified then
-    local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
-    if choice == 0 then -- Cancel
-      return
-    end
-    if choice == 1 then -- Yes
-      vim.cmd.write()
-    end
-  end
-
-  for _, win in ipairs(vim.fn.win_findbuf(buf)) do
-    vim.api.nvim_win_call(win, function()
-      if not vim.api.nvim_win_is_valid(win) or vim.api.nvim_win_get_buf(win) ~= buf then
-        return
-      end
-      -- Try using alternate buffer
-      local alt = vim.fn.bufnr "#"
-      if alt ~= buf and vim.fn.buflisted(alt) == 1 then
-        vim.api.nvim_win_set_buf(win, alt)
-        return
-      end
-
-      -- Try using previous buffer
-      local has_previous = pcall(vim.cmd, "bprevious")
-      if has_previous and buf ~= vim.api.nvim_win_get_buf(win) then
-        return
-      end
-
-      -- Create new listed buffer
-      local new_buf = vim.api.nvim_create_buf(true, false)
-      vim.api.nvim_win_set_buf(win, new_buf)
-    end)
-  end
-  if vim.api.nvim_buf_is_valid(buf) then
-    pcall(vim.cmd, "bdelete! " .. buf)
-  end
+  Snacks.bufdelete()
 end, { desc = "Delete Buffer" })
+vim.keymap.set("n", "<leader><bs>", "<cmd>:bd<cr>", { desc = "Delete Buffer and Window" })
+
+vim.keymap.set("n", "<leader>\\", function()
+  Snacks.terminal()
+end, { desc = "Terminal (cwd)" })
+vim.keymap.set("t", "<leader>\\", "<cmd>close<cr>", { desc = "Hide Terminal" })
