@@ -6,7 +6,17 @@ return {
       {
         "sindrets/diffview.nvim",
         keys = {
-          { "<leader>dv", "<cmd>DiffviewOpen<cr>", desc = "Open Diffview" },
+          {
+            "<leader>dv",
+            function()
+              if next(require("diffview.lib").views) then
+                vim.cmd "DiffviewClose"
+              else
+                vim.cmd "DiffviewOpen"
+              end
+            end,
+            desc = "Toggle Diffview",
+          },
           {
             "<leader>fh",
             "<cmd>DiffviewFileHistory --follow %<cr>",
@@ -129,12 +139,19 @@ return {
     end,
     opts = {
       signs = {
-        -- add = { text = "▎" }, --│
-        -- change = { text = "▎" },
-        delete = { text = "" }, -- 
-        topdelete = { text = "" }, -- ‾
-        changedelete = { text = "~" },
+        add = { text = "▎" },
+        change = { text = "▎" },
+        delete = { text = "" },
+        topdelete = { text = "" },
+        changedelete = { text = "▎" },
         untracked = { text = "▎" },
+      },
+      signs_staged = {
+        add = { text = "▎" },
+        change = { text = "▎" },
+        delete = { text = "" },
+        topdelete = { text = "" },
+        changedelete = { text = "▎" },
       },
       current_line_blame_opts = {
         virt_text_pos = "right_align",

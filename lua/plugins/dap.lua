@@ -27,8 +27,6 @@ return {
     { "<leader>dt", function() require("dap").repl.toggle({wrap=true,nu=false}, "botright split") end, desc = "Toggle REPL" },
     { "<leader>dq", function() require("dap").terminate() end, desc = "Terminate" },
     { "<leader>de", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
-    { "<Leader>df", function() local widgets = require('dap.ui.widgets') widgets.centered_float(widgets.frames) end },
-    { "<Leader>dp", function() local widgets = require('dap.ui.widgets') widgets.centered_float(widgets.scopes) end },
   },
   dependencies = {
     {
@@ -42,6 +40,25 @@ return {
   },
   config = function()
     local dap = require "dap"
+
+    dap.adapters.delve = {
+      type = "server",
+      port = "${port}",
+      executable = {
+        command = "dlv",
+        args = { "dap", "-l", "127.0.0.1:${port}" },
+      },
+    }
+
+    dap.configurations.go = {
+      {
+        type = "delve",
+        name = "Debug",
+        request = "launch",
+        program = "${workspaceFolder}",
+        outputMode = "remote",
+      },
+    }
 
     dap.adapters.codelldb = {
       type = "server",

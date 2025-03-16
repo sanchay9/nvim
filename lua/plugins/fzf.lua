@@ -32,8 +32,19 @@ return {
       end
     end,
     opts = {
-      fzf_colors = true,
-      file_ignore_patterns = { "vendor/.*", "node_modules/.*", ".*%.jpg", ".*%.png", ".*%.gif", ".*%.jpeg" },
+      defaults = { git_icons = false },
+      winopts = {
+        height = 0.6,
+        -- width = 0.6,
+        -- row = 0.5,
+        border = "none",
+        -- border  = { " ", " ", " ", " ", "", "", "", " " }, -- "solid-top" (+side margins)
+        title = "",
+        preview = {
+          border = "none",
+          scrollbar = "border",
+        },
+      },
       keymap = {
         builtin = {
           ["<leader>p"] = "toggle-preview",
@@ -42,23 +53,6 @@ return {
           ["<C-b>"] = "preview-page-up",
         },
       },
-      previewers = {
-        builtin = {
-          syntax_limit_b = 1024 * 100, -- 100KB
-        },
-      },
-      builtin = {
-        extensions = {
-          ["dir"] = { "ls" },
-        },
-      },
-      global_git_icons = false,
-      winopts = {
-        height = 0.6,
-        -- width = 0.6,
-        -- row = 0.5,
-        -- border = "none",
-      },
       fzf_opts = {
         ["--no-info"] = "",
         ["--info"] = "hidden",
@@ -66,8 +60,20 @@ return {
         ["--header"] = " ",
         ["--pointer"] = "▌",
       },
+      fzf_colors = true,
+      file_ignore_patterns = { "vendor/.*", "node_modules/.*", ".*%.jpg", ".*%.png", ".*%.gif", ".*%.jpeg" },
+      previewers = {
+        builtin = {
+          syntax_limit_b = 100 * 1024, -- 100KB
+        },
+      },
+      builtin = {
+        extensions = {
+          ["dir"] = { "ls" },
+        },
+      },
       files = {
-        file_icons = true,
+        -- TODO: set all prompts the same
         prompt = " ∷ ",
         no_header = true,
         cwd_header = false,
@@ -83,101 +89,10 @@ return {
         no_header = true,
         fzf_opts = { ["--delimiter"] = " ", ["--with-nth"] = "-1.." },
       },
-      helptags = {
-        prompt = "💡:",
-        winopts = {
-          row = 1,
-          width = vim.api.nvim_win_get_width(0),
-          height = 0.3,
-        },
-      },
-      git = {
-        bcommits = {
-          prompt = "logs:",
-          cmd = "git log --color --pretty=format:'%C(yellow)%h%Creset %Cgreen%><(12)%cr%><|(12)%Creset %s' <file>",
-          preview = "git show --stat --color --format='%C(cyan)%an%C(reset)%C(bold yellow)%d%C(reset): %s' {1} -- <file>",
-          winopts = {
-            preview = {
-              layout = "vertical",
-              vertical = "right:50%",
-              wrap = "wrap",
-            },
-            row = 1,
-            width = vim.api.nvim_win_get_width(0),
-            height = 0.3,
-          },
-        },
-        branches = {
-          prompt = "branches:",
-          cmd = "git branch --all --color",
-          winopts = {
-            preview = {
-              layout = "vertical",
-              vertical = "right:50%",
-              wrap = "wrap",
-            },
-            row = 1,
-            width = vim.api.nvim_win_get_width(0),
-            height = 0.3,
-          },
-        },
-      },
-      autocmds = {
-        prompt = "autocommands:",
-        winopts = {
-          width = 0.8,
-          height = 0.7,
-          preview = {
-            layout = "horizontal",
-            horizontal = "down:40%",
-            wrap = "wrap",
-          },
-        },
-      },
-      keymaps = {
-        prompt = "keymaps:",
-        winopts = {
-          width = 0.8,
-          height = 0.7,
-        },
-        actions = {
-          ["default"] = function(selected)
-            local lines = vim.split(selected[1], "│", {})
-            local mode, key = lines[1]:gsub("%s+", ""), lines[2]:gsub("%s+", "")
-            vim.cmd("verbose " .. mode .. "map " .. key)
-          end,
-        },
-      },
-      highlights = {
-        prompt = "highlights:",
-        winopts = {
-          width = 0.8,
-          height = 0.7,
-          preview = {
-            layout = "horizontal",
-            horizontal = "down:40%",
-            wrap = "wrap",
-          },
-        },
-        actions = {
-          ["default"] = function(selected)
-            print(vim.cmd.highlight(selected[1]))
-          end,
-        },
-      },
       lsp = {
+        jump1 = true,
         code_actions = {
-          prompt = "code actions:",
           previewer = "codeaction_native",
-          preview_pager = "delta --side-by-side --width=$FZF_PREVIEW_COLUMNS --hunk-header-style='omit' --file-style='omit'",
-          winopts = {
-            width = 0.8,
-            height = 0.7,
-            preview = {
-              layout = "horizontal",
-              horizontal = "up:75%",
-            },
-          },
         },
       },
     },
