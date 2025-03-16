@@ -44,7 +44,6 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
         return
       end
     end
-    require("alpha").start()
   end,
 })
 
@@ -85,18 +84,6 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     end
     local file = vim.uv.fs_realpath(event.match) or event.match
     vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "InsertLeave", "InsertEnter" }, {
-  desc = "toggle relativenumber on mode change",
-  group = vim.api.nvim_create_augroup("toggle_relativenumber", { clear = true }),
-  callback = function(event)
-    if event.event == "InsertLeave" then
-      vim.opt_local.relativenumber = true
-    else
-      vim.opt_local.relativenumber = false
-    end
   end,
 })
 
