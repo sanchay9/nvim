@@ -2,6 +2,14 @@ local M = {}
 
 M.misc = {
   depth_indicator = "󰇘",
+  DapStatusLine = " ",
+}
+
+M.sep = {
+  default = { "", "" },
+  round = { "", "" },
+  block = { "█", "█" },
+  arrow = { "", "" },
 }
 
 M.dap = {
@@ -13,10 +21,13 @@ M.dap = {
 }
 
 M.diagnostics = {
-  Error = "󰅙",
+  Error = "󰅙 ",
   Warn = " ",
   Hint = " ", -- 󰌵
   Info = " ",
+
+  CirclePrefix = " ●",
+  SquarePrefix = " ■",
 }
 
 M.git = {

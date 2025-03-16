@@ -4,14 +4,17 @@ return {
     lazy = true,
     opts = {},
   },
+
   {
     "eandrju/cellular-automaton.nvim",
     keys = { { "<leader>z", "<cmd>CellularAutomaton make_it_rain<cr>", desc = "make it rain" } },
   },
+
   {
     "dstein64/vim-startuptime",
     cmd = "StartupTime",
   },
+
   {
     "nvzone/showkeys",
     cmd = "ShowkeysToggle",
@@ -21,8 +24,22 @@ return {
       show_count = false,
       position = "bottom-right",
     },
-    dependencies = { "NvChad/volt" },
+    dependencies = "nvzone/volt",
   },
+
+  {
+    "nvzone/typr",
+    dependencies = "nvzone/volt",
+    opts = {},
+    cmd = { "Typr", "TyprStats" },
+  },
+
+  {
+    "jackplus-xyz/player-one.nvim",
+    cmd = "PlayerOneToggle",
+    opts = {},
+  },
+
   {
     "echasnovski/mini.animate",
     event = "VeryLazy",

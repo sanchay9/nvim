@@ -31,3 +31,7 @@ else
   vim.cmd.colorscheme "tokyonight"
   vim.opt.background = mode
 end
+
+if vim.g.border ~= "none" then
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+end

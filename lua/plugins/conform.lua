@@ -17,6 +17,7 @@ return {
         html = { "prettierd" },
         css = { "prettierd" },
         javascript = { "prettierd" },
+        http = { "kulala" },
         markdown = { "prettierd" },
         latex = { "latexindent" },
         json = { "jq" },
@@ -30,6 +31,11 @@ return {
       formatters = {
         sqlfluff = {
           args = { "format", "--dialect=postgres", "-" },
+        },
+        kulala = {
+          command = "kulala-fmt",
+          args = { "format", "$FILENAME" },
+          stdin = false,
         },
       },
     },

@@ -1,11 +1,14 @@
 return {
   {
     "saghen/blink.cmp",
-    version = "v0.7.6",
+    version = "*",
     event = "InsertEnter",
     opts_extend = {
       "sources.completion.enabled_providers",
       "sources.default",
+    },
+    dependencies = {
+      "Kaiser-Yang/blink-cmp-dictionary",
     },
     opts = {
       appearance = {
@@ -20,9 +23,9 @@ return {
             enabled = true,
           },
         },
-        list = { selection = "auto_insert" },
+        list = { selection = { auto_insert = true } },
         menu = {
-          border = "none",
+          border = vim.g.border,
           winblend = 10,
           draw = {
             treesitter = { "lsp" },
@@ -33,7 +36,7 @@ return {
           auto_show = true,
           auto_show_delay_ms = 200,
           window = {
-            border = "none",
+            border = vim.g.border,
           },
         },
         ghost_text = {
@@ -41,7 +44,39 @@ return {
         },
       },
       sources = {
-        default = { "lsp", "path", "snippets", "buffer" },
+        default = function()
+          if vim.bo.filetype == "markdown" then
+            return { "dictionary", "lsp", "path", "snippets", "buffer", "markdown" }
+          elseif vim.bo.filetype == "lua" then
+            return { "lazydev", "lsp", "path", "snippets", "buffer" }
+          end
+          return { "lsp", "path", "snippets", "buffer" }
+        end,
+        providers = {
+          lazydev = {
+            name = "LazyDev",
+            module = "lazydev.integrations.blink",
+            score_offset = 100,
+          },
+          snippets = {
+            max_items = 5,
+          },
+          dictionary = {
+            module = "blink-cmp-dictionary",
+            name = "Dict",
+            max_items = 5,
+            score_offset = -3,
+            min_keyword_length = 4,
+            opts = {
+              dictionary_files = { "/usr/share/dict/words" },
+            },
+          },
+          markdown = {
+            name = "RenderMarkdown",
+            module = "render-markdown.integ.blink",
+            fallbacks = { "lsp" },
+          },
+        },
       },
 
       keymap = {
