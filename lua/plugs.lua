@@ -25,7 +25,7 @@ require("lazy").setup("plugins", {
     notify = false,
   },
   ui = {
-    border = vim.g.border,
+    border = vim.g.conf.border,
   },
   performance = {
     rtp = {

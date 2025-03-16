@@ -22,7 +22,7 @@ return {
         cmdline = {
           opts = {
             border = {
-              style = vim.g.border,
+              style = vim.g.conf.border,
               text = {
                 top = "",
               },
@@ -65,7 +65,7 @@ return {
           lsp_doc_border = true,
         },
       }
-      if vim.g.border == "none" then
+      if vim.g.conf.border == "none" then
         ret.cmdline.opts.border.padding = { "1", "2" }
         ret.views = {
           cmdline_popup = {

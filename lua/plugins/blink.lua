@@ -25,7 +25,7 @@ return {
         },
         list = { selection = { auto_insert = true } },
         menu = {
-          border = vim.g.border,
+          border = vim.g.conf.border,
           winblend = 10,
           draw = {
             treesitter = { "lsp" },
@@ -36,7 +36,7 @@ return {
           auto_show = true,
           auto_show_delay_ms = 200,
           window = {
-            border = vim.g.border,
+            border = vim.g.conf.border,
           },
         },
         ghost_text = {

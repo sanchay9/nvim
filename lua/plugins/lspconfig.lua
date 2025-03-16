@@ -156,7 +156,7 @@ return {
       float = {
         focusable = true,
         -- style = "minimal",
-        border = vim.g.border,
+        border = vim.g.conf.border,
         -- source = "always",
         header = "",
         prefix = "",

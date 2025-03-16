@@ -1,6 +1,9 @@
 vim.g.mapleader = " "
 
-vim.g.border = "none" -- none / single / double / rounded / solid / shadow / { "╔", "═", "╗", "║", "╝", "═", "╚", "║" }
+---@type conf
+vim.g.conf = {
+  border = "double",
+}
 
 -- TODO: vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 

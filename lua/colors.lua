@@ -32,6 +32,6 @@ else
   vim.opt.background = mode
 end
 
-if vim.g.border ~= "none" then
+if vim.g.conf.border ~= "none" then
   vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 end
