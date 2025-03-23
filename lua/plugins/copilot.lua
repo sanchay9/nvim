@@ -90,10 +90,4 @@ return {
       require("CopilotChat").setup(opts)
     end,
   },
-
-  {
-    "robitx/gp.nvim",
-    cmd = "GpChatNew",
-    opts = {},
-  },
 }
