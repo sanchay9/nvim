@@ -14,9 +14,6 @@ end
 vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>", { desc = "exit terminal mode" })
 vim.keymap.set("n", "<leader><tab>", "<C-^>", { desc = "switch to alternate buffer" })
 
-vim.keymap.set("n", "[q", vim.cmd.cprev, { desc = "previous quickfix item" })
-vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "next quickfix item" })
-
 vim.keymap.set("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Below" })
 vim.keymap.set("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Above" })
 
