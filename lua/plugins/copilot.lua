@@ -1,17 +1,3 @@
-local M = {}
-
----@param kind string
-function M.pick(kind)
-  return function()
-    local actions = require "CopilotChat.actions"
-    local items = actions[kind .. "_actions"]()
-    if not items then
-      return
-    end
-    return require("CopilotChat.integrations.fzflua").pick(items)
-  end
-end
-
 return {
   {
     "zbirenbaum/copilot.lua",
@@ -46,14 +32,6 @@ return {
         highlight_headers = false,
         show_help = false,
         insert_at_end = true,
-        window = {
-          width = 0.4,
-          -- layout = "float",
-          -- relative = "cursor",
-          -- width = 1,
-          -- height = 0.4,
-          -- row = 1,
-        },
       }
     end,
     keys = {

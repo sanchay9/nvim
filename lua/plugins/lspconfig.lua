@@ -13,6 +13,36 @@ return {
           root_dir = require("lspconfig.util").root_pattern("zls.json", "build.zig"),
           single_file_support = true,
         },
+        harper_ls = {
+          settings = {
+            ["harper-ls"] = {
+              userDictPath = "/usr/share/dict/words",
+              fileDictPath = "/usr/share/dict/words",
+              linters = {
+                SpellCheck = true,
+                SpelledNumbers = false,
+                AnA = true,
+                SentenceCapitalization = false,
+                UnclosedQuotes = true,
+                WrongQuotes = false,
+                LongSentences = false,
+                RepeatedWords = true,
+                Spaces = false,
+                Matcher = true,
+                CorrectNumberSuffix = true,
+              },
+              codeActions = {
+                ForceStable = false,
+              },
+              markdown = {
+                IgnoreLinkTitle = false,
+              },
+              diagnosticSeverity = "hint",
+              isolateEnglish = false,
+              dialect = "American",
+            },
+          },
+        },
         clangd = {
           root_dir = function(fname)
             return require("lspconfig.util").root_pattern(
@@ -144,8 +174,14 @@ return {
       underline = true,
       severity_sort = true,
       update_in_insert = false,
+
+      virtual_lines = false,
       virtual_text = {
-        enabled = false,
+        current_line = false,
+        severity = {
+          min = vim.diagnostic.severity.WARN,
+          max = vim.diagnostic.severity.ERROR,
+        },
         format = function(diagnostic)
           return diagnostic.message .. " "
         end,
@@ -156,7 +192,6 @@ return {
       float = {
         focusable = true,
         -- style = "minimal",
-        border = vim.g.conf.border,
         -- source = "always",
         header = "",
         prefix = "",
@@ -166,9 +201,6 @@ return {
       },
     }
 
-    -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    --   border = "rounded",
-    -- })
     -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
     --   border = "rounded",
     --   -- focusable = false,
@@ -187,7 +219,7 @@ return {
         end, optss)
       end
 
-      if vim.lsp.codelens and client.supports_method "textDocument/codeLens" then
+      if vim.lsp.codelens and client:supports_method "textDocument/codeLens" then
         vim.lsp.codelens.refresh()
         vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
           buffer = bufnr,

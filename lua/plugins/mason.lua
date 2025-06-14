@@ -28,6 +28,7 @@ return {
       "gofumpt",
       "delve",
       "texlab",
+      "harper-ls",
     },
     max_concurrent_installers = 10,
   },

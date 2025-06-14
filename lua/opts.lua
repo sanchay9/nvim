@@ -2,8 +2,9 @@ vim.g.mapleader = " "
 
 ---@type conf
 vim.g.conf = {
-  border = "double",
+  border = "none",
 }
+vim.opt.winborder = "none"
 
 -- TODO: vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 
@@ -85,7 +86,7 @@ vim.opt.signcolumn = "yes" -- always show sign column
 
 vim.opt.list = true -- show invisible chars
 vim.opt.listchars:append "space:⋅"
-vim.opt.listchars:append "eol:↴"
+-- vim.opt.listchars:append "eol:↴"
 vim.opt.listchars:append "tab:»·"
 -- vim.opt.listchars:append "trail:·"
 -- vim.opt.listchars:append "extends:»"

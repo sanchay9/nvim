@@ -13,13 +13,13 @@ return {
 
   {
     "MeanderingProgrammer/render-markdown.nvim",
-    ft = "markdown",
+    ft = { "markdown", "copilot-chat", "codecompanion" },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "echasnovski/mini.icons",
     },
     opts = {
-      file_types = { "markdown", "copilot-chat" },
+      file_types = { "markdown", "copilot-chat", "codecompanion" },
       code = {
         sign = false,
         width = "block",
@@ -34,7 +34,7 @@ return {
 
   {
     "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle" },
+    cmd = "MarkdownPreviewToggle",
     build = function()
       require("lazy").load { plugins = { "markdown-preview.nvim" } }
       vim.fn["mkdp#util#install"]()
