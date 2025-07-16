@@ -1,3 +1,18 @@
+vim.api.nvim_create_user_command("ShuffleLines", function()
+  local start_line = vim.fn.line "'<"
+  local end_line = vim.fn.line "'>"
+
+  local lines = vim.fn.getline(start_line, end_line)
+
+  math.randomseed(os.time())
+  for i = #lines, 2, -1 do
+    local j = math.random(i)
+    lines[i], lines[j] = lines[j], lines[i]
+  end
+
+  vim.fn.setline(start_line, lines)
+end, { range = true, desc = "Shuffle selected lines" })
+
 vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter" }, {
   group = vim.api.nvim_create_augroup("term_enter", { clear = true }),
   callback = function()
@@ -69,7 +84,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
   desc = "set wrap for text files",
   group = vim.api.nvim_create_augroup("wrap", { clear = true }),
-  pattern = { "text", "plaintex", "http", "gitcommit", "markdown" },
+  pattern = { "text", "plaintex", "http", "json.kulala_ui", "gitcommit", "markdown" },
   callback = function()
     vim.opt_local.wrap = true
   end,
@@ -111,6 +126,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "neotest-output",
     "neotest-output-panel",
     "grug-far",
+    "codecompanion",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
@@ -125,6 +141,14 @@ vim.api.nvim_create_autocmd("FileType", {
       })
     end)
   end,
+})
+
+vim.api.nvim_create_autocmd({ "DiagnosticChanged" }, {
+  desc = "redraw statusline on events",
+  group = vim.api.nvim_create_augroup("redraw_status", { clear = true }),
+  callback = vim.schedule_wrap(function()
+    vim.cmd "redrawstatus"
+  end),
 })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
