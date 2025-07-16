@@ -24,7 +24,6 @@ return {
             done = "󰦕",
             error = "󱄊",
           },
-          lualine = "",
         },
         show_request_summary = false,
       },
