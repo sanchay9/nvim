@@ -11,7 +11,6 @@ return {
       { "<leader>r",     "<cmd>lua require('fzf-lua').oldfiles()<cr>",                                         desc = "Recent Files" },
       { "<leader>hh",    "<cmd>lua require('fzf-lua').helptags()<cr>",                                         desc = "Help" },
       { "<leader>b",     "<cmd>lua require('fzf-lua').buffers()<cr>",                                          desc = "Buffers", },
-      { "<leader><esc>", "<cmd>lua require('fzf-lua').files({ resume = true })<cr>",                           desc = "Resume last prompt", },
       { "<leader>/",     "<cmd>lua require('fzf-lua').lgrep_curbuf()<cr>",                                     desc = "Fuzzy Search Current Buffer", },
     },
     init = function()
@@ -47,8 +46,8 @@ return {
       },
       keymap = {
         builtin = {
-          ["<leader>p"] = "toggle-preview",
-          ["<leader>f"] = "toggle-fullscreen",
+          ["<A-p>"] = "toggle-preview",
+          ["<A-f>"] = "toggle-fullscreen",
           ["<C-f>"] = "preview-page-down",
           ["<C-b>"] = "preview-page-up",
         },
