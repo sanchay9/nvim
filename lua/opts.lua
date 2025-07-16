@@ -1,6 +1,5 @@
 vim.g.mapleader = " "
 
----@type conf
 vim.g.conf = {
   border = "none",
 }
@@ -85,9 +84,9 @@ vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()"
 vim.opt.signcolumn = "yes" -- always show sign column
 
 vim.opt.list = true -- show invisible chars
-vim.opt.listchars:append "space:⋅"
+-- vim.opt.listchars:append "space:⋅"
 -- vim.opt.listchars:append "eol:↴"
-vim.opt.listchars:append "tab:»·"
+-- vim.opt.listchars:append "tab:»·"
 -- vim.opt.listchars:append "trail:·"
 -- vim.opt.listchars:append "extends:»"
 -- vim.opt.listchars:append "precedes:«"
