@@ -1,5 +1,3 @@
--- TODO: Snacks.toggle.zoom():map "<leader>f"
-
 return {
   "folke/snacks.nvim",
   priority = 1000,

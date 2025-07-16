@@ -39,7 +39,7 @@ return {
         ["<C-w><C-s>"] = "actions.select_split",
         ["<C-w><C-v>"] = "actions.select_vsplit",
         ["<C-p>"] = false,
-        ["<leader>p"] = "actions.preview",
+        ["<A-p>"] = "actions.preview",
         ["-"] = "actions.open_cwd",
         ["<bs>"] = "actions.parent",
       },

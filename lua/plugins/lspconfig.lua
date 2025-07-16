@@ -212,7 +212,7 @@ return {
       local optss = { buffer = bufnr, silent = true }
 
       if client.server_capabilities.inlayHintProvider then
-        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+        vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
 
         vim.keymap.set("n", "<leader>h", function()
           vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = bufnr })
