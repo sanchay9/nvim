@@ -16,6 +16,8 @@ return {
       "latexindent",
       "bash-language-server",
       "pyright",
+      "ruff",
+      "debugpy",
       "black",
       "shellcheck",
       "html-lsp",

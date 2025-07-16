@@ -37,6 +37,13 @@ return {
       "leoluz/nvim-dap-go",
       opts = {},
     },
+    {
+      "mfussenegger/nvim-dap-python",
+      opts = {},
+      config = function()
+        require("dap-python").setup "python3"
+      end,
+    },
   },
   config = function()
     local dap = require "dap"
