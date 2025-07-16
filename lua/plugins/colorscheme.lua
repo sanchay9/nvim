@@ -4,7 +4,7 @@ return {
     lazy = true,
     opts = {
       style = "night",
-      transparent = true,
+      transparent = false,
       sidebars = { "terminal", "qf", "help" },
       on_highlights = function(hl, c)
         hl.CursorLineNr = { fg = c.fg }
@@ -25,7 +25,9 @@ return {
       transparent_background = false,
       integrations = {
         alpha = true,
-        blink_cmp = true,
+        -- blink_cmp = {
+        --   style = "bordered",
+        -- },
         diffview = true,
         fzf = true,
         gitsigns = true,
@@ -62,17 +64,29 @@ return {
     lazy = true,
     build = ":KanagawaCompile",
     opts = {
-      undercurl = true,
-      commentStyle = { italic = true },
-      keywordStyle = { italic = true },
-      statementStyle = { bold = true },
       transparent = false,
-      dimInactive = false,
-      terminalColors = true,
       background = {
         dark = "wave",
         light = "lotus",
       },
+      colors = {
+        theme = {
+          all = {
+            ui = {
+              bg_gutter = "none",
+            },
+          },
+        },
+      },
     },
+  },
+
+  {
+    "sainnhe/gruvbox-material",
+    lazy = true,
+    config = function()
+      vim.g.gruvbox_material_background = "hard"
+      vim.g.gruvbox_material_better_performance = 1
+    end,
   },
 }
