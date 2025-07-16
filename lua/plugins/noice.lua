@@ -33,6 +33,7 @@ return {
             search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex" },
             lua = { pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" }, icon = " ", lang = "lua" },
             cmdline = { pattern = "^:", icon = "", lang = "vim" },
+            input = { view = "cmdline_popup", icon = "󰥻 " }, -- Used by input()
           },
         },
         lsp = {
@@ -63,6 +64,15 @@ return {
             },
             opts = { skip = true },
           },
+          {
+            filter = {
+              event = "msg_show",
+              any = {
+                { find = "client.supports_method is deprecated" },
+              },
+            },
+            opts = { skip = true },
+          },
         },
         presets = {
           bottom_search = false,
@@ -72,12 +82,16 @@ return {
           lsp_doc_border = true,
         },
       }
+
       if vim.g.conf.border == "none" then
         ret.cmdline.opts.border.padding = { "1", "2" }
         ret.views = {
           cmdline_popup = {
             win_options = {
-              winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+              winhighlight = {
+                Normal = "NormalFloat",
+                FloatBorder = "FloatBorder",
+              },
             },
           },
         }
