@@ -6,7 +6,7 @@ vim.opt_local.tabstop = 4
 
 vim.keymap.set("n", "<CR>", vim.lsp.buf.definition, { buffer = true })
 
-vim.keymap.set("i", "<leader>v", function()
+vim.keymap.set("n", "<leader>v", function()
   local assets_dir = vim.fn.expand "%:p:h" .. "/assets"
   local name = vim.fn.input "Enter filename: "
   if name == "" then
@@ -33,3 +33,18 @@ vim.keymap.set("i", "<leader>v", function()
 
   vim.fn.setreg("+", "![" .. name .. "](assets/" .. filename .. ")")
 end, { buffer = true, desc = "Paste image to assets" })
+
+vim.keymap.set("n", "<leader>w", function()
+  local personal_notes_dir = vim.fn.expand "$HOME/docs/notes/personal"
+  local work_notes_dir = vim.fn.expand "$HOME/docs/notes/work"
+
+  if vim.fn.getcwd() == personal_notes_dir then
+    vim.cmd("cd " .. work_notes_dir)
+    vim.cmd "bufdo bd"
+    vim.cmd "e index.md"
+  else
+    vim.cmd("cd " .. personal_notes_dir)
+    vim.cmd "bufdo bd"
+    vim.cmd "e index.md"
+  end
+end, { buffer = true, desc = "Toggle workspace notes" })
