@@ -16,9 +16,12 @@ vim.keymap.set("i", "<leader>v", function()
   local filename = name .. ".png"
 
   if vim.fn.isdirectory(assets_dir) == 1 then
-    -- Imagemagick reduce image size
-    local cmd = "pngpaste ./assets/" .. filename
-    vim.cmd("!" .. cmd)
+    -- TODO: Imagemagick reduce image size
+    if vim.fn.has "mac" == 1 then
+      vim.cmd("!pngpaste ./assets/" .. filename)
+    else
+      vim.cmd("!wl-paste --type=image > ./assets/" .. filename)
+    end
     if vim.v.shell_error ~= 0 then
       print "Failed pasting image"
       return
@@ -28,8 +31,5 @@ vim.keymap.set("i", "<leader>v", function()
     return
   end
 
-  vim.api.nvim_set_current_line(vim.api.nvim_get_current_line() .. "![" .. name .. "](assets/" .. filename .. ")")
-  vim.cmd.redraw()
-  vim.cmd.stopinsert()
-  vim.cmd.write()
+  vim.fn.setreg("+", "![" .. name .. "](assets/" .. filename .. ")")
 end, { buffer = true, desc = "Paste image to assets" })
