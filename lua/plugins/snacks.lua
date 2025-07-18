@@ -32,8 +32,7 @@ return {
         header = require("banners")["vim"],
         ---@type snacks.dashboard.Item[]
         keys = {
-          { icon = " ", key = "w", desc = "notes", action = ":cd ~/docs/notes | e index.md" },
-          { icon = " ", key = "e", desc = "work notes", action = ":cd ~/docs/worknotes | e index.md" },
+          { icon = " ", key = "w", desc = "notes", action = ":cd ~/docs/notes/personal | e index.md" },
           {
             icon = "",
             key = "c",
