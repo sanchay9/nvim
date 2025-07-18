@@ -8,7 +8,7 @@ return {
       "sources.default",
     },
     dependencies = {
-      "Kaiser-Yang/blink-cmp-dictionary",
+      { "archie-judd/blink-cmp-words" },
     },
     opts = {
       appearance = {
@@ -44,14 +44,12 @@ return {
         },
       },
       sources = {
-        default = function()
-          if vim.bo.filetype == "markdown" then
-            return { "dictionary", "lsp", "path", "snippets", "buffer", "markdown" }
-          elseif vim.bo.filetype == "lua" then
-            return { "lazydev", "lsp", "path", "snippets", "buffer" }
-          end
-          return { "lsp", "path", "snippets", "buffer" }
-        end,
+        default = { "lsp", "path", "snippets", "buffer" },
+        per_filetype = {
+          markdown = { "thesaurus", "lsp", "path", "snippets", "buffer", "markdown" },
+          lua = { "lazydev", "lsp", "path", "snippets", "buffer" },
+          text = { "dictionary" },
+        },
         providers = {
           lazydev = {
             name = "LazyDev",
@@ -61,14 +59,23 @@ return {
           snippets = {
             max_items = 5,
           },
-          dictionary = {
-            module = "blink-cmp-dictionary",
-            name = "Dict",
+          thesaurus = {
+            name = "blink-cmp-words",
+            module = "blink-cmp-words.thesaurus",
             max_items = 5,
-            score_offset = -3,
-            min_keyword_length = 4,
             opts = {
-              dictionary_files = { "/usr/share/dict/words" },
+              score_offset = 0,
+              pointer_symbols = { "!", "&", "^" },
+            },
+          },
+          dictionary = {
+            name = "blink-cmp-words",
+            module = "blink-cmp-words.dictionary",
+            max_items = 5,
+            opts = {
+              dictionary_search_threshold = 3,
+              score_offset = 0,
+              pointer_symbols = { "!", "&", "^" },
             },
           },
           markdown = {
