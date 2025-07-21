@@ -48,6 +48,7 @@ return {
         per_filetype = {
           markdown = { "thesaurus", "lsp", "path", "snippets", "buffer", "markdown" },
           lua = { "lazydev", "lsp", "path", "snippets", "buffer" },
+          gitcommit = { "thesaurus", "buffer", "snippets" },
           text = { "dictionary" },
         },
         providers = {
