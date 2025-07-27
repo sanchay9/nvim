@@ -120,6 +120,11 @@ return {
   },
 
   {
+    "echasnovski/mini.diff",
+    lazy = false,
+  },
+
+  {
     "lewis6991/gitsigns.nvim",
     ft = "gitcommit",
     cmd = "Gitsigns",

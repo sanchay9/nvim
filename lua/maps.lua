@@ -3,7 +3,6 @@ vim.keymap.set("n", "<C-w><C-w>", "<nop>")
 
 vim.keymap.set({ "i", "n", "s" }, "<esc>", function()
   vim.cmd.noh()
-  -- TODO: LazyVim.cmp.actions.snippet_stop()
   return "<esc>"
 end, { expr = true, desc = "Escape and Clear hlsearch" })
 
@@ -49,3 +48,8 @@ vim.keymap.set("n", "<leader>\\", function()
   Snacks.terminal()
 end, { desc = "Terminal (cwd)" })
 vim.keymap.set("t", "<leader>\\", "<cmd>close<cr>", { desc = "Hide Terminal" })
+
+vim.keymap.set("n", "<leader>st", function()
+  _G.show_more_info = not _G.show_more_info
+  vim.cmd "redrawstatus!"
+end, { desc = "Toggle StatusLine More Info" })
