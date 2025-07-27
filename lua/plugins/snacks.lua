@@ -86,7 +86,7 @@ return {
     { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" }, },
     { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" }, },
     { "<leader>gx", function() Snacks.gitbrowse() end, desc = "Git Browse", },
-    { "<leader>`", function() Snacks.notifier.show_history() end, desc = "Notification History" },
+    { "<leader><esc>", function() Snacks.notifier.show_history() end, desc = "Notification History" },
     { "<leader>,", function() Snacks.dashboard() end, desc = "Dashboard" },
   },
 }

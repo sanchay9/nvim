@@ -22,6 +22,7 @@ return {
       "shellcheck",
       "html-lsp",
       "css-lsp",
+      "json-lsp",
       "typescript-language-server",
       "gopls",
       "golangci-lint",

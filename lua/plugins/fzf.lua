@@ -14,21 +14,32 @@ return {
       { "<leader>/",     "<cmd>lua require('fzf-lua').lgrep_curbuf()<cr>",                                     desc = "Fuzzy Search Current Buffer", },
     },
     init = function()
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.ui.select = function(...)
-        require("fzf-lua").register_ui_select(function(_, items)
-          local min_h, max_h = 0.15, 0.70
-          local h = (#items + 4) / vim.o.lines
-          if h < min_h then
-            h = min_h
-          elseif h > max_h then
-            h = max_h
-          end
-          return { winopts = { height = h, width = 0.60, row = 0.40 } }
-        end)
-
-        return vim.ui.select(...)
-      end
+      require("fzf-lua").register_ui_select(function(fzf_opts, items)
+        return vim.tbl_deep_extend("force", fzf_opts, {
+          prompt = "  ",
+          winopts = {
+            title = " " .. vim.trim((fzf_opts.prompt or "Select"):gsub("%s*:%s*$", "")) .. " ",
+            title_pos = "center",
+          },
+        }, fzf_opts.kind == "codeaction" and {
+          winopts = {
+            layout = "vertical",
+            -- height is number of items minus 15 lines for the preview, with a max of 80% screen height
+            height = math.floor(math.min(vim.o.lines * 0.8 - 16, #items + 2) + 0.5) + 16,
+            width = 0.5,
+            preview = {
+              layout = "vertical",
+              vertical = "down:15,border-top",
+            },
+          },
+        } or {
+          winopts = {
+            width = 0.1,
+            -- height is number of items, with a max of 80% screen height
+            height = math.floor(math.min(vim.o.lines * 0.8, #items + 2) + 0.5),
+          },
+        })
+      end)
     end,
     opts = {
       defaults = { git_icons = false },
