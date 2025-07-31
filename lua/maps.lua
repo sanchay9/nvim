@@ -38,7 +38,6 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "delete without yank
 vim.keymap.set({ "n", "x" }, "<leader>p", [["0p]], { desc = "paste from 0 register" })
 
 vim.keymap.set("n", "Q", "@q", { desc = "play macro recorded in q register" })
-vim.keymap.set("n", "S", ":%s///g<Left><Left><Left>")
 
 vim.keymap.set("n", "<bs>", function()
   Snacks.bufdelete()

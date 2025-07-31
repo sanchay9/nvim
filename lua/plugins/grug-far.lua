@@ -1,22 +1,31 @@
 return {
   "MagicDuck/grug-far.nvim",
   opts = { headerMaxWidth = 80 },
-  cmd = "GrugFar",
   keys = {
     {
       "<leader>sr",
       function()
-        local grug = require "grug-far"
-        local ext = vim.bo.buftype == "" and vim.fn.expand "%:e"
-        grug.open {
+        require("grug-far").toggle_instance {
+          instanceName = "far",
+          staticTitle = "Find and Replace",
           transient = true,
-          prefills = {
-            filesFilter = ext and ext ~= "" and "*." .. ext or nil,
-          },
         }
       end,
       mode = { "n", "v" },
       desc = "Search and Replace",
+    },
+    {
+      "S",
+      function()
+        require("grug-far").toggle_instance {
+          instanceName = "far_buffer",
+          staticTitle = "Find and Replace in Buffer",
+          transient = true,
+          prefills = { paths = vim.fn.expand "%:p" },
+        }
+      end,
+      mode = { "n", "v" },
+      desc = "Search and Replace in current buffer",
     },
   },
 }

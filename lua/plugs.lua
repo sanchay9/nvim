@@ -37,7 +37,7 @@ require("lazy").setup("plugins", {
         "gzip",
         "logipat",
         "netrw",
-        -- "netrwPlugin", -- useful with nvim .
+        "netrwPlugin", -- useful with nvim .
         "netrwSettings",
         "netrwFileHandlers",
         "matchit",
