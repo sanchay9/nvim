@@ -1,5 +1,6 @@
 require "opts"
 require "autocmds"
 require "maps"
+require "lsp"
 require "plugs"
 require "colors"
