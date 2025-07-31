@@ -100,15 +100,3 @@ vim.opt.diffopt = "filler,internal,closeoff,algorithm:histogram,context:5,linema
 for _, provider in ipairs { "node", "perl", "python3", "ruby" } do
   vim.g["loaded_" .. provider .. "_provider"] = 0
 end
-
-vim.filetype.add {
-  extension = {
-    http = "http",
-  },
-  pattern = {
-    [".*/waybar/config"] = "jsonc",
-    [".*/kitty/.+%.conf"] = "sh",
-    [".*/hypr/.+%.conf"] = "hyprlang",
-    ["%.env%.[%w_.-]+"] = "sh",
-  },
-}
