@@ -38,7 +38,6 @@ return {
         semicolon = "Disable",
         arrayIndex = "Disable",
       },
-      telemetry = { enable = false },
     },
   },
 }
