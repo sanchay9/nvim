@@ -6,7 +6,7 @@ return {
       { "<C-'>", ft = "http", "<cmd>w | lua require('kulala').run()<cr>", desc = "kulala run" },
       { "<leader>rc", ft = "http", "<cmd>lua require('kulala').copy()<cr>", desc = "copy curl" },
       { "<leader>ri", ft = "http", "<cmd>lua require('kulala').from_curl()<cr>", desc = "import curl" },
-      { "<leader>rt", ft = "http", "<cmd>lua require('kulala').toggle_view()<cr>", desc = "kulala toggle view" },
+      { "<leader>R", ft = "http", "<cmd>lua require('kulala').toggle_view()<cr>", desc = "kulala toggle view" },
       { "<leader>re", ft = "http", "<cmd>lua require('kulala').set_selected_env()<cr>", desc = "kulala select env" },
       { "<leader>rr", ft = "http", "<cmd>lua require('kulala').search()<cr>", desc = "kulala search request" },
       { "[[", ft = "http", "<cmd>lua require('kulala').jump_prev()<cr>", desc = "prev request" },

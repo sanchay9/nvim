@@ -8,12 +8,12 @@ return {
     -- stylua: ignore
     keys = {
       { "<leader>tt", function() require("neotest").run.run() end, desc = "Test Nearest" },
-      { "<leader>td", function() require("neotest").run.run({strategy = "dap"}) end, desc = "Debug Nearest" },
+      { "<leader>dt", function() require("neotest").run.run({strategy = "dap"}) end, desc = "Debug Nearest" },
       { "<leader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Test File" },
       { "<leader>t.", function() require("neotest").run.run(vim.fn.expand("%:p:h")) end, desc = "Test Directory" },
       { "<leader>ta", function() require("neotest").run.run(vim.uv.cwd()) end, desc = "Test All" },
       { "<leader>tq", function() require("neotest").run.stop() end, desc = "Test Terminate" },
-      { "<leader>to", function() require("neotest").summary.toggle() end, desc = "Toggle Summary" },
+      { "<leader>T", function() require("neotest").summary.toggle() end, desc = "Toggle Summary" },
       { "<leader>te", function() require("neotest").output.open({ enter = false, auto_close = true }) end, desc = "Show Output" },
       { "<leader>tp", function() require("neotest").output_panel.toggle() end, desc = "Toggle Output Panel" },
       { "[t", function() require("neotest").jump.prev() end, desc = "Prev test" },

@@ -17,17 +17,12 @@ vim.keymap.set("n", "<leader><tab>", "<C-^>", { desc = "switch to alternate buff
 vim.keymap.set("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Below" })
 vim.keymap.set("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Above" })
 
-vim.keymap.set("n", "<leader>qt", function()
+vim.keymap.set("n", "<leader>Q", function()
   local success, err = pcall(vim.fn.getqflist({ winid = 0 }).winid ~= 0 and vim.cmd.cclose or vim.cmd.copen)
   if not success and err then
     vim.notify(err, vim.log.levels.ERROR)
   end
 end, { desc = "Toggle Quickfix List" })
-
-vim.keymap.set("n", "<C-up>", "<cmd>resize +2<cr>", { desc = "increase window height" })
-vim.keymap.set("n", "<C-down>", "<cmd>resize -2<cr>", { desc = "decrease window height" })
-vim.keymap.set("n", "<C-left>", "<cmd>vertical resize -2<cr>", { desc = "decrease window width" })
-vim.keymap.set("n", "<C-right>", "<cmd>vertical resize +2<cr>", { desc = "increase window width" })
 
 vim.keymap.set("n", "<A-j>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "move lines down" })
 vim.keymap.set("n", "<A-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "move lines up" })

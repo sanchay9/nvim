@@ -4,7 +4,7 @@ return {
   lazy = false,
   opts = {
     quickfile = { enabled = true },
-    words = { enabled = true },
+    words = { enabled = true, debounce = 100, notify_jump = true },
     notifier = { enabled = true },
     statuscolumn = { enabled = true },
     image = { enabled = true },
@@ -83,8 +83,8 @@ return {
   },
   -- stylua: ignore
   keys = {
-    { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" }, },
-    { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" }, },
+    { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference" },
+    { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference" },
     { "<leader>gx", function() Snacks.gitbrowse() end, desc = "Git Browse", },
     { "<leader><esc>", function() Snacks.notifier.show_history() end, desc = "Notification History" },
     { "<leader>,", function() Snacks.dashboard() end, desc = "Dashboard" },

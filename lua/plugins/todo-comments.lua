@@ -4,7 +4,7 @@ return {
     cmd = { "TodoTrouble", "TodoFzfLua" },
     opts = {},
     keys = {
-      { "<leader>t", "<cmd>TodoFzfLua<cr>", desc = "Todo" },
+      { "<leader>td", "<cmd>TodoFzfLua<cr>", desc = "Todo" },
     },
   },
 }

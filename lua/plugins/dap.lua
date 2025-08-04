@@ -24,7 +24,7 @@ return {
     { "<leader>dk", function() require("dap").up() end, desc = "Up" },
     { "<leader>dO", function() require("dap").step_out() end, desc = "Step Out" },
     { "<leader>do", function() require("dap").step_over() end, desc = "Step Over" },
-    { "<leader>dt", function() require("dap").repl.toggle({wrap=true,nu=false}, "botright split") end, desc = "Toggle REPL" },
+    { "<leader>D", function() require("dap").repl.toggle({wrap=true,nu=false}, "botright split") end, desc = "Toggle REPL" },
     { "<leader>dq", function() require("dap").terminate() end, desc = "Terminate" },
     { "<leader>de", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
   },

@@ -94,11 +94,12 @@ return {
       },
     },
     keys = {
-      { "<leader>gs", "<cmd>Neogit<cr>", desc = "Neogit" },
+      { "<leader>G", "<cmd>Neogit<cr>", desc = "Neogit" },
       { "<leader>gc", "<cmd>Neogit commit<cr>", desc = "Neogit Commit" },
       { "<leader>gb", "<cmd>Neogit branch<cr>", desc = "Neogit Branch" },
       { "<leader>gp", "<cmd>Neogit pull<cr>", desc = "Neogit Pull" },
       { "<leader>gP", "<cmd>Neogit push<cr>", desc = "Neogit Push" },
+      { "<leader>gl", "<cmd>NeogitLogCurrent<cr>", desc = "Neogit Log" },
     },
     cmd = "Neogit",
     opts = {

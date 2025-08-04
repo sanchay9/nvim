@@ -8,7 +8,7 @@ return {
         javascript = { "eslint" },
         go = { "golangcilint" },
         python = { "ruff" },
-        -- sql = { "sqlfluff" },
+        sql = { "sqlfluff" },
       },
       linters = {
         markdownlint = {

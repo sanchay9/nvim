@@ -32,6 +32,8 @@ return {
       "texlab",
       "harper-ls",
       "qmlls",
+      "sqls",
+      "sqlfluff",
     },
     max_concurrent_installers = 10,
   },

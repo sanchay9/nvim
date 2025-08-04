@@ -39,7 +39,7 @@ return {
       require("lazy").load { plugins = { "markdown-preview.nvim" } }
       vim.fn["mkdp#util#install"]()
     end,
-    keys = { { "<leader>d", ft = "markdown", "<cmd>MarkdownPreviewToggle<cr>", desc = "markdown preview" } },
+    keys = { { "<leader>D", ft = "markdown", "<cmd>MarkdownPreviewToggle<cr>", desc = "markdown preview" } },
     config = function()
       vim.cmd "do FileType"
     end,

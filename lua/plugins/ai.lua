@@ -3,7 +3,7 @@ return {
     "olimorris/codecompanion.nvim",
     keys = {
       {
-        "<leader>at",
+        "<leader>A",
         "<cmd>CodeCompanionChat Toggle<cr>",
         desc = "CodeCompanion Chat",
         mode = { "n", "v" },

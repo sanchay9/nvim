@@ -4,6 +4,7 @@ vim.g.conf = {
   border = "none",
 }
 vim.opt.winborder = "none"
+vim.g.no_go_maps = 1
 
 -- TODO: vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 
@@ -58,6 +59,7 @@ vim.opt.fillchars = {
   diff = "╱",
   eob = " ",
 }
+vim.opt.showtabline = 0
 vim.opt.foldlevel = 99
 vim.opt.foldtext = ""
 vim.opt.foldmethod = "expr"
@@ -77,7 +79,7 @@ _G.foldexpr = function()
 end
 vim.opt.foldexpr = "v:lua.foldexpr()"
 
-vim.opt.formatoptions = "jcroqlnt"
+vim.opt.formatoptions = "jcqlnt"
 vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()"
 
 -- vim.opt.numberwidth = 12 -- set number column width (default 4)

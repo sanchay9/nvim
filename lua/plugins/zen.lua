@@ -1,6 +1,6 @@
 return {
   "folke/zen-mode.nvim",
-  cmd = "ZenMode",
+  keys = { { "<leader>Z", vim.cmd.ZenMode, desc = "toggle zenmode" } },
   opts = {
     window = {
       width = 0.8, -- width of the Zen window
