@@ -16,10 +16,11 @@ local function on_attach(client, bufnr)
     require("nvim-navic").attach(client, bufnr)
   end
 
-  vim.lsp.document_color.enable(true, bufnr)
+  vim.lsp.document_color.enable(true, bufnr, { style = "virtual" })
+
   vim.keymap.set({ "n", "x" }, "grc", function()
     vim.lsp.document_color.color_presentation()
-  end, { buffer = bufnr, desc = "vim.lsp.document_color.color_presentation()" })
+  end, { buffer = bufnr, desc = "Change color representation" })
 
   if vim.lsp.codelens and client:supports_method "textDocument/codeLens" then
     vim.lsp.codelens.refresh()

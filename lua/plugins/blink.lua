@@ -47,16 +47,10 @@ return {
         default = { "lsp", "path", "snippets", "buffer" },
         per_filetype = {
           markdown = { "thesaurus", "lsp", "path", "snippets", "buffer", "markdown" },
-          lua = { "lazydev", "lsp", "path", "snippets", "buffer" },
           gitcommit = { "thesaurus", "buffer", "snippets" },
           text = { "dictionary" },
         },
         providers = {
-          lazydev = {
-            name = "LazyDev",
-            module = "lazydev.integrations.blink",
-            score_offset = 100,
-          },
           snippets = {
             max_items = 5,
           },
@@ -66,7 +60,7 @@ return {
             max_items = 5,
             opts = {
               score_offset = 0,
-              pointer_symbols = { "!", "&", "^" },
+              definition_pointers = { "!", "&", "^" },
             },
           },
           dictionary = {
@@ -76,7 +70,7 @@ return {
             opts = {
               dictionary_search_threshold = 3,
               score_offset = 0,
-              pointer_symbols = { "!", "&", "^" },
+              definition_pointers = { "!", "&", "^" },
             },
           },
           markdown = {

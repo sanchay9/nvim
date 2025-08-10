@@ -34,6 +34,8 @@ return {
       "qmlls",
       "sqls",
       "sqlfluff",
+      "yaml-language-server",
+      "zls",
     },
     max_concurrent_installers = 10,
   },

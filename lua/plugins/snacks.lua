@@ -30,7 +30,6 @@ return {
     dashboard = {
       preset = {
         header = require("banners")["vim"],
-        ---@type snacks.dashboard.Item[]
         keys = {
           { icon = " ", key = "w", desc = "notes", action = ":cd ~/docs/notes/personal | e index.md" },
           {
