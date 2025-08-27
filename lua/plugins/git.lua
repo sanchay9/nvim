@@ -121,6 +121,17 @@ return {
   },
 
   {
+    "echasnovski/mini.diff",
+    config = function()
+      local diff = require "mini.diff"
+      diff.setup {
+        -- Disabled by default
+        source = diff.gen_source.none(),
+      }
+    end,
+  },
+
+  {
     "lewis6991/gitsigns.nvim",
     ft = "gitcommit",
     cmd = "Gitsigns",

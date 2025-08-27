@@ -32,8 +32,9 @@ return {
       },
       strategies = {
         chat = {
+          adapter = "gemini",
           roles = {
-            llm = "",
+            llm = "",
             user = "",
           },
           keymaps = {
@@ -48,6 +49,7 @@ return {
           },
         },
         inline = {
+          adapter = "gemini",
           keymaps = {
             accept_change = {
               modes = {
@@ -67,8 +69,25 @@ return {
             },
           },
         },
+        cmd = {
+          adapter = "gemini",
+        },
+      },
+      adapters = {
+        gemini = function()
+          return require("codecompanion.adapters").extend("gemini", {
+            schema = {
+              model = {
+                default = "gemini-2.5-pro",
+              },
+            },
+          })
+        end,
       },
       display = {
+        diff = {
+          provider = "mini_diff",
+        },
         action_palette = {
           prompt = "",
         },
