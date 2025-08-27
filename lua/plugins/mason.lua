@@ -3,6 +3,7 @@ return {
   build = ":MasonUpdate",
   opts = {
     ensure_installed = {
+      "copilot-language-server",
       "lua-language-server",
       "stylua",
       "shfmt",

@@ -34,7 +34,7 @@ return {
           },
         } or {
           winopts = {
-            width = 0.1,
+            width = 0.5,
             -- height is number of items, with a max of 80% screen height
             height = math.floor(math.min(vim.o.lines * 0.8, #items + 2) + 0.5),
           },

@@ -33,9 +33,9 @@ return {
         keys = {
           { icon = " ", key = "w", desc = "notes", action = ":cd ~/docs/notes/personal | e index.md" },
           {
-            icon = "",
+            icon = "",
             key = "c",
-            desc = "workdirs",
+            desc = "dirs",
             action = function()
               local fzf_lua = require "fzf-lua"
               fzf_lua.files {
@@ -60,23 +60,21 @@ return {
               }
             end,
           },
-
-          -- { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-          -- { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-          -- { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-          -- { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-          -- { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
-          -- { icon = " ", key = "s", desc = "Restore Session", section = "session" },
-          -- { icon = " ", key = "x", desc = "Lazy Extras", action = ":LazyExtras" },
-          -- { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
+          { icon = "󰒲 ", key = "l", desc = "lazy", action = ":Lazy" },
           { icon = " ", key = "q", desc = "quit", action = ":qa" },
         },
       },
       sections = {
         { section = "header" },
         { section = "keys", gap = 1, padding = 1 },
-        { section = "startup" },
-        -- vim.system({ "curl", "https://vtip.43z.one" }):wait().stdout,
+        { section = "startup", padding = 2 },
+        {
+          section = "terminal",
+          cmd = "curl https://vtip.43z.one",
+          -- cmd = "cbonsai -l -i -L 30",
+          height = 10,
+          ttl = 1,
+        },
       },
     },
   },

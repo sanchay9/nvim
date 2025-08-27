@@ -33,6 +33,10 @@ local function on_attach(client, bufnr)
     vim.keymap.set("n", "<leader>cr", vim.lsp.codelens.refresh, optss)
   end
 
+  if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion) then
+    vim.lsp.inline_completion.enable(true)
+  end
+
   if client.server_capabilities.codeActionProvider then
     vim.keymap.set({ "n", "x" }, "gra", function()
       require("fzf-lua").lsp_code_actions {}
