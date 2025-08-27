@@ -21,7 +21,7 @@ then
   mode = "dark"
 end
 
-local file = io.open(os.getenv "XDG_CACHE_HOME" .. "/swcs.json", "r")
+local file = io.open(vim.fn.expand "~/.cache/swcs.json", "r")
 if file then
   local content = file:read "*all"
   file:close()
