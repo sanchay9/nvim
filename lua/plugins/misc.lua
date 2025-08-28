@@ -46,7 +46,7 @@ return {
   },
 
   {
-    "echasnovski/mini.animate",
+    "nvim-mini/mini.animate",
     event = "VeryLazy",
     opts = function()
       -- don't use animate when scrolling with the mouse

@@ -1,5 +1,5 @@
 return {
-  "echasnovski/mini.surround",
+  "nvim-mini/mini.surround",
   keys = {
     { "gsa", desc = "Add Surrounding", mode = { "n", "v" } },
     { "gsd", desc = "Delete Surrounding" },
