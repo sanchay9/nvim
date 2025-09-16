@@ -25,6 +25,7 @@ return {
         zsh = { "shfmt" },
         cpp = { "clang-format" },
         sql = { "sqlfluff" },
+        typst = { "typstyle" },
         rust = { "rustfmt" },
         python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
         ["*"] = { "trim_whitespace" },
