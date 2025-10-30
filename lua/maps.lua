@@ -23,6 +23,9 @@ vim.keymap.set("n", "<leader>Q", function()
   end
 end, { desc = "Toggle Quickfix List" })
 
+-- vim.cmd "packadd nvim.undotree"
+-- vim.keymap.set("n", "<leader>U", require("undotree").open(), { desc = "toggle undotree" })
+
 vim.keymap.set("n", "<A-j>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "move lines down" })
 vim.keymap.set("n", "<A-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "move lines up" })
 vim.keymap.set("v", "<A-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "move lines down" })

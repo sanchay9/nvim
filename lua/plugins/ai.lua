@@ -74,15 +74,17 @@ return {
         },
       },
       adapters = {
-        gemini = function()
-          return require("codecompanion.adapters").extend("gemini", {
-            schema = {
-              model = {
-                default = "gemini-2.5-pro",
+        http = {
+          gemini = function()
+            return require("codecompanion.adapters").extend("gemini", {
+              schema = {
+                model = {
+                  default = "gemini-2.5-flash",
+                },
               },
-            },
-          })
-        end,
+            })
+          end,
+        },
       },
       display = {
         diff = {
