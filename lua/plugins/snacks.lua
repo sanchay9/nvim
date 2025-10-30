@@ -69,13 +69,6 @@ return {
         { section = "header" },
         { section = "keys", gap = 1, padding = 1 },
         { section = "startup", padding = 2 },
-        {
-          section = "terminal",
-          cmd = "curl https://vtip.43z.one",
-          -- cmd = "cbonsai -l -i -L 30",
-          height = 10,
-          ttl = 1,
-        },
       },
     },
   },
