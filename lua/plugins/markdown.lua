@@ -26,8 +26,10 @@ return {
         right_pad = 1,
       },
       heading = {
-        -- bullets: • external link
-        icons = { "◉ ", "○ ", "✸ ", "✿ " },
+        icons = { " ◉  ", " ○  ", " ✸  ", " ✿  " },
+      },
+      bullet = {
+        icons = { "", "", "◆", "◇" },
       },
     },
   },
