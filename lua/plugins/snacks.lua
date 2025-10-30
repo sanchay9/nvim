@@ -18,6 +18,7 @@ return {
           and vim.b[buf].snacks_indent ~= false
           and vim.bo[buf].buftype == ""
           and vim.bo[buf].filetype ~= "http"
+          and vim.bo[buf].filetype ~= "markdown"
       end,
       scope = {
         enabled = true,

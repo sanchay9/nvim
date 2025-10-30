@@ -5,7 +5,7 @@ return {
     opts = { use_diagnostic_signs = true },
     keys = {
       { "<leader>E", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
-      { "<leader>C", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", desc = "LSP (Trouble)" },
+      { "<leader>L", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", desc = "LSP (Trouble)" },
       {
         "[q",
         function()
