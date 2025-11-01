@@ -108,7 +108,7 @@ return {
       remember_settings = false,
       integrations = {
         diffview = true,
-        fzf_lua = true,
+        snacks = true,
       },
       commit_editor = {
         spell_check = false,

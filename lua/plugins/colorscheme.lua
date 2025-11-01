@@ -8,7 +8,6 @@ return {
       sidebars = { "terminal", "qf", "help" },
       on_highlights = function(hl, c)
         hl.CursorLineNr = { fg = c.fg }
-        hl.FzfLuaBorder = { fg = c.blue }
 
         local colours = { c.magenta, c.cyan, c.blue }
         math.randomseed(os.time())
@@ -29,7 +28,6 @@ return {
         --   style = "bordered",
         -- },
         diffview = true,
-        fzf = true,
         gitsigns = true,
         illuminate = { enabled = true },
         markdown = true,

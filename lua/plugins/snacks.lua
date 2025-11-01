@@ -73,13 +73,17 @@ return {
     { "<leader>,", function() Snacks.dashboard() end, desc = "Dashboard" },
     { "<leader>G", function() Snacks.lazygit() end, desc = "Lazygit" },
 
+    { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
     { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files (Root Dir)" },
-    -- { "<leader>f.", function() Snacks.picker.files({ root = false }) end, desc = "Find Files (cwd)" },
+    { "<leader>f.", function() Snacks.picker.files({ root = false }) end, desc = "Find Files (cwd)" },
     { "<leader>gg", function() Snacks.picker.grep() end, desc = "Grep (Root Dir)" },
+    { "<leader>*", function() Snacks.picker.grep_word() end, desc = "Visual selection or word", mode = { "n", "x" } },
+    { "<leader>i", function() Snacks.picker.icons() end, desc = "Icons" },
     { "<leader>g.", function() Snacks.picker.grep({ root = false }) end, desc = "Grep (cwd)" },
     { "<leader>b", function() Snacks.picker.buffers() end, desc = "Buffers" },
     { "<leader>hh", function() Snacks.picker.help() end, desc = "Help Pages" },
     { "<leader>r", function() Snacks.picker.recent() end, desc = "Recent" },
     { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
+    { "<leader>/", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
   },
 }

@@ -1,10 +1,9 @@
 return {
   {
     "folke/todo-comments.nvim",
-    cmd = { "TodoTrouble", "TodoFzfLua" },
     opts = {},
     keys = {
-      { "<leader>td", "<cmd>TodoFzfLua<cr>", desc = "Todo" },
+      { "<leader>t", "<cmd>TodoTrouble<cr>", desc = "Todo" },
     },
   },
 }

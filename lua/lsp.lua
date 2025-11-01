@@ -38,7 +38,9 @@ local function on_attach(client, bufnr)
   end
 
   if client.server_capabilities.declarationProvider then
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, optss)
+    vim.keymap.set("n", "gD", function()
+      Snacks.picker.lsp_declarations()
+    end, optss)
   end
 
   if client.server_capabilities.definitionProvider then
@@ -73,6 +75,13 @@ local function on_attach(client, bufnr)
       Snacks.picker.lsp_type_definitions()
     end, { buffer = bufnr, desc = "Go to type definition" })
   end
+
+  keymap("gai", function()
+    Snacks.picker.lsp_incoming_calls()
+  end, "C[a]lls Incoming")
+  keymap("gao", function()
+    Snacks.picker.lsp_outgoing_calls()
+  end, "C[a]lls Outgoing")
 
   if client.server_capabilities.inlayHintProvider then
     vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })

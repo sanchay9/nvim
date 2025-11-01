@@ -46,8 +46,6 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
     if vim.fn.isdirectory(data.file) == 1 then
       vim.cmd.cd(data.file)
       require("oil").open(data.file)
-      -- local fzf_lua = require "fzf-lua"
-      -- fzf_lua.files { cwd = data.file }
     end
 
     if vim.fn.argc() > 0 or vim.fn.line2byte "$" ~= -1 or not vim.o.modifiable then
