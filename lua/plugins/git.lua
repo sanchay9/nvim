@@ -94,7 +94,7 @@ return {
       },
     },
     keys = {
-      { "<leader>G", "<cmd>Neogit<cr>", desc = "Neogit" },
+      -- { "<leader>G", "<cmd>Neogit<cr>", desc = "Neogit" },
       { "<leader>gc", "<cmd>Neogit commit<cr>", desc = "Neogit Commit" },
       { "<leader>gb", "<cmd>Neogit branch<cr>", desc = "Neogit Branch" },
       { "<leader>gp", "<cmd>Neogit pull<cr>", desc = "Neogit Pull" },

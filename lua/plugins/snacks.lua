@@ -71,6 +71,12 @@ return {
         { section = "startup", padding = 2 },
       },
     },
+    picker = {
+      ui_select = true,
+      exclude = {
+        "vendor",
+      },
+    },
   },
   -- stylua: ignore
   keys = {
@@ -79,5 +85,14 @@ return {
     { "<leader>gx", function() Snacks.gitbrowse() end, desc = "Git Browse", },
     { "<leader><esc>", function() Snacks.notifier.show_history() end, desc = "Notification History" },
     { "<leader>,", function() Snacks.dashboard() end, desc = "Dashboard" },
+    { "<leader>G", function() Snacks.lazygit() end, desc = "Lazygit" },
+
+    { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files (Root Dir)" },
+    -- { "<leader>f.", function() Snacks.picker.files({ root = false }) end, desc = "Find Files (cwd)" },
+    { "<leader>gg", function() Snacks.picker.grep() end, desc = "Grep (Root Dir)" },
+    { "<leader>g.", function() Snacks.picker.grep({ root = false }) end, desc = "Grep (cwd)" },
+    { "<leader>b", function() Snacks.picker.buffers() end, desc = "Buffers" },
+    { "<leader>hh", function() Snacks.picker.help() end, desc = "Help Pages" },
+    { "<leader>r", function() Snacks.picker.recent() end, desc = "Recent" },
   },
 }

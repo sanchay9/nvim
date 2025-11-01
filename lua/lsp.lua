@@ -37,21 +37,13 @@ local function on_attach(client, bufnr)
     vim.lsp.inline_completion.enable(true)
   end
 
-  if client.server_capabilities.codeActionProvider then
-    vim.keymap.set({ "n", "x" }, "gra", function()
-      require("fzf-lua").lsp_code_actions {}
-    end)
-  end
-
   if client.server_capabilities.declarationProvider then
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, optss)
   end
 
   if client.server_capabilities.definitionProvider then
     vim.keymap.set("n", "gd", function()
-      require("fzf-lua").lsp_definitions {
-        ignore_current_line = true,
-      }
+      Snacks.picker.lsp_definitions()
     end, optss)
   end
 
@@ -66,32 +58,19 @@ local function on_attach(client, bufnr)
 
   if client.server_capabilities.implementationProvider then
     vim.keymap.set("n", "gri", function()
-      require("fzf-lua").lsp_implementations {
-        ignore_current_line = true,
-      }
+      Snacks.picker.lsp_implementations()
     end)
   end
 
-  -- if client:supports_method(methods.textDocument_definition) then
-  --   keymap("gd", function()
-  --     require("fzf-lua").lsp_definitions { jump1 = true }
-  --   end, "Go to definition")
-  --   keymap("gD", function()
-  --     require("fzf-lua").lsp_definitions { jump1 = false }
-  --   end, "Peek definition")
-  -- end
-
   if client.server_capabilities.referencesProvider then
     vim.keymap.set("n", "grr", function()
-      require("fzf-lua").lsp_references {
-        ignore_current_line = true,
-      }
-    end, { buffer = bufnr, desc = "Go to references" })
+      Snacks.picker.lsp_references()
+    end, { desc = "References" })
   end
 
   if client.server_capabilities.typeDefinitionProvider then
     vim.keymap.set("n", "gy", function()
-      require("fzf-lua").lsp_typedefs {}
+      Snacks.picker.lsp_type_definitions()
     end, { buffer = bufnr, desc = "Go to type definition" })
   end
 
@@ -103,7 +82,9 @@ local function on_attach(client, bufnr)
     end, "Toggle inlay hints")
   end
 
-  keymap("<leader>fs", "<cmd>FzfLua lsp_document_symbols<cr>", "Document symbols")
+  keymap("<leader>fs", function()
+    Snacks.picker.lsp_symbols()
+  end, "Document symbols")
 
   keymap("[d", function()
     vim.diagnostic.jump { count = -1 }
@@ -118,7 +99,6 @@ local function on_attach(client, bufnr)
     vim.diagnostic.jump { count = 1, severity = vim.diagnostic.severity.ERROR }
   end, "Next error")
 
-  keymap("<leader>fs", "<cmd>FzfLua lsp_document_symbols<cr>", "Document symbols")
   vim.keymap.set("n", "ge", vim.diagnostic.open_float, { buffer = bufnr, desc = "Show diagnostics under cursor" })
 
   if client:supports_method(methods.textDocument_signatureHelp) then
