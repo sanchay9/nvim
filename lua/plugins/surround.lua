@@ -1,7 +1,7 @@
 return {
   "nvim-mini/mini.surround",
   keys = {
-    { "gsa", desc = "Add Surrounding", mode = { "n", "v" } },
+    { "gsa", desc = "Add Surrounding", mode = { "n", "x" } },
     { "gsd", desc = "Delete Surrounding" },
     { "gsf", desc = "Find Right Surrounding" },
     { "gsF", desc = "Find Left Surrounding" },
