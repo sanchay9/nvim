@@ -34,34 +34,20 @@ return {
         keys = {
           { icon = " ", key = "w", desc = "notes", action = ":cd ~/docs/notes/personal | e index.md" },
           {
-            icon = "",
+            icon = "",
             key = "c",
-            desc = "dirs",
+            desc = "confs",
             action = function()
-              local fzf_lua = require "fzf-lua"
-              fzf_lua.files {
-                cmd = "fd --min-depth 1 --max-depth 1 --type d . ~ ~/work ~/work/learngo ~/dev ~/.config 2>/dev/null",
-                actions = {
-                  ["enter"] = function(selected)
-                    if not selected[1] then
-                      return
-                    end
-                    local newcwd = string.sub(selected[1], 8)
-                    fzf_lua.files {
-                      cwd = newcwd,
-                      actions = {
-                        ["enter"] = function(selecte, opts)
-                          require("fzf-lua").actions.file_edit(selecte, opts)
-                          vim.cmd.cd(newcwd)
-                        end,
-                      },
-                    }
-                  end,
-                },
+              local config_dir = vim.fn.stdpath "config"
+              Snacks.picker.files {
+                cwd = config_dir,
+                layout = "select",
+                on_close = function()
+                  vim.cmd.cd(config_dir)
+                end,
               }
             end,
           },
-          { icon = "󰒲 ", key = "l", desc = "lazy", action = ":Lazy" },
           { icon = " ", key = "q", desc = "quit", action = ":qa" },
         },
       },
@@ -94,5 +80,6 @@ return {
     { "<leader>b", function() Snacks.picker.buffers() end, desc = "Buffers" },
     { "<leader>hh", function() Snacks.picker.help() end, desc = "Help Pages" },
     { "<leader>r", function() Snacks.picker.recent() end, desc = "Recent" },
+    { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
   },
 }
