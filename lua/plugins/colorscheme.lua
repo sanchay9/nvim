@@ -21,7 +21,7 @@ return {
     lazy = true,
     name = "catppuccin",
     opts = {
-      transparent_background = false,
+      transparent_background = true,
       integrations = {
         alpha = true,
         -- blink_cmp = {
@@ -45,7 +45,7 @@ return {
             information = { "undercurl" },
           },
         },
-        navic = { enabled = true, custom_bg = "lualine" },
+        navic = { enabled = true },
         neotest = true,
         dap = true,
         neogit = true,

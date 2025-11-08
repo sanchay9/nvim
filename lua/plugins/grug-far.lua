@@ -8,7 +8,7 @@ return {
   },
   keys = {
     {
-      "<leader>F",
+      "<leader>R",
       function()
         require("grug-far").toggle_instance {
           instanceName = "far",

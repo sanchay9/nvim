@@ -72,6 +72,8 @@ return {
     { "<leader><esc>", function() Snacks.notifier.show_history() end, desc = "Notification History" },
     { "<leader>,", function() Snacks.dashboard() end, desc = "Dashboard" },
     { "<leader>G", function() Snacks.lazygit() end, desc = "Lazygit" },
+    { "<leader>Z",  function() Snacks.zen() end, desc = "Toggle Zen Mode" },
+    { "<leader>F",  function() Snacks.zen.zoom() end, desc = "Toggle Zoom" },
 
     { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
     { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files (Root Dir)" },
