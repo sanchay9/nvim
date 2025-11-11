@@ -63,6 +63,7 @@ return {
         "vendor",
       },
     },
+    scroll = { enabled = true },
   },
   -- stylua: ignore
   keys = {
@@ -71,7 +72,7 @@ return {
     { "<leader>gx", function() Snacks.gitbrowse() end, desc = "Git Browse", },
     { "<leader><esc>", function() Snacks.notifier.show_history() end, desc = "Notification History" },
     { "<leader>,", function() Snacks.dashboard() end, desc = "Dashboard" },
-    { "<leader>G", function() Snacks.lazygit() end, desc = "Lazygit" },
+    { "<leader>G", function() Snacks.lazygit() end, desc = "Lazygit", mode = { "n", "t" } },
     { "<leader>Z",  function() Snacks.zen() end, desc = "Toggle Zen Mode" },
     { "<leader>F",  function() Snacks.zen.zoom() end, desc = "Toggle Zoom" },
 

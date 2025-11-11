@@ -122,4 +122,11 @@ M.kinds = {
   Variable = "󰀫 ",
 }
 
+M.copilot = {
+  Error = { " ", "DiagnosticError" },
+  Inactive = { " ", "MsgArea" },
+  Warning = { " ", "DiagnosticWarn" },
+  Normal = { M.kinds.Copilot, "Special" },
+}
+
 return M
