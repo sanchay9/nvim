@@ -17,13 +17,14 @@ return {
         html = { "prettierd" },
         css = { "prettierd" },
         javascript = { "prettierd" },
-        http = { "kulala" },
+        http = { "kulala-fmt" },
         markdown = { "prettierd" },
         latex = { "latexindent" },
         json = { "jq" },
         sh = { "shfmt" },
         zsh = { "shfmt" },
         cpp = { "clang-format" },
+        arduino = { "clang-format" },
         sql = { "sqlfluff" },
         typst = { "typstyle" },
         rust = { "rustfmt" },
@@ -33,11 +34,6 @@ return {
       formatters = {
         sqlfluff = {
           args = { "format", "--dialect=postgres", "-" },
-        },
-        kulala = {
-          command = "kulala-fmt",
-          args = { "format", "$FILENAME" },
-          stdin = false,
         },
       },
     },
