@@ -36,10 +36,10 @@ function M.render()
     ["snacks_terminal"] = z.Snacks_Terminal_SL,
     ["NeogitStatus"] = z.NeogitStatus_SL,
     ["oil"] = z.Oil_SL,
-    ["fzf"] = z.Fzf_SL,
     ["image"] = z.Image_SL,
     ["lazy"] = z.Lazy_SL,
     ["http"] = z.Kulala_SL,
+    ["sidekick_terminal"] = z.Minimal_SL,
   }
 
   local func = custom_statusline_funcs[vim.bo.filetype]
@@ -64,6 +64,8 @@ function M.render()
     _G.show_more_info and c.lang_version() or "",
     _G.show_more_info and c.LSP() or "",
     _G.show_more_info and " Ux%04B " or "",
+    c.sidekick_cli(),
+    c.sidekick_copilot(),
     c.is_terminal_open(),
     _G.show_more_info and c.git_branch() or "",
     _G.show_more_info and c.separator() or "",

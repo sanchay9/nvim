@@ -213,6 +213,25 @@ function M.fileinfo(opts)
     .. " %r%h%w "
 end
 
+function M.sidekick_copilot()
+  local icons = require("icons").copilot
+  local status = require("sidekick.status").get()
+  if status then
+    local icon = vim.tbl_get(icons, status.kind, 1) or icons.Normal[1]
+    local hl = status.busy and "DiagnosticWarn" or (vim.tbl_get(icons, status.kind, 2) or icons.Normal[2])
+    return M.get_or_create_hl(hl, "StatusLine") .. icon .. "%* "
+  end
+  return ""
+end
+
+function M.sidekick_cli()
+  local status = require("sidekick.status").cli()
+  if #status > 0 then
+    return M.get_or_create_hl("Special", "StatusLine") .. "  "
+  end
+  return ""
+end
+
 local function get_vlinecount_str()
   local raw_count = vim.fn.line "." - vim.fn.line "v"
   raw_count = raw_count < 0 and raw_count - 1 or raw_count + 1
@@ -413,7 +432,7 @@ end
 function M.is_terminal_open()
   local is_terminal_open = false
   for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.bo[buffer].buftype == "terminal" then
+    if vim.bo[buffer].buftype == "terminal" and vim.bo[buffer].filetype ~= "sidekick_terminal" then
       is_terminal_open = true
     end
   end

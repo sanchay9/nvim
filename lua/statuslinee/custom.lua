@@ -31,35 +31,14 @@ function M.Oil_SL()
   return hl_str("SLCustom", "  oil: ") .. dir
 end
 
-function M.Fzf_SL()
-  local ok, fzf = pcall(require, "fzf-lua")
-
-  if not ok then
-    return ""
-  end
-
-  local info_string = vim.inspect(fzf.get_info()["fnc"])
-  local picker = info_string:gsub('"', "")
-
-  -- TODO: element
-  -- local selected = fzf.get_info().selected
-  -- local element = fzf.path.entry_to_file(selected).path
-
-  return c.padding()
-    .. M.decorator {
-      name = "fzf",
-      align = "left",
-    }
-    .. M.decorator {
-      name = picker,
-      align = "right",
-    }
-end
-
 function M.Image_SL()
   local file = vim.fn.expand "%:t"
   local file_icon = c.file_icon { mono = false }
   return c.padding() .. file_icon .. " " .. file
+end
+
+function M.Minimal_SL()
+  return c.padding() .. "  " .. require("sidekick.status").cli()[1].tool
 end
 
 function M.Lazy_SL()
