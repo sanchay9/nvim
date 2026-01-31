@@ -62,7 +62,7 @@ return {
     lazy = true,
     build = ":KanagawaCompile",
     opts = {
-      transparent = false,
+      transparent = true,
       background = {
         dark = "wave",
         light = "lotus",

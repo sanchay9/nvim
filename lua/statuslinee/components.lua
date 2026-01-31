@@ -361,10 +361,12 @@ function M.git_status_simple()
 end
 
 function M.git_branch()
+  local dir = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+
   local branch = vim.b.gitsigns_status_dict or { head = "" }
   local git_icon = " "
   local is_head_empty = (branch.head ~= "")
-  return is_head_empty and string.format(" %s%s ", git_icon, (branch.head or "")) or ""
+  return is_head_empty and dir .. string.format(" %s%s ", git_icon, (branch.head or "")) or dir
 end
 
 function M.lang_version()

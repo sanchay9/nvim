@@ -32,7 +32,7 @@ return {
       },
       strategies = {
         chat = {
-          adapter = "gemini",
+          adapter = "copilot",
           roles = {
             llm = "",
             user = "",
@@ -49,11 +49,11 @@ return {
           },
         },
         inline = {
-          adapter = "gemini",
+          adapter = "copilot",
           keymaps = {
             accept_change = {
               modes = {
-                n = "<C-y>",
+                n = "<leader>ay",
               },
               index = 1,
               callback = "keymaps.accept_change",
@@ -61,7 +61,7 @@ return {
             },
             reject_change = {
               modes = {
-                n = "<esc>",
+                n = "<leader>an",
               },
               index = 2,
               callback = "keymaps.reject_change",
@@ -70,7 +70,7 @@ return {
           },
         },
         cmd = {
-          adapter = "gemini",
+          adapter = "copilot",
         },
       },
       adapters = {

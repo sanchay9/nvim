@@ -1,9 +1,11 @@
--- vim.keymap.set("n", "<C-'>", "<CMD> wa | !pdflatex %<CR><CR>", { buffer = true })
+vim.keymap.set("n", "<C-'>", function()
+  vim.cmd "wa"
+  vim.cmd "silent! !pdflatex %"
 
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  buffer = 0,
-  callback = function()
-    vim.cmd "wa"
-    vim.cmd "silent! !pdflatex %"
-  end,
-})
+  local dir = vim.fn.expand "%:p:h"
+  local base = vim.fn.expand "%:t:r"
+  for _, ext in ipairs { "log", "aux", "toc", "out" } do
+    local file = dir .. "/" .. base .. "." .. ext
+    vim.fn.delete(file)
+  end
+end, { buffer = true })

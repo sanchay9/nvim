@@ -368,25 +368,5 @@
       "auto end = std::chrono::high_resolution_clock::now();",
       "cerr << \"\\nExecution time: \" << std::chrono::duration_cast<std::chrono::duration<double>> (end-begin).count() << \" seconds\\n\";"
     ]
-  },
-  "Generator Template": {
-    "prefix": "gen",
-    "body": [
-      "#include <bits/stdc++.h>",
-      "using namespace std;",
-      "#define int int64_t",
-      "",
-      "// #define uid(a, b) uniform_int_distribution<int>(a, b)(rng)",
-      "mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());",
-      "",
-      "int randNo(int lower_limit, int upper_limit) {",
-      "\treturn lower_limit + rng() % (upper_limit - lower_limit);",
-      "}",
-      "",
-      "int32_t main() {",
-      "\tios_base::sync_with_stdio(false);",
-      "\tcin.tie(nullptr);",
-      "}"
-    ]
   }
 }

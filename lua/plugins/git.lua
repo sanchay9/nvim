@@ -1,39 +1,35 @@
 return {
   {
-    "NeogitOrg/neogit",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
+    "sindrets/diffview.nvim",
+    keys = {
       {
-        "sindrets/diffview.nvim",
-        keys = {
-          {
-            "<leader>dv",
-            function()
-              if next(require("diffview.lib").views) then
-                vim.cmd "DiffviewClose"
-              else
-                vim.cmd "DiffviewOpen"
-              end
-            end,
-            desc = "Toggle Diffview",
-          },
-          {
-            "<leader>fh",
-            "<cmd>DiffviewFileHistory --follow %<cr>",
-            desc = "File History",
-          },
-          {
-            "<leader>lh",
-            "<cmd>.DiffviewFileHistory --follow<cr>",
-            desc = "Line History",
-          },
-        },
-        cmd = "DiffviewOpen",
-        config = function()
-          local actions = require "diffview.actions"
-          require("diffview").setup {
-            enhanced_diff_hl = true,
-            show_help_hints = false,
+        "<leader>dv",
+        function()
+          if next(require("diffview.lib").views) then
+            vim.cmd "DiffviewClose"
+          else
+            vim.cmd "DiffviewOpen"
+          end
+        end,
+        desc = "Toggle Diffview",
+      },
+      {
+        "<leader>fh",
+        "<cmd>DiffviewFileHistory --follow %<cr>",
+        desc = "File History",
+      },
+      {
+        "<leader>lh",
+        "<cmd>.DiffviewFileHistory --follow<cr>",
+        desc = "Line History",
+      },
+    },
+    cmd = "DiffviewOpen",
+    config = function()
+      local actions = require "diffview.actions"
+      require("diffview").setup {
+        enhanced_diff_hl = true,
+        show_help_hints = false,
             -- stylua: ignore
             keymaps = {
               view = {
@@ -89,37 +85,9 @@ return {
                 ["dX"] = false,
               },
             },
-          }
-        end,
-      },
-    },
-    keys = {
-      -- { "<leader>G", "<cmd>Neogit<cr>", desc = "Neogit" },
-      { "<leader>gc", "<cmd>Neogit commit<cr>", desc = "Neogit Commit" },
-      { "<leader>gb", "<cmd>Neogit branch<cr>", desc = "Neogit Branch" },
-      { "<leader>gp", "<cmd>Neogit pull<cr>", desc = "Neogit Pull" },
-      { "<leader>gP", "<cmd>Neogit push<cr>", desc = "Neogit Push" },
-      { "<leader>gl", "<cmd>NeogitLogCurrent<cr>", desc = "Neogit Log" },
-    },
-    cmd = "Neogit",
-    opts = {
-      disable_hint = true,
-      console_timeout = 5000,
-      remember_settings = false,
-      integrations = {
-        diffview = true,
-        snacks = true,
-      },
-      commit_editor = {
-        spell_check = false,
-      },
-      signs = {
-        item = { "", "" },
-        section = { "", "" },
-      },
-    },
+      }
+    end,
   },
-
   {
     "nvim-mini/mini.diff",
     config = function()

@@ -14,6 +14,7 @@ return {
     },
     opts = {
       ui = {
+        grinch_mode = true,
         split_direction = "vertical",
         default_view = "body",
         winbar = false,

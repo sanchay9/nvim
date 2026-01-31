@@ -1,9 +1,9 @@
 return {
   "folke/sidekick.nvim",
   opts = {
-    nes = { enabled = true },
+    nes = { enabled = true, diff = { inline = false } },
     cli = {
-      win = { layout = "float" },
+      win = { layout = "right" },
       mux = {
         backend = "zellij",
         enabled = true,
@@ -25,18 +25,34 @@ return {
     {
       "<leader>C",
       function()
-        require("sidekick.cli").toggle { name = "gemini" }
+        require("sidekick.cli").toggle()
       end,
-      desc = "Sidekick Claude Toggle",
-      mode = { "n", "v", "x", "t" },
+      desc = "Sidekick Toggle",
+      mode = { "n", "t", "x" },
     },
     {
-      "<leader>ap",
+      "<leader>ca",
       function()
-        require("sidekick.cli").prompt()
+        require("sidekick.cli").send { msg = "{this}" }
       end,
-      desc = "Sidekick Ask Prompt",
-      mode = { "n", "v" },
+      mode = { "x" },
+      desc = "Send This",
+    },
+    {
+      "<leader>ca",
+      function()
+        require("sidekick.cli").send { msg = "{file}" }
+      end,
+      mode = { "n" },
+      desc = "Send File",
+    },
+    {
+      "<leader>cp",
+      function()
+        require("sidekick.cli").prompt { name = "opencode" }
+      end,
+      desc = "Sidekick Select Prompt",
+      mode = { "n", "x" },
     },
   },
 }

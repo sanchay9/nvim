@@ -10,11 +10,18 @@ for _, char in ipairs { ",", ".", ";" } do
   vim.keymap.set("i", char, char .. "<c-g>u", { desc = "add undo break-point on " .. char })
 end
 
+vim.keymap.set("n", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to Left Window" })
+vim.keymap.set("n", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to Lower Window" })
+vim.keymap.set("n", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to Upper Window" })
+vim.keymap.set("n", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to Right Window" })
+
 vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>", { desc = "exit terminal mode" })
 vim.keymap.set("n", "<leader><tab>", "<C-^>", { desc = "switch to alternate buffer" })
 
 vim.keymap.set("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Below" })
 vim.keymap.set("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Above" })
+
+vim.keymap.set("n", "<leader>W", "<cmd>set wrap!<cr>", { desc = "Toggle Wrap" })
 
 vim.keymap.set("n", "<leader>Q", function()
   local success, err = pcall(vim.fn.getqflist({ winid = 0 }).winid ~= 0 and vim.cmd.cclose or vim.cmd.copen)

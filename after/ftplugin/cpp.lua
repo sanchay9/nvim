@@ -54,17 +54,9 @@ vim.keymap.set("n", "<C-S-'>", function()
   )
 end, { buffer = true })
 
-vim.keymap.set("n", "<leader>n", 'gg"_dG<CMD> 0r ~/code/template/templatesingle.cpp | :9<CR>i    ', { buffer = true })
-vim.keymap.set("n", "<leader>m", 'gg"_dG<CMD> 0r ~/code/template/templatemulti.cpp | :6<CR>i    ', { buffer = true })
-
--- for i = 1, 5 do
---   vim.keymap.set(
---     "n",
---     "<leader>" .. i,
---     string.format("<CMD> wa | cd ~/code/lab | e %s.cpp | %%bd | e# | bd#<CR><CR>", string.char(96 + i)),
---     { buffer = true }
---   )
--- end
+vim.keymap.set("n", "<leader>n", 'gg"_dG<cmd> 0r ~/code/template/single.cpp | :9<cr>cc', { buffer = true })
+vim.keymap.set("n", "<leader>m", 'gg"_dG<cmd> 0r ~/code/template/multi.cpp | :6<cr>cc', { buffer = true })
+vim.keymap.set("n", "<leader>g", 'gg"_dG<cmd> 0r ~/code/template/gen.cpp | :11<cr>cc', { buffer = true })
 
 vim.keymap.set("n", "<leader>i", function()
   if vim.fn.bufloaded(vim.fn.expand "~" .. "/code/bin/input") == 0 then
@@ -73,6 +65,4 @@ vim.keymap.set("n", "<leader>i", function()
   else
     vim.cmd [[wa | bunload input output]]
   end
-
-  print " "
 end, { buffer = true })
