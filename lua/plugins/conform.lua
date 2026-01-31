@@ -7,9 +7,10 @@ return {
     opts = {
       format_on_save = {
         timeout_ms = 3000,
-        async = false,
-        quiet = false,
-        lsp_fallback = true,
+        lsp_format = "fallback",
+      },
+      default_format_opts = {
+        lsp_format = "fallback",
       },
       formatters_by_ft = {
         lua = { "stylua" },
@@ -37,5 +38,8 @@ return {
         },
       },
     },
+    init = function()
+      vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+    end,
   },
 }

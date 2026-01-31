@@ -25,8 +25,8 @@ local function get_term_id()
   end
 
   if not term_id then
-    vim.cmd "vert bo split | wincmd = | set nonu | term"
-    vim.cmd "wincmd h"
+    Snacks.terminal("zsh", { win = { position = "right" }, auto_insert = false, start_insert = false })
+    vim.cmd "wincmd p"
 
     for _, chan in pairs(vim.api.nvim_list_chans()) do
       if chan["mode"] == "terminal" and chan["pty"] ~= "" then
@@ -54,15 +54,19 @@ vim.keymap.set("n", "<C-S-'>", function()
   )
 end, { buffer = true })
 
-vim.keymap.set("n", "<leader>n", 'gg"_dG<cmd> 0r ~/code/template/single.cpp | :9<cr>cc', { buffer = true })
-vim.keymap.set("n", "<leader>m", 'gg"_dG<cmd> 0r ~/code/template/multi.cpp | :6<cr>cc', { buffer = true })
-vim.keymap.set("n", "<leader>g", 'gg"_dG<cmd> 0r ~/code/template/gen.cpp | :11<cr>cc', { buffer = true })
+vim.keymap.set({ "n", "t" }, "<leader>|", function()
+  Snacks.terminal.toggle { "zsh" }
+end, { buffer = true })
+
+vim.keymap.set("n", "<leader>n", 'gg"_dG<CMD> 0r ~/code/template/single.cpp | :8<CR>i    ', { buffer = true })
+vim.keymap.set("n", "<leader>m", 'gg"_dG<CMD> 0r ~/code/template/multi.cpp | :5<CR>i    ', { buffer = true })
+vim.keymap.set("n", "<leader>g", 'gg"_dG<CMD> 0r ~/code/template/gen.cpp | :12<CR>i    ', { buffer = true })
 
 vim.keymap.set("n", "<leader>i", function()
   if vim.fn.bufloaded(vim.fn.expand "~" .. "/code/bin/input") == 0 then
     vim.cmd [[sp ~/code/bin/input | resize 15 | vs ~/code/bin/output | wincmd k]]
     -- vim.cmd [[vs ~/code/bin/input | vertical resize 80 | set winfixwidth | sp ~/code/bin/output | wincmd h]]
   else
-    vim.cmd [[wa | bunload input output]]
+    vim.cmd [[wa | silent! bunload input output]]
   end
 end, { buffer = true })

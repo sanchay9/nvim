@@ -1,34 +1,51 @@
-local connections = {
-  "psql -h cx-core-uat.cluster-c0iswfmnnzar.ap-south-1.rds.amazonaws.com -U cx -d cx",
-  "psql -h cx-core-cug.cluster-c0iswfmnnzar.ap-south-1.rds.amazonaws.com -U cx -d cx",
-  "psql -h cx-core-prod.cluster-c0iswfmnnzar.ap-south-1.rds.amazonaws.com -U cx -d cx",
-}
+local M = {}
 
-vim.g.sql_connection = connections[1]
-local output_buf
+local cache_dir = vim.fn.stdpath "data" .. "/sql-runner"
+local cache_file = cache_dir .. "/commands"
 
-local function get_output_buf()
-  if not output_buf or not vim.api.nvim_buf_is_valid(output_buf) then
-    output_buf = vim.api.nvim_create_buf(false, true)
+M.output_buf = nil
+M.selected_command = nil
+
+local function load_commands()
+  if vim.fn.filereadable(cache_file) == 0 then
+    return {}
   end
-  return output_buf
+
+  local function file_exists(file)
+    local f = io.open(file, "r")
+    if f then
+      f:close()
+    end
+    return f ~= nil
+  end
+
+  if not file_exists(cache_file) then
+    return {}
+  end
+
+  local lines = {}
+  for line in io.lines(cache_file) do
+    lines[#lines + 1] = line
+  end
+  return lines
 end
 
-local function show_output_win(buf)
-  -- Check if buffer is already visible in a window
-  for _, win in ipairs(vim.api.nvim_list_wins()) do
-    if vim.api.nvim_win_get_buf(win) == buf then
-      return
+function M.run_sql()
+  local function on_command_selected()
+    if M.selected_command then
+      vim.notify "hiii"
+      M.run_query(M.selected_command)
     end
   end
-  vim.api.nvim_open_win(buf, false, { split = "right" })
+
+  if M.selected_command then
+    on_command_selected()
+  else
+    M.select_cmd(on_command_selected)
+  end
 end
 
-vim.keymap.set("v", "<C-'>", function()
-  if vim.api.nvim_get_mode().mode ~= "V" then
-    return
-  end
-
+function M.run_query(cmd)
   vim.api.nvim_input "<esc>"
   local line_s, line_e = vim.fn.getpos(".")[2], vim.fn.getpos("v")[2]
   if line_s > line_e then
@@ -41,31 +58,54 @@ vim.keymap.set("v", "<C-'>", function()
     query = string.format("%s%s\n", query, line)
   end
 
-  local buf = get_output_buf()
-  show_output_win(buf)
+  M.get_output_buf()
 
-  local cmd = string.format('%s -c "%s"', vim.g.sql_connection, query)
-  vim.fn.jobstart(cmd, {
-    on_stdout = function(_, data)
-      if data and #data > 0 then
-        vim.api.nvim_buf_set_lines(buf, 0, -1, false, data)
-        vim.notify(vim.inspect(data), vim.log.levels.INFO, { title = "SQL Output" })
-      end
-    end,
-    on_stderr = function(_, data)
-      if data and #data > 0 then
-        for _, line in ipairs(data) do
-          vim.api.nvim_buf_set_lines(buf, -1, -1, false, { line })
-        end
-      end
-    end,
-  })
+  local cmd = { "psql", "-h", "hh-pgsql-public.ebi.ac.uk", "-U", "reader", "-d", "pfmegrnargs", "-c", query }
+  -- vim.notify(cmd)
+  -- local cmd = { cmd, "-c", query }
+
+  local obj = vim.system(cmd, { text = true }):wait()
+  local output = (obj.stderr ~= "" and obj.stderr .. "\n" or "") .. obj.stdout
+  vim.api.nvim_buf_set_lines(M.output_buf, 0, -1, false, vim.split(output, "\n"))
+end
+
+function M.get_output_buf()
+  if not M.output_buf or not vim.api.nvim_buf_is_valid(M.output_buf) then
+    M.output_buf = vim.api.nvim_create_buf(false, true)
+
+    vim.api.nvim_set_option_value("nu", false, {})
+    vim.api.nvim_set_option_value("rnu", false, {})
+  end
+
+  -- Check if buffer is already visible in a window
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_get_buf(win) == M.output_buf then
+      return
+    end
+  end
+  vim.api.nvim_open_win(M.output_buf, false, { split = "right" })
+end
+
+vim.keymap.set("v", "<C-'>", function()
+  vim.cmd "wa"
+  M.run_sql()
 end, { buffer = true })
 
-vim.keymap.set("n", "<leader>re", function()
-  vim.ui.select(connections, { prompt = "sql: " }, function(selected)
+function M.select_cmd(callback)
+  local commands = load_commands()
+
+  vim.ui.select(commands, { prompt = " sql: " }, function(selected)
     if selected then
-      vim.g.sql_connection = selected
+      M.selected_command = selected
     end
   end)
-end, { buffer = true })
+
+  vim.notify "kjksdjf"
+  if callback then
+    callback()
+  end
+end
+
+vim.keymap.set({ "n", "v" }, "<leader>re", M.select_cmd, { buffer = true })
+
+return M

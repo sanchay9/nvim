@@ -39,7 +39,7 @@ function M.render()
     ["image"] = z.Image_SL,
     ["lazy"] = z.Lazy_SL,
     ["http"] = z.Kulala_SL,
-    ["sidekick_terminal"] = z.Minimal_SL,
+    ["sidekick_terminal"] = z.Sidekick_SL,
   }
 
   local func = custom_statusline_funcs[vim.bo.filetype]
@@ -84,7 +84,7 @@ function M.render()
   return table.concat(components)
 end
 
-vim.o.statusline = "%!v:lua.require'statuslinee.statuslinee'.render()"
+vim.o.statusline = "%!v:lua.require'statuslinee'.render()"
 
 -- TODO: https://www.reddit.com/r/neovim/comments/1kuiywf/show_off_your_statusline_here/
 -- https://github.com/rachartier/dotfiles/blob/main/.config/nvim/lua/plugins/ui/lualine.lua

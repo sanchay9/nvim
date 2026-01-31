@@ -375,6 +375,14 @@ function M.lang_version()
   return lang_v and " (" .. filetype .. " " .. lang_v .. ") " or ""
 end
 
+function M.location()
+  local navic = require "nvim-navic"
+  if navic.is_available(stbufnr()) then
+    return " " .. navic.get_location()
+  end
+  return ""
+end
+
 ---@return string
 function M.lsp_diagnostics_simple()
   local function get_severity(s)

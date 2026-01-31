@@ -55,16 +55,12 @@ return {
               modes = {
                 n = "<leader>ay",
               },
-              index = 1,
-              callback = "keymaps.accept_change",
               description = "Accept change",
             },
             reject_change = {
               modes = {
                 n = "<leader>an",
               },
-              index = 2,
-              callback = "keymaps.reject_change",
               description = "Reject change",
             },
           },

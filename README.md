@@ -1,112 +1,88 @@
-# nvim
 
-<a href="https://dotfyle.com/sanchay9/nvim"><img src="https://dotfyle.com/sanchay9/nvim/badges/plugins?style=flat" /></a>
-<a href="https://dotfyle.com/sanchay9/nvim"><img src="https://dotfyle.com/sanchay9/nvim/badges/leaderkey?style=flat" /></a>
-<a href="https://dotfyle.com/sanchay9/nvim"><img src="https://dotfyle.com/sanchay9/nvim/badges/plugin-manager?style=flat" /></a>
+# My Neovim Configuration
 
-## Install Instructions
+## Introduction
 
-> Install requires Neovim 0.9+. Always review the code before installing a configuration.
+This is my personal Neovim configuration, optimized for web development and general-purpose programming. It is built on top of the latest Neovim features and leverages the power of Lua for configuration.
 
-Clone the repository and install the plugins:
+## Features
 
-```sh
-git clone git@github.com:sanchay9/nvim ~/.config/sanchay9/nvim
-NVIM_APPNAME=sanchay9/nvim/ nvim --headless +"Lazy! sync" +qa
-```
+*   **Fast & Lightweight:** Using `lazy.nvim` for plugin management, the startup time is optimized.
+*   **Modern UI:** A clean and modern look and feel with `noice.nvim` and a custom statusline.
+*   **Powerful LSP:** Full-featured LSP support with `nvim-lspconfig` and `mason.nvim`.
+*   **Debugging:** In-editor debugging with `nvim-dap`.
+*   **Git Integration:** Seamless Git integration with `gitsigns.nvim`.
+*   **And much more...**
 
-Open Neovim with this config:
+## Installation
 
-```sh
-NVIM_APPNAME=sanchay9/nvim/ nvim
-```
+1.  Clone this repository to your `~/.config/nvim` directory:
+    ```bash
+    git clone https://github.com/your-username/your-repo-name.git ~/.config/nvim
+    ```
+2.  Start Neovim:
+    ```bash
+    nvim
+    ```
+    The plugins will be automatically installed on the first run.
 
 ## Plugins
 
-### bars-and-lines
+Here is a list of the plugins used in this configuration:
 
-- [SmiteshP/nvim-navic](https://dotfyle.com/plugins/SmiteshP/nvim-navic)
+| Plugin | Description |
+|---|---|
+| [lazy.nvim](https.github.com/folke/lazy.nvim) | A modern plugin manager for Neovim |
+| [nvim-treesitter](https.github.com/nvim-treesitter/nvim-treesitter) | Advanced syntax highlighting and code parsing |
+| [nvim-lspconfig](https.github.com/neovim/nvim-lspconfig) | A collection of configurations for the built-in LSP client |
+| [mason.nvim](https.github.com/williamboman/mason.nvim) | Portable package manager for Neovim that runs everywhere you need it |
+| [nvim-dap](https.github.com/mfussenegger/nvim-dap) | A Debug Adapter Protocol client implementation for Neovim |
+| [gitsigns.nvim](https.github.com/lewis6991/gitsigns.nvim) | Git integration for Neovim |
+| [noice.nvim](https.github.com/folke/noice.nvim) | Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu |
+| [trouble.nvim](https.github.com/folke/trouble.nvim) | A pretty list for showing diagnostics, references, telescope results, quickfix and location lists |
+| [conform.nvim](https.github.com/stevearc/conform.nvim) | Lightweight yet powerful formatter plugin for Neovim |
+| [nvim-lint](https.github.com/mfussenegger/nvim-lint) | An asynchronous linter plugin for Neovim |
+| [nvim-autopairs](https.github.com/windwp/nvim-autopairs) | A super powerful autopair plugin for Neovim |
+| [nvim-surround](https.github.com/kylechui/nvim-surround) | A plugin for adding/changing/deleting surrounding delimiter pairs |
+| [todo-comments.nvim](https.github.com/folke/todo-comments.nvim) | Highlight, list and search for todo comments in your projects |
+| [oil.nvim](https.github.com/stevearc/oil.nvim) | A Neovim plugin that lets you edit your filesystem like a buffer |
+| [grug-far.nvim](https.github.com/grugnog/grug-far.nvim) | A plugin for running search and replace across your project |
+| [harpoon](https.github.com/ThePrimeagen/harpoon) | A plugin for managing a list of files to quickly jump between |
+| [neotest](https.github.com/nvim-neotest/neotest) | An extensible framework for interacting with tests within Neovim |
+| [nvim-navic](https.github.com/SmiteshP/nvim-navic) | A simple statusline component that shows your current code context |
+| [nvim-web-devicons](https.github.com/kyazdani42/nvim-web-devicons) | A file icon plugin for Neovim |
+| [copilot.lua](https.github.com/github/copilot.lua) | A Neovim plugin for GitHub Copilot |
+| [rest.nvim](https.github.com/rest-nvim/rest.nvim) | A fast Neovim http client written in Lua |
+| [sidekick.nvim](https.github.com/sidekick-neovim/sidekick.nvim) | A side panel for Neovim that displays context-aware information |
+| [snacks.nvim](https.github.com/pascalkuthe/snacks.nvim) | A plugin for showing inline diagnostics |
+| [blink.nvim](https.github.com/pascalkuthe/blink.nvim) | A plugin for showing inline diagnostics |
+| [markdown-preview.nvim](https.github.com/iamcco/markdown-preview.nvim) | A markdown preview plugin for Neovim |
+| [rust-tools.nvim](https.github.com/simrat39/rust-tools.nvim) | A plugin for Rust development in Neovim |
+| [vim-bbye](https.github.com/moll/vim-bbye) | A plugin for closing buffers without closing the window |
 
-### color
+## Custom Configuration
 
-- [NvChad/nvim-colorizer.lua](https://dotfyle.com/plugins/NvChad/nvim-colorizer.lua)
+The custom configuration is located in the `lua` directory. Here is a brief overview of the files:
 
-### completion
+| File | Description |
+|---|---|
+| `autocmds.lua` | Custom autocommands |
+| `banners.lua` | Some cool banners for the dashboard |
+| `colors.lua` | Color scheme configuration |
+| `filetype.lua` | Custom filetype definitions |
+| `icons.lua` | Icon configuration for `nvim-web-devicons` |
+| `lsp.lua` | LSP configuration |
+| `maps.lua` | Key mappings |
+| `opts.lua` | Neovim options |
+| `plugs.lua` | Plugin management with `lazy.nvim` |
+| `prompts.lua` | Custom prompts |
+| `utils.lua` | Utility functions |
+| `statuslinee/` | Custom statusline configuration |
 
-- [hrsh7th/nvim-cmp](https://dotfyle.com/plugins/hrsh7th/nvim-cmp)
+## Screenshots
 
-### cursorline
+*(You can add your screenshots here)*
 
-- [RRethy/vim-illuminate](https://dotfyle.com/plugins/RRethy/vim-illuminate)
+## License
 
-### editing-support
-
-- [windwp/nvim-autopairs](https://dotfyle.com/plugins/windwp/nvim-autopairs)
-- [windwp/nvim-ts-autotag](https://dotfyle.com/plugins/windwp/nvim-ts-autotag)
-
-### fuzzy-finder
-
-- [nvim-telescope/telescope.nvim](https://dotfyle.com/plugins/nvim-telescope/telescope.nvim)
-
-### git
-
-- [lewis6991/gitsigns.nvim](https://dotfyle.com/plugins/lewis6991/gitsigns.nvim)
-
-### indent
-
-- [lukas-reineke/indent-blankline.nvim](https://dotfyle.com/plugins/lukas-reineke/indent-blankline.nvim)
-
-### lsp
-
-- [neovim/nvim-lspconfig](https://dotfyle.com/plugins/neovim/nvim-lspconfig)
-- [ray-x/lsp_signature.nvim](https://dotfyle.com/plugins/ray-x/lsp_signature.nvim)
-
-### lsp-installer
-
-- [williamboman/mason.nvim](https://dotfyle.com/plugins/williamboman/mason.nvim)
-
-### markdown-and-latex
-
-- [iamcco/markdown-preview.nvim](https://dotfyle.com/plugins/iamcco/markdown-preview.nvim)
-
-### nvim-dev
-
-- [nvim-lua/plenary.nvim](https://dotfyle.com/plugins/nvim-lua/plenary.nvim)
-
-### plugin-manager
-
-- [folke/lazy.nvim](https://dotfyle.com/plugins/folke/lazy.nvim)
-
-### scrolling
-
-- [karb94/neoscroll.nvim](https://dotfyle.com/plugins/karb94/neoscroll.nvim)
-
-### snippet
-
-- [L3MON4D3/LuaSnip](https://dotfyle.com/plugins/L3MON4D3/LuaSnip)
-
-### startup
-
-- [goolord/alpha-nvim](https://dotfyle.com/plugins/goolord/alpha-nvim)
-
-### syntax
-
-- [kylechui/nvim-surround](https://dotfyle.com/plugins/kylechui/nvim-surround)
-- [nvim-treesitter/nvim-treesitter-textobjects](https://dotfyle.com/plugins/nvim-treesitter/nvim-treesitter-textobjects)
-- [nvim-treesitter/nvim-treesitter](https://dotfyle.com/plugins/nvim-treesitter/nvim-treesitter)
-
-### tabline
-
-- [akinsho/bufferline.nvim](https://dotfyle.com/plugins/akinsho/bufferline.nvim)
-
-## Language Servers
-
-- bashls
-- clangd
-- cssls
-- gopls
-- html
-- marksman
-- tsserver
-
-This readme was generated by [Dotfyle](https://dotfyle.com)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

@@ -1,6 +1,14 @@
 vim.keymap.set("n", "<C-'>", function()
   vim.cmd "wa"
-  vim.cmd "silent! !pdflatex %"
+
+  local file_path = vim.fn.expand "%:p" -- Full path to the current file
+  local file_dir = vim.fn.expand "%:h" -- Directory of the current file
+
+  local compile_cmd = "pdflatex -output-directory "
+    .. vim.fn.shellescape(file_dir)
+    .. " "
+    .. vim.fn.shellescape(file_path)
+  vim.cmd("silent! !" .. compile_cmd)
 
   local dir = vim.fn.expand "%:p:h"
   local base = vim.fn.expand "%:t:r"

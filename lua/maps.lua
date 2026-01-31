@@ -10,10 +10,10 @@ for _, char in ipairs { ",", ".", ";" } do
   vim.keymap.set("i", char, char .. "<c-g>u", { desc = "add undo break-point on " .. char })
 end
 
-vim.keymap.set("n", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to Left Window" })
-vim.keymap.set("n", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to Lower Window" })
-vim.keymap.set("n", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to Upper Window" })
-vim.keymap.set("n", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to Right Window" })
+vim.keymap.set("n", "<C-h>", "<cmd>wincmd h<cr>", { desc = "go to left window" })
+vim.keymap.set("n", "<C-j>", "<cmd>wincmd j<cr>", { desc = "go to lower window" })
+vim.keymap.set("n", "<C-k>", "<cmd>wincmd k<cr>", { desc = "go to upper window" })
+vim.keymap.set("n", "<C-l>", "<cmd>wincmd l<cr>", { desc = "go to right window" })
 
 vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>", { desc = "exit terminal mode" })
 vim.keymap.set("n", "<leader><tab>", "<C-^>", { desc = "switch to alternate buffer" })

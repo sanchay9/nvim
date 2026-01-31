@@ -8,6 +8,13 @@ return {
     notifier = { enabled = true },
     statuscolumn = { enabled = true },
     image = { enabled = true },
+    terminal = {
+      win = {
+        wo = {
+          winbar = "",
+        },
+      },
+    },
     indent = {
       enabled = true,
       indent = {

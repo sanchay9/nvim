@@ -46,10 +46,10 @@ local function get_cwd()
     if path == "" or path == nil then
       return nil
     end
-    return vim.loop.fs_realpath(path) or path
+    return vim.uv.fs_realpath(path) or path
   end
 
-  return realpath(vim.loop.cwd()) or ""
+  return realpath(vim.uv.cwd()) or ""
 end
 
 ---@return fun():string

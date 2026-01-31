@@ -4,7 +4,6 @@ vim.g.conf = {
   border = "none",
 }
 vim.opt.winborder = "none"
-vim.g.no_go_maps = 1
 
 -- TODO: vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 

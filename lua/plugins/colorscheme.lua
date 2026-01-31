@@ -23,17 +23,12 @@ return {
     opts = {
       transparent_background = true,
       integrations = {
-        alpha = true,
-        -- blink_cmp = {
-        --   style = "bordered",
-        -- },
+        blink_cmp = { style = "bordered" },
         diffview = true,
         gitsigns = true,
-        illuminate = { enabled = true },
-        markdown = true,
         render_markdown = true,
         lsp_trouble = true,
-        snacks = true,
+        snacks = { enabled = true },
         mason = true,
         overseer = true,
         native_lsp = {
@@ -46,12 +41,11 @@ return {
           },
         },
         navic = { enabled = true },
+        grug_far = true,
         neotest = true,
         dap = true,
         neogit = true,
         noice = true,
-        semantic_tokens = true,
-        treesitter = true,
         treesitter_context = true,
       },
     },

@@ -37,7 +37,7 @@ function M.Image_SL()
   return c.padding() .. file_icon .. " " .. file
 end
 
-function M.Minimal_SL()
+function M.Sidekick_SL()
   return c.padding() .. "  " .. require("sidekick.status").cli()[1].tool
 end
 
