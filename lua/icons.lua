@@ -2,7 +2,12 @@ local M = {}
 
 M.misc = {
   depth_indicator = "󰇘",
-  DapStatusLine = " ",
+}
+
+M.status = {
+  loading = "󰦖",
+  done = "󰦕",
+  error = "󱄊",
 }
 
 M.sep = {

@@ -21,9 +21,9 @@ return {
         show_icons = "signcolumn",
         icons = {
           inlay = {
-            loading = "󰦖",
-            done = "󰦕",
-            error = "󱄊",
+            loading = require("icons").status.loading,
+            done = require("icons").status.done,
+            error = require("icons").status.error,
           },
         },
         show_request_summary = false,
