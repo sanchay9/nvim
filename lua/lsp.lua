@@ -24,10 +24,6 @@ local function on_attach(client, bufnr)
 
   if vim.lsp.codelens and client:supports_method "textDocument/codeLens" then
     vim.lsp.codelens.enable(true)
-    vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
-      buffer = bufnr,
-      callback = vim.lsp.codelens.enable(true),
-    })
 
     vim.keymap.set({ "n", "v" }, "<leader>cl", vim.lsp.codelens.run, optss)
     vim.keymap.set("n", "<leader>cr", function()
