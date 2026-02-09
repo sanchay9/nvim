@@ -32,11 +32,6 @@ return {
         python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
         ["*"] = { "trim_whitespace" },
       },
-      formatters = {
-        sqlfluff = {
-          args = { "format", "--dialect=postgres", "-" },
-        },
-      },
     },
     init = function()
       vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"

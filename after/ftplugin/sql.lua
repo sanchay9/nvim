@@ -55,6 +55,7 @@ local function ensure_output_win()
   vim.wo[M.output_win].relativenumber = false
   vim.wo[M.output_win].wrap = false
   vim.wo[M.output_win].cursorline = false
+  vim.wo[M.output_win].list = false
 end
 
 local function set_output(text)

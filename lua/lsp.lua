@@ -23,14 +23,16 @@ local function on_attach(client, bufnr)
   end, { buffer = bufnr, desc = "Change color representation" })
 
   if vim.lsp.codelens and client:supports_method "textDocument/codeLens" then
-    vim.lsp.codelens.refresh()
+    vim.lsp.codelens.enable(true)
     vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
       buffer = bufnr,
-      callback = vim.lsp.codelens.refresh,
+      callback = vim.lsp.codelens.enable(true),
     })
 
     vim.keymap.set({ "n", "v" }, "<leader>cl", vim.lsp.codelens.run, optss)
-    vim.keymap.set("n", "<leader>cr", vim.lsp.codelens.refresh, optss)
+    vim.keymap.set("n", "<leader>cr", function()
+      vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled())
+    end, optss)
   end
 
   if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion) then
