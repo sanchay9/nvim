@@ -1,13 +1,14 @@
-local M = {}
+local M = _G.__sql_runner or {}
+_G.__sql_runner = M
 
 local icons = require("icons").status
 local connections_file = vim.fn.expand "%:p:h" .. "/.connections"
 
 local ns_id = vim.api.nvim_create_namespace "sql-runner"
 
-M.output_buf = nil
-M.output_win = nil
-M.selected_connection = nil
+M.output_buf = M.output_buf or nil
+M.output_win = M.output_win or nil
+M.selected_connection = M.selected_connection or nil
 
 local function load_connections()
   if vim.fn.filereadable(connections_file) == 0 then
