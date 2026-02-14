@@ -6,6 +6,8 @@ vim.opt_local.tabstop = 4
 
 vim.keymap.set("n", "<CR>", vim.lsp.buf.definition, { buffer = true })
 
+local notes_dir = vim.fn.expand "~/docs/notes"
+
 vim.keymap.set("n", "<leader>v", function()
   local assets_dir = vim.fn.expand "%:p:h" .. "/assets"
   local name = vim.fn.input "Enter filename: "
@@ -35,16 +37,25 @@ vim.keymap.set("n", "<leader>v", function()
 end, { buffer = true, desc = "Paste image to assets" })
 
 vim.keymap.set("n", "<leader>w", function()
-  local personal_notes_dir = vim.fn.expand "$HOME/docs/notes/personal"
-  local work_notes_dir = vim.fn.expand "$HOME/docs/notes/work"
-
-  if vim.fn.getcwd() == personal_notes_dir then
-    vim.cmd("cd " .. work_notes_dir)
+  if vim.fn.getcwd() == notes_dir .. "/work" then
+    vim.cmd("cd " .. notes_dir .. "/personal")
     vim.cmd "bufdo bd"
     vim.cmd "e index.md"
   else
-    vim.cmd("cd " .. personal_notes_dir)
+    vim.cmd("cd " .. notes_dir .. "/work")
     vim.cmd "bufdo bd"
     vim.cmd "e index.md"
   end
 end, { buffer = true, desc = "Toggle workspace notes" })
+
+vim.api.nvim_create_autocmd("VimLeave", {
+  group = vim.api.nvim_create_augroup("MarkdownGitSync", { clear = true }),
+  pattern = "*.md",
+  callback = function()
+    local sync_script = notes_dir .. "/sync.sh"
+
+    if vim.fn.expand("%:p"):find(notes_dir, 1, true) ~= nil and vim.fn.executable(sync_script) == 1 then
+      os.execute(sync_script .. " push")
+    end
+  end,
+})

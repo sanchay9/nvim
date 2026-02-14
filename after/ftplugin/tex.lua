@@ -16,7 +16,4 @@ vim.keymap.set("n", "<C-'>", function()
     local file = dir .. "/" .. base .. "." .. ext
     vim.fn.delete(file)
   end
-
-  local filename_base = vim.fn.expand "%:r"
-  vim.ui.open(filename_base .. ".pdf")
 end, { buffer = true })

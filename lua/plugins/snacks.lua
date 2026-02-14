@@ -39,7 +39,26 @@ return {
       preset = {
         header = require("banners")["vim"],
         keys = {
-          { icon = " ", key = "w", desc = "notes", action = ":cd ~/docs/notes/personal | e index.md" },
+          {
+            icon = " ",
+            key = "w",
+            desc = "notes",
+            action = function()
+              local notes_dir = "~/docs/notes/personal"
+              vim.cmd.cd(notes_dir)
+              vim.cmd.edit "index.md"
+
+              vim.fn.jobstart("git -C " .. notes_dir .. " pull", {
+                on_exit = function(_, exit_code)
+                  if exit_code == 0 then
+                    vim.notify "Notes updated"
+                  else
+                    vim.notify("Failed to update notes: " .. exit_code, vim.log.levels.ERROR)
+                  end
+                end,
+              })
+            end,
+          },
           {
             icon = "",
             key = "c",
