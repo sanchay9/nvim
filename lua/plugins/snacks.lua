@@ -48,15 +48,34 @@ return {
               vim.cmd.cd(notes_dir)
               vim.cmd.edit "index.md"
 
-              vim.fn.jobstart("git -C " .. notes_dir .. " pull", {
-                on_exit = function(_, exit_code)
-                  if exit_code == 0 then
-                    vim.notify "Notes updated"
-                  else
-                    vim.notify("Failed to update notes: " .. exit_code, vim.log.levels.ERROR)
-                  end
+              local spinner = require("icons").spinner
+              Snacks.notifier.notify("Pulling latest notes...", "info", {
+                id = "notes_pull",
+                title = "Git Pull",
+                timeout = false,
+                opts = function(notif)
+                  notif.icon = spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
                 end,
               })
+
+              vim.system({ "git", "-C", vim.fn.expand(notes_dir), "pull" }, {}, function(result)
+                vim.schedule(function()
+                  Snacks.notifier.hide "notes_pull"
+
+                  if result.code == 0 then
+                    Snacks.notifier.notify("Notes pulled successfully", "info", {
+                      title = "Git Pull",
+                      icon = "",
+                    })
+                  else
+                    local error_msg = result.stderr and result.stderr ~= "" and result.stderr
+                      or "Exit code: " .. result.code
+                    Snacks.notifier.notify(error_msg, "error", {
+                      title = "Git Pull",
+                    })
+                  end
+                end)
+              end)
             end,
           },
           {

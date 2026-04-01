@@ -1,5 +1,7 @@
 local M = {}
 
+M.spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+
 M.misc = {
   depth_indicator = "󰇘",
 }

@@ -55,7 +55,7 @@ vim.api.nvim_create_autocmd("VimLeave", {
     local sync_script = notes_dir .. "/sync.sh"
 
     if vim.fn.expand("%:p"):find(notes_dir, 1, true) ~= nil and vim.fn.executable(sync_script) == 1 then
-      os.execute(sync_script .. " push")
+      os.execute(sync_script .. " push > /dev/null 2>&1 &")
     end
   end,
 })
