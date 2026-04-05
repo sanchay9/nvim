@@ -20,6 +20,10 @@ return {
       format = { enable = false },
       workspace = {
         checkThirdParty = false,
+        library = {
+          vim.env.VIMRUNTIME,
+          "${3rd}/luv/library",
+        },
       },
       codeLens = {
         enable = true,

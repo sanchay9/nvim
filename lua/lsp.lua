@@ -16,19 +16,11 @@ local function on_attach(client, bufnr)
     require("nvim-navic").attach(client, bufnr)
   end
 
-  vim.lsp.document_color.enable(true, bufnr, { style = "virtual" })
-
-  vim.keymap.set({ "n", "x" }, "grc", function()
-    vim.lsp.document_color.color_presentation()
-  end, { buffer = bufnr, desc = "Change color representation" })
-
-  if vim.lsp.codelens and client:supports_method "textDocument/codeLens" then
-    vim.lsp.codelens.enable(true)
-
-    vim.keymap.set({ "n", "v" }, "<leader>cl", vim.lsp.codelens.run, optss)
-    vim.keymap.set("n", "<leader>cr", function()
-      vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled())
-    end, optss)
+  if client:supports_method "textDocument/documentColor" then
+    vim.lsp.document_color.enable(true, { bufnr = bufnr }, { style = "virtual" })
+    vim.keymap.set("n", "grc", function()
+      vim.lsp.document_color.color_presentation()
+    end, { buffer = bufnr, desc = "Change color representation" })
   end
 
   if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion) then

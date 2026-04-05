@@ -93,7 +93,6 @@ return {
     config = function()
       local diff = require "mini.diff"
       diff.setup {
-        -- Disabled by default
         source = diff.gen_source.none(),
       }
     end,
@@ -145,7 +144,7 @@ return {
           if vim.wo.diff then
             vim.cmd.normal { "]c", bang = true }
           else
-            gs.nav_hunk "next"
+            gs.next_hunk()
           end
         end, opts)
 
@@ -153,7 +152,7 @@ return {
           if vim.wo.diff then
             vim.cmd.normal { "[c", bang = true }
           else
-            gs.nav_hunk "prev"
+            gs.prev_hunk()
           end
         end, opts)
 

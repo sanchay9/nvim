@@ -25,9 +25,8 @@ end
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    branch = "main",
     build = ":TSUpdate",
-    event = { "VeryLazy" },
+    event = "VeryLazy",
     cmd = { "TSUpdate", "TSInstall", "TSLog", "TSUninstall" },
     config = function()
       require("nvim-treesitter").setup {}

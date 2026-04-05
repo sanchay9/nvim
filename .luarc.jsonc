@@ -15,7 +15,6 @@
       "$XDG_DATA_HOME/nvim/lazy/blink.cmp/lua",
       "$XDG_DATA_HOME/nvim/lazy/codecompanion.nvim/lua",
       "$XDG_DATA_HOME/nvim/lazy/diffview.nvim/lua",
-      "$XDG_DATA_HOME/nvim/lazy/fzf-lua/lua",
       "$XDG_DATA_HOME/nvim/lazy/gitsigns.nvim/lua",
       "$XDG_DATA_HOME/nvim/lazy/grug-far.nvim/lua",
       "$XDG_DATA_HOME/nvim/lazy/kulala.nvim/lua/kulala",

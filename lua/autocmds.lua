@@ -13,6 +13,31 @@ vim.api.nvim_create_user_command("ShuffleLines", function()
   vim.fn.setline(start_line, lines)
 end, { range = true, desc = "Shuffle selected lines" })
 
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("big_file", { clear = true }),
+  pattern = "bigfile",
+  callback = function(args)
+    vim.schedule(function()
+      vim.bo[args.buf].syntax = vim.filetype.match { buf = args.buf } or ""
+    end)
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("treesitter_folding", { clear = true }),
+  callback = function(args)
+    local bufnr = args.buf
+
+    if vim.bo[bufnr].filetype ~= "bigfile" and pcall(vim.treesitter.start, bufnr) then
+      vim.api.nvim_buf_call(bufnr, function()
+        vim.wo[0][0].foldmethod = "expr"
+        vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.cmd.normal "zx"
+      end)
+    end
+  end,
+})
+
 vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter" }, {
   group = vim.api.nvim_create_augroup("term_enter", { clear = true }),
   callback = function()
