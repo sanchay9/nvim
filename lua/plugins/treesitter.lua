@@ -71,14 +71,6 @@ return {
     config = function(_, opts)
       require("nvim-treesitter-textobjects").setup(opts)
 
-      local ts_repeat_move = require "nvim-treesitter-textobjects.repeatable_move"
-      vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
-      vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
-      vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f_expr, { expr = true })
-      vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F_expr, { expr = true })
-      vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t_expr, { expr = true })
-      vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
-
       local function attach(buf)
         local ft = vim.bo[buf].filetype
         if not (vim.tbl_get(opts, "move", "enable") and have(ft, "textobjects")) then
@@ -89,19 +81,23 @@ return {
 
         for method, keymaps in pairs(moves) do
           for key, query in pairs(keymaps) do
-            local desc = query:gsub("@", ""):gsub("%..*", "")
-            desc = desc:sub(1, 1):upper() .. desc:sub(2)
+            local queries = type(query) == "table" and query or { query }
+            local parts = {}
+            for _, q in ipairs(queries) do
+              local part = q:gsub("@", ""):gsub("%..*", "")
+              part = part:sub(1, 1):upper() .. part:sub(2)
+              table.insert(parts, part)
+            end
+            local desc = table.concat(parts, " or ")
             desc = (key:sub(1, 1) == "[" and "Prev " or "Next ") .. desc
             desc = desc .. (key:sub(2, 2) == key:sub(2, 2):upper() and " End" or " Start")
-            if not (vim.wo.diff and key:find "[cC]") then
-              vim.keymap.set({ "n", "x", "o" }, key, function()
-                require("nvim-treesitter-textobjects.move")[method](query, "textobjects")
-              end, {
-                buffer = buf,
-                desc = desc,
-                silent = true,
-              })
-            end
+            vim.keymap.set({ "n", "x", "o" }, key, function()
+              require("nvim-treesitter-textobjects.move")[method](query, "textobjects")
+            end, {
+              buffer = buf,
+              desc = desc,
+              silent = true,
+            })
           end
         end
       end
@@ -113,6 +109,54 @@ return {
         end,
       })
       vim.tbl_map(attach, vim.api.nvim_list_bufs())
+    end,
+  },
+
+  {
+    "nvim-mini/mini.ai",
+    event = "VeryLazy",
+    opts = function()
+      local ai = require "mini.ai"
+
+      local function ai_buffer(ai_type)
+        local start_line, end_line = 1, vim.fn.line "$"
+        if ai_type == "i" then
+          -- Skip first and last blank lines for `i` textobject
+          local first_nonblank, last_nonblank = vim.fn.nextnonblank(start_line), vim.fn.prevnonblank(end_line)
+          -- Do nothing for buffer with all blanks
+          if first_nonblank == 0 or last_nonblank == 0 then
+            return { from = { line = start_line, col = 1 } }
+          end
+          start_line, end_line = first_nonblank, last_nonblank
+        end
+
+        local to_col = math.max(vim.fn.getline(end_line):len(), 1)
+        return { from = { line = start_line, col = 1 }, to = { line = end_line, col = to_col } }
+      end
+
+      return {
+        n_lines = 500,
+        custom_textobjects = {
+          o = ai.gen_spec.treesitter { -- code block
+            a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+            i = { "@block.inner", "@conditional.inner", "@loop.inner" },
+          },
+          f = ai.gen_spec.treesitter { a = "@function.outer", i = "@function.inner" }, -- function
+          c = ai.gen_spec.treesitter { a = "@class.outer", i = "@class.inner" }, -- class
+          t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
+          d = { "%f[%d]%d+" }, -- digits
+          e = { -- Word with case
+            { "%u[%l%d]+%f[^%l%d]", "%f[%S][%l%d]+%f[^%l%d]", "%f[%P][%l%d]+%f[^%l%d]", "^[%l%d]+%f[^%l%d]" },
+            "^().*()$",
+          },
+          g = ai_buffer, -- buffer
+          u = ai.gen_spec.function_call(), -- u for "Usage"
+          U = ai.gen_spec.function_call { name_pattern = "[%w_]" }, -- without dot in function name
+        },
+      }
+    end,
+    config = function(_, opts)
+      require("mini.ai").setup(opts)
     end,
   },
 

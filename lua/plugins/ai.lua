@@ -50,20 +50,6 @@ return {
         },
         inline = {
           adapter = "copilot",
-          keymaps = {
-            accept_change = {
-              modes = {
-                n = "<leader>ay",
-              },
-              description = "Accept change",
-            },
-            reject_change = {
-              modes = {
-                n = "<leader>an",
-              },
-              description = "Reject change",
-            },
-          },
         },
         cmd = {
           adapter = "copilot",
@@ -83,9 +69,6 @@ return {
         },
       },
       display = {
-        diff = {
-          provider = "mini_diff",
-        },
         action_palette = {
           prompt = "",
         },

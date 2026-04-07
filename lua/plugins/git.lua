@@ -88,20 +88,9 @@ return {
       }
     end,
   },
-  {
-    "nvim-mini/mini.diff",
-    config = function()
-      local diff = require "mini.diff"
-      diff.setup {
-        source = diff.gen_source.none(),
-      }
-    end,
-  },
 
   {
     "lewis6991/gitsigns.nvim",
-    ft = "gitcommit",
-    cmd = "Gitsigns",
     init = function()
       vim.api.nvim_create_autocmd({ "BufRead" }, {
         group = vim.api.nvim_create_augroup("GitSignsLazyLoad", { clear = true }),
